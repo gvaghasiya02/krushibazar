@@ -25,9 +25,9 @@
             </div>
             <div class="form-group col-md-12">
             <label>Categoty</label>
-            <input type="radio" class="form-control" name="category" id="farmer">Farmer
-            <input type="radio" class="form-control" name="category" id="pesticides">Pesticides Dealer
-            <input type="radio" class="form-control" name="category" id="crop">Crop Buyer
+            <input type="radio" class="form-control-sm" name="category" id="farmer">Farmer
+            <input type="radio" class="form-control-sm" name="category" id="pesticides">Pesticides Dealer
+            <input type="radio" class="form-control-sm" name="category" id="crop">Crop Buyer
             </div>
         </div>
         <button type="submit" class="btn btn-primary">Sign in</button>
