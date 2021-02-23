@@ -14,18 +14,20 @@
     if($_SERVER['REQUEST_METHOD']=="POST")
     {
         //Check is username is empty
-        if(empty(trim($_POST['email'])) || empty(trim($_POST['password'])) )
+        if(empty(trim($_POST['email'])) || empty(trim($_POST['password'])) || !isset($_POST['category']) )
         {
-            $err="Please enter Username and Password";
+            $err="Please enter Username, Password and select Category.";
+            echo $err;
         }
         else
         {
             $email=trim($_POST['email']);
             $password=trim($_POST['password']);
+            $category=$_POST['category'];
         }
         if(empty($err))
         {
-            $sql="SELECT id,email,password FROM users where email=?";
+            $sql="SELECT id,email,password,category FROM users where email=?";
             $stmt=mysqli_prepare($conn,$sql);
             mysqli_stmt_bind_param($stmt,"s",$param_email);
             $param_email=trim($_POST['email']);
@@ -36,15 +38,17 @@
                 mysqli_stmt_store_result($stmt);
                 if(mysqli_stmt_num_rows($stmt)==1)
                 {
-                    mysqli_stmt_bind_result($stmt,$id,$email,$hashed_pass);
+                    mysqli_stmt_bind_result($stmt,$id,$email,$hashed_pass,$category);
                     if(mysqli_stmt_fetch($stmt))
                     {
-                        if(password_verify($password,$hashed_pass))
+                        //print_r($stmt);
+                        if(password_verify($password,$hashed_pass) && $category==$_POST['category'])
                         {
                             session_start();
                             $_SESSION['id']=$id;
                             $_SESSION['email']=$email;
                             $_SESSION['loggedin']=true;
+                            $_SESSION['category']=$category;
                             header('location:home.php');
                         }
                     }
@@ -80,9 +84,9 @@
             </div>
             <div class="form-group col-md-12">
             <label for="farmer">Categoty : </label>
-            <input type="radio" class="form-control-md" name="category" id="farmer">Farmer
-            <input type="radio" class="form-control-md" name="category" id="pesticides">Pesticides Dealer
-            <input type="radio" class="form-control-md" name="category" id="crop">Crop Buyer
+            <input type="radio" class="form-control-md" name="category" value="farmer">Farmer
+            <input type="radio" class="form-control-md" name="category" value="pesticides">Pesticides Dealer
+            <input type="radio" class="form-control-md" name="category" value="crop">Crop Buyer
             </div>
         </div>
         <button type="submit" class="btn btn-primary col-md-12">Sign in</button>
