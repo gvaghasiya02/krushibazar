@@ -1,7 +1,7 @@
 <?php
 require_once("config.php");
-$email=$password=$confirm_pass=$category="";
-$username_err=$password_err=$confirm_pass_err=$category_err="";
+$email=$password=$confirm_pass="";
+$username_err=$password_err=$confirm_pass_err="";
 
     if($_SERVER['REQUEST_METHOD']=="POST")
     {
@@ -42,16 +42,6 @@ $username_err=$password_err=$confirm_pass_err=$category_err="";
         }
         mysqli_stmt_close($stmt);
 
-        //check for Category
-        if(!isset($_POST['category']))
-        {
-            $category_err="Please Select a Category";
-        }
-        else
-        {
-            $category=trim($_POST['category']);
-        }
-
         //check for pass
         if(empty(trim($_POST['password'])))
         {
@@ -73,16 +63,15 @@ $username_err=$password_err=$confirm_pass_err=$category_err="";
         }
 
         //if no error
-        if(empty($username_err) && empty($password_err) && empty($confirm_pass_err) && empty($category_err))
+        if(empty($username_err) && empty($password_err) && empty($confirm_pass_err))
         {
-            $sql="INSERT INTO users(email,password,category) VALUES (?,?,?)";
+            $sql="INSERT INTO users(email,password) VALUES (?,?)";
             $stmt=mysqli_prepare($conn,$sql);
             if($stmt)
             {
-                mysqli_stmt_bind_param($stmt,"sss",$param_email,$param_password,$param_category);
+                mysqli_stmt_bind_param($stmt,"ss",$param_email,$param_password);
                 $param_username=$email;
                 $param_password=password_hash($password,PASSWORD_DEFAULT);
-                $param_category=$category;
                 //try to execute
                 if(mysqli_stmt_execute($stmt))
                 {
@@ -125,12 +114,6 @@ $username_err=$password_err=$confirm_pass_err=$category_err="";
             <div class="form-group col-md-6">
                 <label for="confirm_password">Confirm Password</label>
                 <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="Re-Enter Password">
-            </div>
-            <div class="form-group col-md-12">
-                <label for="farmer">Categoty : </label>
-                <input type="radio" class="form-control-md" name="category" value="farmer">Farmer
-                <input type="radio" class="form-control-md" name="category" value="pesticides">Pesticides Dealer
-                <input type="radio" class="form-control-md" name="category" value="crop">Crop Buyer
             </div>
         </div>
         <button type="submit" class="btn btn-primary col-md-12">Sign Up</button>
