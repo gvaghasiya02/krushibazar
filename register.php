@@ -133,7 +133,7 @@ $username_err=$password_err=$confirm_pass_err=$category_err="";
                 <input type="radio" class="form-control-md" name="category" value="crop">Crop Buyer
             </div>
         </div>
-        <button type="submit" class="btn btn-primary col-md-12">Sign in</button>
+        <button type="submit" class="btn btn-primary col-md-12">Sign Up</button>
         <label for="register">Aleady a Member?</label><a href="login.php" id="register">Sign In Here</a>
     </form>
     </div>
