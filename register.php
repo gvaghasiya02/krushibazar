@@ -128,9 +128,9 @@ $username_err=$password_err=$confirm_pass_err=$category_err="";
             </div>
             <div class="form-group col-md-12">
                 <label for="farmer">Categoty : </label>
-                <input type="radio" class="form-control-md" name="category" id="farmer">Farmer
-                <input type="radio" class="form-control-md" name="category" id="pesticides">Pesticides Dealer
-                <input type="radio" class="form-control-md" name="category" id="crop">Crop Buyer
+                <input type="radio" class="form-control-md" name="category" value="farmer">Farmer
+                <input type="radio" class="form-control-md" name="category" value="pesticides">Pesticides Dealer
+                <input type="radio" class="form-control-md" name="category" value="crop">Crop Buyer
             </div>
         </div>
         <button type="submit" class="btn btn-primary col-md-12">Sign in</button>
