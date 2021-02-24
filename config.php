@@ -7,7 +7,7 @@
 
     //try connecting to the Database
     $conn=mysqli_connect(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
-
+    
     //Check Connection
     if(!$conn)
     {
