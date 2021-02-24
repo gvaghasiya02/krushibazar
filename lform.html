@@ -1,0 +1,52 @@
+<html>
+<head>
+<title>form1</title>
+<link rel="stylesheet" type="text/css" href="fstyle.css">
+</head>
+<body>
+<div class="container">
+<div class="uimg"><br><br><br><br></div>
+<br>
+<table class="ls" cellspacing=10 align="center">
+<tr><td><img src="12.jpg" width="70px"></td></tr>
+<form name="onef" action="form.html">
+<tr><td><input type="text" name="uname" placeholder="User Name" required></td></tr>
+<tr><td><input type="password" name="pass" placeholder="Password" required></td></tr>
+<tr><td><input type="Submit" name="sub" value="Submit"></td></tr>
+<tr><td><a href="form.html">Forget Password?</a></td></tr>
+<tr><td></td></tr>
+<tr><td><hr></td></tr>
+<tr><td><input type="Button" name="su" style="width:200px;" value="CREATE AN ACCOUNT" onclick="location.href='form.html';" active-background></td>
+</table>
+</form>
+</div>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+<script src="jquery-background-slideshow.js"></script>
+<script>
+    $(document).ready(function () {
+        $("body").backgroundSlideshow({
+            onBeforeTransition: function (index) {
+                console.log("before transition", index)
+            },
+            onAfterTransition: function (index) {
+                console.log("after transition", index)
+            },
+            transitionDuration: 3000,
+            fixed: true,
+            images:["img/1.png", "img/2.jpg", "img/3.jpeg", "img/4.jpg", "img/5.jpg"]
+        })
+
+
+
+
+    })
+	function validateForm() {
+  var x = document.forms["onef"]["uname"].value;
+  if (x == "") {
+    alert("Name must be filled out");
+    return false;
+  }
+} 
+</script>
+</body>
+</html>
