@@ -26,7 +26,7 @@
         }
         if(empty($err))
         {
-            $sql="SELECT id,email,password FROM users where email=?";
+            $sql="SELECT id,email,password FROM user where email=?";
             $stmt=mysqli_prepare($conn,$sql);
             mysqli_stmt_bind_param($stmt,"s",$param_email);
             $param_email=trim($_POST['email']);

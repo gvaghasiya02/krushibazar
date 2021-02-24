@@ -39,8 +39,8 @@ $username_err=$password_err=$confirm_pass_err="";
                     echo "Something went wrong";
                 }
             }
+            mysqli_stmt_close($stmt);
         }
-        mysqli_stmt_close($stmt);
 
         //check for pass
         if(empty(trim($_POST['password'])))
@@ -61,16 +61,14 @@ $username_err=$password_err=$confirm_pass_err="";
         {
             $password_err="Password should match";
         }
-        if(empty(trim($_POST['firstname'])) && empty(trim($_POST['lastname'])) && empty(trim($_POST['dob'])) && empty(trim($_POST['address'])) && empty(trim($_POST['state'])) && empty(trim($_POST['city'])) && empty(trim($_POST['phonenumber'])) && empty(trim($_POST['gender'])))
+
+        //Check if other fields are present
+        if(empty(trim($_POST['firstname'])) || empty(trim($_POST['lastname'])) || empty(trim($_POST['dob'])) || empty(trim($_POST['address'])) || empty(trim($_POST['state'])) || empty(trim($_POST['city'])) || empty(trim($_POST['phonenumber'])) || empty(trim($_POST['gender'])))
         {
             $username_err="Enter all details";
         }
-        //if no error
-        if(empty($username_err) && empty($password_err) && empty($confirm_pass_err))
+        else
         {
-            echo "bwfiervfewfibfevflivdedee";
-            $email=$_POST['email'];
-            $password=password_hash($_POST['password'],PASSWORD_DEFAULT);
             $firstname=$_POST['firstname'];
             $lastname=$_POST['lastname'];
             $dob=$_POST['dob'];
@@ -79,28 +77,21 @@ $username_err=$password_err=$confirm_pass_err="";
             $city=$_POST['city'];
             $phonenumber=$_POST['phonenumber'];
             $gender=$_POST['gender'];
-            echo $email;
-            echo "<br>";
-            echo $firstname;
-            echo "<br>";
-            echo $gender;
-            echo "<br>";
-            echo $dob;
-            echo "<br>";
-            echo $state;
-            echo "<br>";
-            echo $city;
-            echo "<br>";
+        }
+
+        //if no error
+        if(empty($username_err) && empty($password_err) && empty($confirm_pass_err))
+        {
+            
             $sql="INSERT INTO user(email,password,firstname,lastname,dob,address,state,city,phonenumber,gender) VALUES (?,?,?,?,?,?,?,?,?,?)";
             var_dump($conn);
             $stmt=mysqli_prepare($conn,$sql);
             var_dump($stmt);
             if($stmt)
             {
-                echo "stmt is lwjie";
                 mysqli_stmt_bind_param($stmt,"ssssssssss",$param_email,$param_password,$param_firstname,$param_lastname,$param_dob,$param_address,$param_state,$param_city,$param_phonenumber,$param_gender);
                 $param_email=$email;
-                $param_password=$password;
+                $param_password=password_hash($password,PASSWORD_DEFAULT);
                 $param_firstname=$firstname;
                 $param_lastname=$lastname;
                 $param_dob=$dob;
@@ -109,6 +100,7 @@ $username_err=$password_err=$confirm_pass_err="";
                 $param_city=$city;
                 $param_phonenumber=$phonenumber;
                 $param_gender=$gender;
+                
                 //try to execute
                 if(mysqli_stmt_execute($stmt))
                 {
@@ -134,45 +126,53 @@ $username_err=$password_err=$confirm_pass_err="";
     <title>Register</title>
 </head>
 <body>
-    <div class="container mt-4">
-    <h1>Register</h1>
+    <div class="container shadow mt-4">
+    <h1 class="text-primary">Register Here</h1>
     <form action="" method="post">
         <div class="form-row">
-        <div class="form-row">
-            <label>FirstName</label>
-            <input type="text" name="firstname" placeholder="Enter Firstname">
+            <div class="form-group col-md-6">
+                <label for="firstname">FirstName</label>
+                <input class="form-control" type="text" name="firstname" id="firstname" placeholder="Enter First Name">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="lastname">LastName</label>
+                <input class="form-control" type="text" name="lastname" id="lastname" placeholder="Enter Last Name">
+            </div>
         </div>
         <div class="form-row">
-            <label>LastName</label>
-            <input type="text" name="lastname" placeholder="Enter lastname">
+            <div class="form-group col-md-6">
+                <label for="dob">Date Of Birth</label>
+                <input class="form-control" type="text" name="dob" id="dob" placeholder="Enter DOB">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="phonenumber">Phone Number</label>
+                <input class="form-control" type="number" name="phonenumber" id="phonenumber" placeholder="Enter your Phone Number">
+            </div>
         </div>
         <div class="form-row">
-            <label>Date Of Birth</label>
-            <input type="text" name="dob" placeholder="dob">
-        </div>
-        <div class="form-row">
-            <label>Address</label>
-            <input type="textarea" name="address" placeholder="address">
+            <div class="form-group col-md-12">
+                <label for="address">Address</label>
+                <input class="form-control" type="textarea" name="address" id="address" placeholder="Enter your Address">
+            </div>
         </div >
         <div class="form-row">
-            <label>State</label>
-            <input type="text" name="state" placeholder="state">
+            <div class="form-group col-md-6">
+                <label for="state">State</label>
+                <input class="form-control" type="text" name="state" id="state" placeholder="Enter State">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="city">City</label>
+                <input class="form-control" type="text" name="city" id="city" placeholder="Enter City">
+            </div>
         </div>
         <div class="form-row">
-            <label>City</label>
-            <input type="text" name="city" placeholder="city">
+            <div class="form-group col-md-6">
+                <label for="male">Gender</label>
+                <input class="form-control-md" type="radio" name="gender" value="Male">Male
+                <input class="form-control-md" type="radio" name="gender" value="Female">Female
+            </div>
         </div>
         <div class="form-row">
-            <label>Phone Number</label>
-            <input type="number" name="phonenumber" placeholder="phonenumber">
-        </div>
-        <div class="form-row">
-            <label>Gender</label>
-            <input type="radio" name="gender" value="Male">
-            <label>Male</label>
-            <input type="radio" name="gender" value="Female">
-            <label>Female</label>
-        </div>
             <div class="form-group col-md-12">
                 <label for="email">Email</label>
                 <input type="text" class="form-control" name="email" id="email" placeholder="Enter Email">
