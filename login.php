@@ -68,20 +68,20 @@
     <title>Register</title>
   </head>
   <body>
-    <div class="container mt-4">
+    <div class="container mt-4" >
     <h1>Login</h1>
     <form action="" method="post">
         <div class="form-row">
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-8">
             <label for="username">Username</label>
             <input type="email" class="form-control" name="email" id="email" placeholder="Enter Email">
             </div>
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-8">
             <label for="password">Password</label>
             <input type="password" class="form-control" name="password" id="password" placeholder="Enter Password">
             </div>
         </div>
-        <button type="submit" class="btn btn-primary col-md-12">Sign in</button>
+        <button type="submit" class="btn btn-primary col-md-">Sign in</button>
         <label for="register">Not a Member?</label><a href="register.php" id="register">Register Here</a>
     </form>
     </div>
