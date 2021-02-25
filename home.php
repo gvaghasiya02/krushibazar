@@ -1,3 +1,5 @@
+<?php
+session_start();?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +24,7 @@
       <li><a href="sale.php">Selling Crops</a></li>
       <li><a href="buying.php">Buying Crops</a></li>
       <li><a href="pesticides.php">Buying Pesticides</a></li>
-      <li><a href=#>logged in as:</a></li>
+      <li><a href="profile.php">logged in as:<?php echo $_SESSION['email'];?></a></li>
     </ul>
   </div>
 </nav>
