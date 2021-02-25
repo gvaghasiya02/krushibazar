@@ -17,9 +17,6 @@
 </div>
 <nav class="navbar navbar-default">
   <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="home.php">Krushibazar</a>
-    </div>
     <ul class="nav navbar-nav">
       <li class="active"><a href="home.php">Home</a></li>
       <li><a href="sale.php">Selling Crops</a></li>
@@ -28,7 +25,9 @@
     </ul>
   </div>
 </nav>
-<p>
+<p>Agriculture, with its allied sectors, is unquestionably the largest livelihood provider in India, more so in the vast rural areas. It also contributes a significant figure to the Gross Domestic Product (GDP). Sustainable agriculture, in terms of food security, rural employment, and environmentally sustainable technologies such as soil conservation, sustainable natural resource management and biodiversity protection, are essential for holistic rural development. Indian agriculture and allied activities have witnessed a green revolution, a white revolution, a yellow revolution and a blue revolution.
+This section provides the information on agriculture produces; machineries, research etc. Detailed information on the government policies, schemes, agriculture loans, market prices, animal husbandry, fisheries, horticulture, loans & credit, sericulture etc. is also available.
+</p>
 <a href="logout.php">Logout</a>
 </body>
 </html>
