@@ -22,6 +22,7 @@
       <li><a href="sale.php">Selling Crops</a></li>
       <li><a href="buying.php">Buying Crops</a></li>
       <li><a href="pesticides.php">Buying Pesticides</a></li>
+      <li><a href=#>logged in as:</a></li>
     </ul>
   </div>
 </nav>
