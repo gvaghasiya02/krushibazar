@@ -5,12 +5,11 @@
     define('DB_PASSWORD','');
     define('DB_DATABASE','krushibazar');
 
-    //try connecting to the Database
-    $conn=mysqli_connect(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
-    
-    //Check Connection
-    if(!$conn)
-    {
-        die('Error:Cannot Connect');
+    // Create connection
+    $conn = new mysqli(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
+
+    // Check connection
+    if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
     }
 ?>

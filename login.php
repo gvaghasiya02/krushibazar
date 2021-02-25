@@ -1,4 +1,5 @@
 <?php
+    $success=true;
     session_start();
     if(isset($_SESSION['email']))
     {
@@ -8,47 +9,39 @@
 
     require_once("config.php");
     $email=$password="";
-    $err="";
+    $err="<br>";
 
     if($_SERVER['REQUEST_METHOD']=="POST")
     {
         //Check is username is empty
         if(empty(trim($_POST['email'])) || empty(trim($_POST['password'])))
         {
-            $err="Please enter Username and Password.";
-            echo $err;
+            $err.="Please enter Username and Password.";
+            $success=false;
         }
         else
         {
             $email=trim($_POST['email']);
             $password=trim($_POST['password']);
         }
-        if(empty($err))
-        {
-            $sql="SELECT id,email,password FROM user where email=?";
-            $stmt=mysqli_prepare($conn,$sql);
-            mysqli_stmt_bind_param($stmt,"s",$param_email);
-            $param_email=trim($_POST['email']);
 
-            //try to execute this statement
-            if(mysqli_stmt_execute($stmt))
+        if($err=="<br>")
+        {
+            $sql="SELECT id,email,password FROM user where email='$email'";
+            $sql;
+            $result=$conn->query($sql);
+            var_dump($result);
+            if($result->num_rows==1)
             {
-                mysqli_stmt_store_result($stmt);
-                if(mysqli_stmt_num_rows($stmt)==1)
+                $row = $result->fetch_assoc();
+                echo $row['password'];
+                if(password_verify($password,$row['password']))
                 {
-                    mysqli_stmt_bind_result($stmt,$id,$email,$hashed_pass);
-                    if(mysqli_stmt_fetch($stmt))
-                    {
-                        //print_r($stmt);
-                        if(password_verify($password,$hashed_pass))
-                        {
-                            session_start();
-                            $_SESSION['id']=$id;
-                            $_SESSION['email']=$email;
-                            $_SESSION['loggedin']=true;
-                            header('location:home.php');
-                        }
-                    }
+                    session_start();
+                    $_SESSION['id']=$id;
+                    $_SESSION['email']=$email;
+                    $_SESSION['loggedin']=true;
+                    header('location:home.php');
                 }
             }
         }

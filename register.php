@@ -1,71 +1,60 @@
 <?php
+$success=true;
 require_once("config.php");
 $email=$password=$confirm_pass="";
-$username_err=$password_err=$confirm_pass_err="";
+$err="<br>";
 
     if($_SERVER['REQUEST_METHOD']=="POST")
     {
         //Check is username is empty
         if(empty(trim($_POST['email'])))
         {
-            $username_err="Email cannot be empty";
+            $err.="Email cannot be empty<br>";
         }
         else
         {
-            $sql="SELECT id FROM user WHERE email=?";
-            $stmt=mysqli_prepare($conn,$sql);
-            if($stmt)
+            $input_user=trim($_POST['email']);
+            $sql="SELECT id FROM user WHERE email='$input_user'";
+            //echo $sql;
+            $result=$conn->query($sql);
+            //var_dump($result);
+            if($result->num_rows>0)
             {
-                mysqli_stmt_bind_param($stmt,"s",$param_email);
-
-                //set the value of param
-                $param_email=trim($_POST['email']);
-
-                //try to execute this statement
-                if(mysqli_stmt_execute($stmt))
-                {
-                    mysqli_stmt_store_result($stmt);
-                    if(mysqli_stmt_num_rows($stmt)==1)
-                    {
-                        $username_err="User with Same Email already taken";
-                    }
-                    else
-                    {
-                        $email=trim($_POST['email']);
-                    }
-                }
-                else
-                {
-                    echo "Something went wrong";
-                }
+                $err.="User with Same Email already taken<br>";
+                $success=false;
             }
-            mysqli_stmt_close($stmt);
+            else
+            {
+                $email=trim($_POST['email']);
+            }
         }
 
         //check for pass
         if(empty(trim($_POST['password'])))
         {
-            $password_err="Password cannot be empty";
+            $err.="Password cannot be empty<br>";
+            $success=false;
         }
         elseif(strlen(trim($_POST['password']))<5)
         {
-            $password_err="Password cannot be less than 5 characters";
+            $err.="Password cannot be less than 5 characters<br>";
+            $success=false;
+        }
+        elseif(trim($_POST['password']) != trim($_POST['confirm_password']))
+        {
+            $err.="Password should match<br>";
+            $success=false;
         }
         else
         {
-            $password=trim($_POST['password']);
-        }
-
-        //confirm password
-        if(trim($_POST['password']) != trim($_POST['confirm_password']))
-        {
-            $password_err="Password should match";
+            $password=password_hash(trim($_POST['password']),PASSWORD_DEFAULT);
         }
 
         //Check if other fields are present
-        if(empty(trim($_POST['firstname'])) || empty(trim($_POST['lastname'])) || empty(trim($_POST['dob'])) || empty(trim($_POST['address'])) || empty(trim($_POST['state'])) || empty(trim($_POST['city'])) || empty(trim($_POST['phonenumber'])) || empty(trim($_POST['gender'])))
+        if(empty(trim($_POST['firstname'])) || empty(trim($_POST['lastname'])) || empty(trim($_POST['dob'])) || empty(trim($_POST['address'])) || empty(trim($_POST['state'])) || empty(trim($_POST['city'])) || empty(trim($_POST['phonenumber'])) || empty($_POST['gender']))
         {
-            $username_err="Enter all details";
+            $err.="Enter all details<br>";
+            $success=false;
         }
         else
         {
@@ -80,36 +69,30 @@ $username_err=$password_err=$confirm_pass_err="";
         }
 
         //if no error
-        if(empty($username_err) && empty($password_err) && empty($confirm_pass_err))
+        if($err=="<br>")
         {
-            
             $sql="INSERT INTO user(email,password,firstname,lastname,dob,address,state,city,phonenumber,gender) VALUES (?,?,?,?,?,?,?,?,?,?)";
-            var_dump($conn);
-            $stmt=mysqli_prepare($conn,$sql);
-            var_dump($stmt);
-            if($stmt)
-            {
-                mysqli_stmt_bind_param($stmt,"ssssssssss",$param_email,$param_password,$param_firstname,$param_lastname,$param_dob,$param_address,$param_state,$param_city,$param_phonenumber,$param_gender);
-                $param_email=$email;
-                $param_password=password_hash($password,PASSWORD_DEFAULT);
-                $param_firstname=$firstname;
-                $param_lastname=$lastname;
-                $param_dob=$dob;
-                $param_address=$address;
-                $param_state=$state;
-                $param_city=$city;
-                $param_phonenumber=$phonenumber;
-                $param_gender=$gender;
-                
-                //try to execute
-                if(mysqli_stmt_execute($stmt))
-                {
-                    header("location:login.php");
-                }
-                else{
-                    echo "Something is Wrong...cannot redirect.";
-                }
+            $stmt=$conn->prepare($sql);
+            $stmt->bind_param('ssssssssss',$param_email,$param_password,$param_firstname,$param_lastname,$param_dob,$param_address,$param_state,$param_city,$param_phonenumber,$param_gender);
+            $param_email=$email;
+            $param_password=$password;
+            $param_firstname=$firstname;
+            $param_lastname=$lastname;
+            $param_dob=$dob;
+            $param_address=$address;
+            $param_state=$state;
+            $param_city=$city;
+            $param_phonenumber=$phonenumber;
+            $param_gender=$gender;
+            if($stmt->execute()==TRUE){
+                header("location:login.php");
+                $success=true;
             }
+            else{
+                echo "Error: " . $sql . "<br>" . $conn->error;
+                $success=false;
+            }
+            $conn->close();
         }
     }
 ?>
@@ -126,6 +109,18 @@ $username_err=$password_err=$confirm_pass_err="";
     <title>Register</title>
 </head>
 <body>
+<?php 
+    if(!$success)
+    {
+        echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+        <strong>Failed to Register</strong>";
+        echo $err;
+        echo "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+        <span aria-hidden='true'  >&times;</span>
+        </button>;  
+        </div>";
+    }
+?>
     <div class="container shadow mt-4">
     <h1 class="text-primary">Register Here</h1>
     <form action="" method="post">
