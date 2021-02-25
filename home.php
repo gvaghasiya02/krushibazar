@@ -12,7 +12,6 @@ session_start();?>
     <title>Home</title>
 </head>
 <body>
-<h1 align="center"><img src="https://i.pinimg.com/originals/ef/9c/42/ef9c4284f56e717c8dd191844af07908.png" height=250 width=auto></h1>
 <div class="container">
 
   <h1 align="center">Welcome to Krushibazar</h1>
