@@ -1,6 +1,45 @@
 <?php
-session_start()
-#require_once 'config.php'; 
+ session_start();
+require_once 'config.php';
+if(isset($_POST["submit"])){ 
+  $productType = $_POST['type'];
+  $productName =$_POST['cname'];
+  $productInfo = $_POST['cinfo'];
+  $productPrice =$_POST['price'];
+  #echo $productType;
+  echo $_FILES['croppic'];
+  #$imgContent = addslashes(file_get_contents($_FILES['croppic'])); 
+  #echo $imgContent;
+  $status = 'error'; 
+  if(!empty($_FILES["croppic"]["name"])) { 
+      // Get file info 
+      echo $productType;
+      $fileName = basename($_FILES["croppic"]["name"]); 
+      $fileType = pathinfo($fileName, PATHINFO_EXTENSION); 
+       
+      // Allow certain file formats 
+      $allowTypes = array('jpg','png','jpeg','gif'); 
+      if(in_array($fileType, $allowTypes)){ 
+          $image = $_FILES['croppic']['tmp_name']; 
+          $imgContent = addslashes(file_get_contents($image)); 
+          echo $productType;
+          // Insert image content into database 
+          $insert = $db->query("INSERT into product (cname,catagory,cinfo,price,image) VALUES ('$productName',$productType','$productInfo',$productPrice','$imgContent')"); 
+           
+          if($insert){ 
+            echo "hi";
+              $status = 'success'; 
+              $statusMsg = "File uploaded successfully."; 
+          }else{ 
+              $statusMsg = "File upload failed, please try again."; 
+          }  
+      }else{ 
+          $statusMsg = 'Sorry, only JPG, JPEG, PNG, & GIF files are allowed to upload.'; 
+      } 
+  }else{ 
+      $statusMsg = 'Please select an image file to upload.'; 
+  } 
+} 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -58,7 +97,7 @@ session_start()
             </div>
             <div class="form-group col-md-6">
                 <label for="croppic">Upload an Image</label>
-                <input class="form-control" type="file" name="croppic" id="croppic"></input>
+                <input type="file" name="croppic" id="croppic"></input>
             </div>
         </div>
         <div class="form-row"> 
@@ -68,7 +107,7 @@ session_start()
 				</div>
         <div class="form-row"> 
         <div class="form-group col-md-3"> 
-        <button type="button" class="btn btn-default">Upload</button>
+        <button type="submit" name="submit" class="btn btn-default">Upload</button>
         </div>
 				</div>
       </from>
