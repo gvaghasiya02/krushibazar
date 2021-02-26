@@ -6,8 +6,6 @@ if(isset($_POST["submit"])){
   $productName =$_POST['cname'];
   $productInfo = $_POST['cinfo'];
   $productPrice =$_POST['price'];
-  #echo $productType;
-  echo $_FILES['croppic'];
   #$imgContent = addslashes(file_get_contents($_FILES['croppic'])); 
   #echo $imgContent;
   $status = 'error'; 
@@ -24,7 +22,8 @@ if(isset($_POST["submit"])){
           $imgContent = addslashes(file_get_contents($image)); 
           echo $productType;
           // Insert image content into database 
-          $insert = $db->query("INSERT into product (cname,catagory,cinfo,price,image) VALUES ('$productName',$productType','$productInfo',$productPrice','$imgContent')"); 
+          $sql="INSERT INTO `product` (`cname`, `category`, `cinfo`, `price`, `image`) VALUES ('$productName', '$productType', '$productInfo', '$productInfo','$imgContent')";
+          $insert = $conn->query($sql); 
            
           if($insert){ 
             echo "hi";
@@ -73,7 +72,7 @@ if(isset($_POST["submit"])){
   </div>
 </nav>
 <h1 class="text-primary">Upload crop</h1>
-    <form action="" method="post">
+    <form action="" method="post" enctype="multipart/form-data">
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="cname">Crop name</label>
