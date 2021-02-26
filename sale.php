@@ -30,5 +30,17 @@ session_start();?>
     </ul>
   </div>
 </nav>
+<h1 class="text-primary">Upload crop</h1>
+    <form action="" method="post">
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="cname">Crop name</label>
+                <input class="form-control" type="text" name="cname" id="cname" placeholder="Enter cname">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="price">Price</label>
+                <input class="form-control" type="text" name="price" id="price" placeholder="Enter Price">
+            </div>
+        </div>
 </body>
 </html>
