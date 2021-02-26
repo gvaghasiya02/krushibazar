@@ -77,18 +77,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <script src="https://cdn.ckeditor.com/4.8.0/full/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/4.8.0/full/ckeditor.js"></script>
     <title>Selling</title>
 </head>
 <body>
     <div class="container">
-        <h1 align="center">Welcome to Krushibazar</h1>
+        <h1 class="text-center">Welcome to Krushibazar</h1>
     </div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active"><a class="nav-link" href="home.php">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="sale.php">Selling Crops</a></li>
+                <li class="nav-item"><a class="nav-link" href="home.php">Home</a></li>
+                <li class="nav-item active"><a class="nav-link" href="sale.php">Selling Crops</a></li>
                 <li class="nav-item"><a class="nav-link" href="buying.php">Buying Crops</a></li>
                 <li class="nav-item"><a class="nav-link" href="pesticides.php">Buying Pesticides</a></li>
                 <li class="nav-item"><a class="nav-link" href="profile.php">logged in as:<?php echo $_SESSION['email'];?></a></li>
