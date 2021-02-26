@@ -1,5 +1,11 @@
 <?php
-session_start();?>
+session_start()
+require_once 'config.php'; 
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,8 +46,8 @@ session_start();?>
             </div>
             <div class="form-group col-md-6">								  
                   <div class="form-group">
-                  <label for="sel1">Select list (select one):</label>
-                  <select class="form-control" id="sel1">
+                  <label for="type">Select catagory:</label>
+                  <select class="form-control" name="type" id="type">
                   <option value="Fruit" style="color: black;">Fruit</option>
 								  <option value="Vegetable" style="color: black;">Vegetable</option>
 								  <option value="Grains" style="color: black;">Grains</option>
