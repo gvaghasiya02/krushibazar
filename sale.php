@@ -3,7 +3,7 @@
     $success=false;
     session_start();
     require_once 'config.php';
-
+    $userid=$_SESSION["id"];
     if(isset($_POST["submit"])){ 
         if(empty(trim($_POST['type']))){
             $err.="Please Select Product Type<br>";
@@ -57,7 +57,7 @@
         if($err=="<br>")
         {
             // Insert image content into database 
-            $sql="INSERT INTO `product` (`cname`, `category`, `cinfo`, `price`, `image`) VALUES ('$productName', '$productType', '$productInfo', '$productInfo','$imgContent')";
+            $sql="INSERT INTO `product` (`cname`, `category`, `cinfo`, `price`, `image`,`userid`) VALUES ('$productName', '$productType', '$productInfo', '$productInfo','$imgContent','$userid')";
             $insert = $conn->query($sql);
 
             if($insert)
