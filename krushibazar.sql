@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 27, 2021 at 08:19 AM
+-- Generation Time: Feb 27, 2021 at 11:41 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -20,6 +20,25 @@ SET time_zone = "+00:00";
 --
 -- Database: `krushibazar`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `adminuser`
+--
+
+CREATE TABLE `adminuser` (
+  `id` int(11) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `adminuser`
+--
+
+INSERT INTO `adminuser` (`id`, `email`, `password`) VALUES
+(1, 'admin@krushi.com', '12345');
 
 -- --------------------------------------------------------
 
@@ -58,8 +77,21 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id`, `email`, `password`, `firstname`, `lastname`, `address`, `state`, `city`, `phonenumber`, `gender`, `dob`) VALUES
+(8, 'hrujul@krushi.com', '$2y$10$u3OR/odr1xqYns9025t6Hu/3D1bUJK71IMHcGDVIguuMkhqcJajfS', 'Hrujul', 'Thumar', 'Sector-12 Building No.:-192/B', 'Gujarat', 'Jamnagar', '7016104525', 'Male', '2000-03-22');
+
+--
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `adminuser`
+--
+ALTER TABLE `adminuser`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `product`
@@ -79,6 +111,12 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT for table `adminuser`
+--
+ALTER TABLE `adminuser`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
@@ -88,7 +126,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables
