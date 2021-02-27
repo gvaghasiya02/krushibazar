@@ -57,7 +57,7 @@
         if($err=="<br>")
         {
             // Insert image content into database 
-            $sql="INSERT INTO `product` (`cname`, `category`, `cinfo`, `price`, `image`,`userid`) VALUES ('$productName', '$productType', '$productInfo', '$productInfo','$imgContent','$userid')";
+            $sql="INSERT INTO `product` (`cname`, `category`, `cinfo`, `price`, `image`,`userid`) VALUES ('$productName', '$productType', '$productInfo', '$productPrice','$imgContent','$userid')";
             $insert = $conn->query($sql);
 
             if($insert)

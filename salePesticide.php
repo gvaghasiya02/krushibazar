@@ -1,10 +1,71 @@
 <?php
+    $err="<br>";
+    $success=false;
     session_start();
     require_once 'config.php';
     $user_count=0;
     $sql="SELECT id,email,password FROM user";
     $result=$conn->query($sql);
     $user_count=$result->num_rows;
+    if(isset($_POST["submit"])){ 
+        if(empty(trim($_POST['pestname']))){
+            $err.="Please Enter Pesticide Name<br>";
+        }
+        else{
+            $productName =$_POST['pestname'];
+        }
+
+        if(empty(trim($_POST['pestinfo']))){
+            $err.="Please Enter Pesticide Information<br>";
+        }
+        else{
+            $productInfo = $_POST['pestinfo'];
+        }
+
+        if(empty(trim($_POST['price']))){
+            $err.="Please Enter Pesticide Price<br>";
+        }
+        else{
+            $productPrice =$_POST['price'];
+        }
+
+        if(!empty($_FILES["pestpic"]["name"]))
+        {
+            // Get file info 
+            $fileName = basename($_FILES["pestpic"]["name"]); 
+            $fileType = pathinfo($fileName, PATHINFO_EXTENSION); 
+
+            // Allow certain file formats 
+            $allowTypes = array('jpg','png','jpeg','gif'); 
+            if(in_array($fileType, $allowTypes)){
+                $image = $_FILES['pestpic']['tmp_name']; 
+                $imgContent = addslashes(file_get_contents($image)); 
+            }
+            else{
+                $err.="Sorry, only JPG, JPEG, PNG, & GIF files are allowed to upload.<br>";
+            }
+        }
+        else
+        {
+            $err.="Please Select an Image<br>";
+        }
+        
+        if($err=="<br>")
+        {
+            // Insert image content into database 
+            $sql="INSERT INTO `pesticide` (`pestname`, `pestinfo`, `price`, `pestimage`) VALUES ('$productName', '$productInfo', '$productPrice','$imgContent')";
+            $insert = $conn->query($sql);
+
+            if($insert)
+            {
+                $success=true;
+            }
+            else{
+                $err.="Failed to Upload the Details<br>";
+            }
+        }
+    } 
+    $conn->close();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,7 +94,26 @@
             </ul>
         </div>
     </nav>
-    <form
+    <?php 
+        if($success)
+        {
+            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+            <strong>Success</strong> Product Addedd Successfully.<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+            <span aria-hidden='true'  >&times</span>
+            </button>  
+            </div>";
+        }
+        elseif($err!="<br>")
+        {
+            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+            <strong>Failed to Add the Product</strong>";
+            echo $err;
+            echo "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+            <span aria-hidden='true'  >&times;</span>
+            </button> 
+            </div>";
+        }
+    ?>
     <div class="container mt-4 shadow">
         <h1 class="text-primary">Upload Pesticide</h1>
         <form action="" method="post" enctype="multipart/form-data">

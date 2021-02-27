@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 27, 2021 at 11:41 AM
+-- Generation Time: Feb 27, 2021 at 12:27 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -39,6 +39,20 @@ CREATE TABLE `adminuser` (
 
 INSERT INTO `adminuser` (`id`, `email`, `password`) VALUES
 (1, 'admin@krushi.com', '12345');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pesticide`
+--
+
+CREATE TABLE `pesticide` (
+  `pestname` varchar(255) NOT NULL,
+  `pestinfo` varchar(255) NOT NULL,
+  `price` int(11) NOT NULL,
+  `pestimage` longblob NOT NULL,
+  `pestid` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -81,7 +95,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `email`, `password`, `firstname`, `lastname`, `address`, `state`, `city`, `phonenumber`, `gender`, `dob`) VALUES
-(8, 'hrujul@krushi.com', '$2y$10$u3OR/odr1xqYns9025t6Hu/3D1bUJK71IMHcGDVIguuMkhqcJajfS', 'Hrujul', 'Thumar', 'Sector-12 Building No.:-192/B', 'Gujarat', 'Jamnagar', '7016104525', 'Male', '2000-03-22');
+(9, 'user@krushi.com', '$2y$10$uVqdq2uhBiXgHL8zmhUSquBMIOY46qikKFnMexPyqBGcHIMa/8z.a', 'user', 'user', 'user', 'user', 'user', '1234567890', 'Male', '2021-02-05');
 
 --
 -- Indexes for dumped tables
@@ -92,6 +106,12 @@ INSERT INTO `user` (`id`, `email`, `password`, `firstname`, `lastname`, `address
 --
 ALTER TABLE `adminuser`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `pesticide`
+--
+ALTER TABLE `pesticide`
+  ADD PRIMARY KEY (`pestid`);
 
 --
 -- Indexes for table `product`
@@ -117,6 +137,12 @@ ALTER TABLE `adminuser`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `pesticide`
+--
+ALTER TABLE `pesticide`
+  MODIFY `pestid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
@@ -126,7 +152,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Constraints for dumped tables
