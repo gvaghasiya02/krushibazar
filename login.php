@@ -28,9 +28,7 @@
         if($err=="<br>")
         {
             $sql="SELECT id,email,password FROM user where email='$email'";
-            $sql;
             $result=$conn->query($sql);
-            var_dump($result);
             if($result->num_rows==1)
             {
                 $row = $result->fetch_assoc();
