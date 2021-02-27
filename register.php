@@ -102,6 +102,7 @@ $err="<br>";
             $conn->close();
         }
     }
+    $conn->close();
 ?>
 <!doctype html>
 <html lang="en">

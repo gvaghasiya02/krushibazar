@@ -19,6 +19,7 @@
         $gender=$row['gender'];
         $dob=$row['dob'];
     }
+    $conn->close();
 ?>
 <!DOCTYPE html>
 <html lang="en">

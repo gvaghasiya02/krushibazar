@@ -54,6 +54,7 @@
             }
         }
     }
+    $conn->close();
 ?>
 <!doctype html>
 <html lang="en">
