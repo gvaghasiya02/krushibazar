@@ -3,7 +3,7 @@
     $success=false;
     session_start();
     require_once 'config.php';
-    $userid=$_SESSION["id"];
+    $userid=$_SESSION['id'];
     if(isset($_POST["submit"])){ 
         if(empty(trim($_POST['type']))){
             $err.="Please Select Product Type<br>";

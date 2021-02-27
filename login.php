@@ -38,7 +38,7 @@
                 if(password_verify($password,$row['password']))
                 {
                     session_start();
-                    $_SESSION['id']=$id;
+                    $_SESSION['id']=$row["id"];
                     $_SESSION['email']=$email;
                     $_SESSION['loggedin']=true;
                     header('location:home.php');
