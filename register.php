@@ -28,6 +28,7 @@ $err="<br>";
                 $email=trim($_POST['email']);
             }
         }
+        
 
         //check for pass
         if(empty(trim($_POST['password'])))
@@ -56,6 +57,11 @@ $err="<br>";
             $err.="Enter all details<br>";
             $success=false;
         }
+        if(strlen((string)$_POST['phonenumber'])!=10)
+        {
+            $err.="Enter correct PhoneNumber<br>";
+            $success=false;
+        }
         else
         {
             $firstname=$_POST['firstname'];
@@ -66,6 +72,7 @@ $err="<br>";
             $city=$_POST['city'];
             $phonenumber=$_POST['phonenumber'];
             $gender=$_POST['gender'];
+            #echo $dob;
         }
 
         //if no error
@@ -117,7 +124,7 @@ $err="<br>";
         echo $err;
         echo "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
         <span aria-hidden='true'  >&times;</span>
-        </button>;  
+        </button>  
         </div>";
     }
 ?>
@@ -137,7 +144,7 @@ $err="<br>";
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="dob">Date Of Birth</label>
-                <input class="form-control" type="text" name="dob" id="dob" placeholder="Enter DOB">
+                <input class="form-control" type="date" name="dob" id="dob" placeholder="Enter DOB">
             </div>
             <div class="form-group col-md-6">
                 <label for="phonenumber">Phone Number</label>
@@ -170,7 +177,7 @@ $err="<br>";
         <div class="form-row">
             <div class="form-group col-md-12">
                 <label for="email">Email</label>
-                <input type="text" class="form-control" name="email" id="email" placeholder="Enter Email">
+                <input type="email" class="form-control" name="email" id="email" placeholder="Enter Email">
             </div>
             <div class="form-group col-md-6">
                 <label for="password">Password</label>

@@ -103,8 +103,8 @@
         {
             echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
             <strong>Success</strong> Product Addedd Successfully.<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-            <span aria-hidden='true'  >&times;</span>
-            </button>;  
+            <span aria-hidden='true'  >&times</span>
+            </button>  
             </div>";
         }
         elseif($err!="<br>")
@@ -114,7 +114,7 @@
             echo $err;
             echo "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
             <span aria-hidden='true'  >&times;</span>
-            </button>;  
+            </button> 
             </div>";
         }
     ?>
