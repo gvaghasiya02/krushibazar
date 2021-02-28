@@ -92,7 +92,7 @@
                 <li class="nav-item active"><a class="nav-link" href="sale.php">Selling Crops</a></li>
                 <li class="nav-item"><a class="nav-link" href="buying.php">Buying Crops</a></li>
                 <li class="nav-item"><a class="nav-link" href="pesticides.php">Buying Pesticides</a></li>
-                <li class="nav-item"><a class="nav-link" href="profile.php">logged in as:<?php echo $_SESSION['email'];?></a></li>
+                <li class="nav-item"><a class="nav-link" href="profile.php">Logged in as:<?php echo $_SESSION['email'];?></a></li>
             </ul>
             <ul class="nav navbar-nav">
             <li class="nav-item"><a  class="nav-link" href="cart.php">My Cart</a></li>
