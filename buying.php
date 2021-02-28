@@ -1,20 +1,17 @@
 <?php
     session_start();
     require_once 'config.php';
-    $chid=$_SESSION['id'];    
+    $userid=$_SESSION['id']; 
+    $sql="SELECT `cname`,`category`,`cinfo`,`price`,`image`,`userid`,`id` FROM product where userid!=$userid";
     if(isset($_POST["submit"]))
-    {   $tt=$_POST['type'];  
-        #echo $tt;
-        $sql="SELECT `cname`,`category`,`cinfo`,`price`,`image`,`userid`,`id` FROM product where userid!=$chid and category=$tt";
-        $result=$conn->query($sql);
-        #echo "hi";
-        echo $result;
+    {   
+        $tt=$_POST['type'];  
+        if($tt!="All")
+        {
+            $sql="SELECT `cname`,`category`,`cinfo`,`price`,`image`,`userid`,`id` FROM product where userid!=$userid and category='$tt'";
+        }
     }
-    else
-    {
-        $sql="SELECT `cname`,`category`,`cinfo`,`price`,`image`,`userid`,`id` FROM product where userid!=$chid";
-        $result=$conn->query($sql);
-    }
+    $result=$conn->query($sql);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -62,16 +59,16 @@
     </form>
             <div class="row">
             <?php
-            #var_dump($result);
+            // var_dump($result);
                 if($result->num_rows==0 )
                 {
-                 echo "<h4>No Crops to sell</h4>";
+                    echo "<h4>No Crops to sell</h4>";
                 }
                 else
                 {
                     while($row=$result->fetch_assoc())
-                    {   #echo $row['cname'];?>
-                    <div class='col-12 col-md-6 col-lg-3'>
+                    { ?>
+                    <div class='col-md-6 col-lg-3'>
                         <div class='card'>
                             <img class='card-img-top' src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['image']); ?>" alt='Card image cap'>
                             <div class='card-body'>
@@ -93,5 +90,5 @@
             ?>
             </div>
     </div>
-                </body>
-                </html>
+</body>
+</html>
