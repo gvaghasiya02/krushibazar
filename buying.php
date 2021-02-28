@@ -1,9 +1,18 @@
 <?php
     session_start();
     require_once 'config.php';
-    $chid=$_SESSION['id'];
-    $sql="SELECT `cname`,`category`,`cinfo`,`price`,`image`,`userid`,`id` FROM product where userid!=$chid";
-    $result=$conn->query($sql);
+    $chid=$_SESSION['id'];    
+    if(isset($_POST["submit"]))
+    {   $tt=$_POST['type'];  
+        echo $tt;
+        $sql="SELECT `cname`,`category`,`cinfo`,`price`,`image`,`userid`,`id` FROM product where userid!=$chid and catagory=$tt";
+        $result=$conn->query($sql);
+    }
+    else
+    {
+        $sql="SELECT `cname`,`category`,`cinfo`,`price`,`image`,`userid`,`id` FROM product where userid!=$chid";
+        $result=$conn->query($sql);
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,12 +41,30 @@
             </ul>
         </div>
     </nav>
+    
     <div class='container mt-4' >
+    <form action="" method="post" enctype="multipart/form-data">
+    <div class="form-row"> 
+    <div class="form-group col-md-4">
+                    <select class="form-control" name="type" id="type">
+                    <option value="All" style="color: black;">All</option>
+                        <option value="Fruit" style="color: black;">Fruit</option>
+                        <option value="Vegetable" style="color: black;">Vegetable</option>
+                        <option value="Grains" style="color: black;">Grains</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3"> 
+                    <button type="submit" name="submit" class="btn btn-primary">Apply</button>
+                </div>
+                </div>
+    </form>
             <div class="row">
             <?php
             #var_dump($result);
                 if($result->num_rows==0)
+                {
                  echo "<h4>No Crops to sell</h4>";
+                }
                 else
                 {
                     while($row=$result->fetch_assoc())
