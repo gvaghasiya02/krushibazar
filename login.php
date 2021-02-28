@@ -72,7 +72,7 @@
             <input type="password" class="form-control" name="password" id="password" placeholder="Enter Password">
             </div>
         </div>
-        <button type="submit" class="btn btn-primary col-md-">Sign in</button>
+        <button type="submit" class="btn btn-primary col-md-1">Sign in</button>
         <label for="register">Not a Member?</label><a href="register.php" id="register">Register Here</a>
     </form>
     </div>
