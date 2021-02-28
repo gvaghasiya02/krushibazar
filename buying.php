@@ -2,6 +2,7 @@
     session_start();
     require_once 'config.php';
     $userid=$_SESSION['id']; 
+    $tt="All";
     $sql="SELECT `cname`,`category`,`cinfo`,`price`,`image`,`userid`,`id` FROM product where userid!=$userid";
     if(isset($_POST["submit"]))
     {   
@@ -46,10 +47,10 @@
     <div class="form-row"> 
     <div class="form-group col-md-4">
                     <select class="form-control" name="type" id="type">
-                    <option value="All" style="color: black;">All</option>
-                        <option value="Fruit" style="color: black;">Fruit</option>
-                        <option value="Vegetable" style="color: black;">Vegetable</option>
-                        <option value="Grains" style="color: black;">Grains</option>
+                    <option value="All" <?php if($tt=="All")echo "selected"; ?> style="color: black;">All</option>
+                        <option value="Fruit" <?php if($tt=="Fruit")echo "selected"; ?> style="color: black;">Fruit</option>
+                        <option value="Vegetable" <?php if($tt=="Vegetable")echo "selected"; ?> style="color: black;">Vegetable</option>
+                        <option value="Grains" <?php if($tt=="Grains")echo "selected"; ?> style="color: black;">Grains</option>
                     </select>
                 </div>
                 <div class="form-group col-md-3"> 
