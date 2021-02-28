@@ -4,9 +4,11 @@
     $chid=$_SESSION['id'];    
     if(isset($_POST["submit"]))
     {   $tt=$_POST['type'];  
-        echo $tt;
-        $sql="SELECT `cname`,`category`,`cinfo`,`price`,`image`,`userid`,`id` FROM product where userid!=$chid and catagory=$tt";
+        #echo $tt;
+        $sql="SELECT `cname`,`category`,`cinfo`,`price`,`image`,`userid`,`id` FROM product where userid!=$chid and category=$tt";
         $result=$conn->query($sql);
+        #echo "hi";
+        echo $result;
     }
     else
     {
@@ -61,7 +63,7 @@
             <div class="row">
             <?php
             #var_dump($result);
-                if($result->num_rows==0)
+                if($result->num_rows==0 )
                 {
                  echo "<h4>No Crops to sell</h4>";
                 }
