@@ -95,7 +95,8 @@
                 <li class="nav-item"><a class="nav-link" href="profile.php">logged in as:<?php echo $_SESSION['email'];?></a></li>
             </ul>
             <ul class="nav navbar-nav">
-                <li><a href="logout.php">Logout</a></li>
+            <li class="nav-item"><a  class="nav-link" href="cart.php">My Cart</a></li>
+                <li class="nav-item"><a class="nav-link" href="logout.php">Logout</a></li>
             </ul>
         </div>
     </nav>
