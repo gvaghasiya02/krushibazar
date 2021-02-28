@@ -43,9 +43,9 @@
                     {   #echo $row['cname'];?>
                     <div class='col-12 col-md-6 col-lg-3'>
                         <div class='card'>
-                            <img class='card-img-top' src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['pestmage']); ?>" alt='Card image cap'>
+                            <img class='card-img-top' src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['pestimage']); ?>" alt='Card image cap'>
                             <div class='card-body'>
-                                <h4 class='card-title'><a href='product.html' title='View Product'><?php $row['pestname'];?></a></h4>
+                                <h4 class='card-title'><a href='product.html' title='View Product'><?php echo $row['pestname'];?></a></h4>
                                 <p class='card-text'><?php echo $row['pestinfo'];?></p>
                                 <div class='row'>
                                     <div class='col'>
@@ -63,5 +63,6 @@
             ?>
             </div>
     </div>
+    
                 </body>
                 </html>
