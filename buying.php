@@ -73,7 +73,7 @@
                         <div class='card'>
                             <img class='card-img-top' src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['image']); ?>" alt='Card image cap'>
                             <div class='card-body'>
-                                <h4 class='card-title'><a href='product.html' title='View Product'><?php $row['cname'];?></a></h4>
+                                <h4 class='card-title'><a href='product.html' title='View Product'><?php echo $row['cname'];?></a></h4>
                                 <p class='card-text'><?php echo $row['cinfo'];?></p>
                                 <div class='row'>
                                     <div class='col'>
