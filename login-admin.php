@@ -1,4 +1,6 @@
 <?php
+$success=true;
+$err="<br>";
     session_start();
 
     if(isset($_SESSION['email']))
@@ -61,6 +63,18 @@
     <title>Registeradmin</title>
   </head>
   <body>
+  <?php 
+        if($err!="<br>")
+        {
+            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+            <strong>Failed to Add the Product</strong>";
+            echo $err;
+            echo "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+            <span aria-hidden='true'  >&times;</span>
+            </button> 
+            </div>";
+        }
+    ?>
     <div class="container mt-4">
     <h1>Login</h1>
     <form action="" method="post">
