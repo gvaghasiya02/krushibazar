@@ -30,9 +30,9 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active"><a class="nav-link" href="home.php">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="home.php">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="sale.php">Selling Crops</a></li>
-                <li class="nav-item"><a class="nav-link" href="buying.php">Buying Products</a></li>
+                <li class="nav-item active"><a class="nav-link" href="buying.php">Buying Products</a></li>
                 <li class="nav-item"><a class="nav-link" href="profile.php">logged in as:<?php echo $_SESSION['email'];?></a></li>
             </ul>
             <ul class="nav navbar-nav">
@@ -51,7 +51,7 @@
                         <option value="Fruit" <?php if($tt=="Fruit")echo "selected"; ?> style="color: black;">Fruit</option>
                         <option value="Vegetable" <?php if($tt=="Vegetable")echo "selected"; ?> style="color: black;">Vegetable</option>
                         <option value="Grains" <?php if($tt=="Grains")echo "selected"; ?> style="color: black;">Grains</option>
-                        <option value="Grains" <?php if($tt=="Pesticide")echo "selected";?> style="color: black;">Pesticide</option>
+                        <option value="Pesticide" <?php if($tt=="Pesticide")echo "selected";?> style="color: black;">Pesticide</option>
                     </select>
                 </div>
                 <div class="form-group col-md-3"> 
