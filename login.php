@@ -43,6 +43,11 @@
                     header('location:home.php');
                 }
             }
+            else
+            {
+                $err.="Please enter correct Username and Password.";
+            $success=false;
+            }
         }
     }
     $conn->close();
