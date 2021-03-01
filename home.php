@@ -19,8 +19,7 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active"><a class="nav-link" href="home.php">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="sale.php">Selling Crops</a></li>
-                <li class="nav-item"><a class="nav-link" href="buying.php">Buying Crops</a></li>
-                <li class="nav-item"><a class="nav-link" href="pesticides.php">Buying Pesticides</a></li>
+                <li class="nav-item"><a class="nav-link" href="buying.php">Buying Products</a></li>
                 <li class="nav-item"><a class="nav-link" href="profile.php">logged in as:<?php echo $_SESSION['email'];?></a></li>
             </ul>
             <ul class="nav navbar-nav">

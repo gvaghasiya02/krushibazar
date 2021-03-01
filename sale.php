@@ -57,7 +57,7 @@
         if($err=="<br>")
         {
             // Insert image content into database 
-            $sql="INSERT INTO `product` (`cname`, `category`, `cinfo`, `price`, `image`,`userid`) VALUES ('$productName', '$productType', '$productInfo', '$productPrice','$imgContent','$userid')";
+            $sql="INSERT INTO `product` (`pname`, `category`, `pinfo`, `price`, `image`,`userid`) VALUES ('$productName', '$productType', '$productInfo', '$productPrice','$imgContent','$userid')";
             $insert = $conn->query($sql);
 
             if($insert)
@@ -88,11 +88,10 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item"><a class="nav-link" href="home.php">Home</a></li>
-                <li class="nav-item active"><a class="nav-link" href="sale.php">Selling Crops</a></li>
-                <li class="nav-item"><a class="nav-link" href="buying.php">Buying Crops</a></li>
-                <li class="nav-item"><a class="nav-link" href="pesticides.php">Buying Pesticides</a></li>
-                <li class="nav-item"><a class="nav-link" href="profile.php">Logged in as:<?php echo $_SESSION['email'];?></a></li>
+                <li class="nav-item active"><a class="nav-link" href="home.php">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="sale.php">Selling Crops</a></li>
+                <li class="nav-item"><a class="nav-link" href="buying.php">Buying Products</a></li>
+                <li class="nav-item"><a class="nav-link" href="profile.php">logged in as:<?php echo $_SESSION['email'];?></a></li>
             </ul>
             <ul class="nav navbar-nav">
             <li class="nav-item"><a  class="nav-link" href="cart.php">My Cart</a></li>

@@ -3,13 +3,13 @@
     require_once 'config.php';
     $userid=$_SESSION['id']; 
     $tt="All";
-    $sql="SELECT `cname`,`category`,`cinfo`,`price`,`image`,`userid`,`id` FROM product where userid!=$userid";
+    $sql="SELECT `pname`,`category`,`pinfo`,`price`,`image`,`userid`,`pid` FROM product where userid!=$userid";
     if(isset($_POST["submit"]))
     {   
         $tt=$_POST['type'];  
         if($tt!="All")
         {
-            $sql="SELECT `cname`,`category`,`cinfo`,`price`,`image`,`userid`,`id` FROM product where userid!=$userid and category='$tt'";
+            $sql="SELECT `pname`,`category`,`pinfo`,`price`,`image`,`userid`,`pid` FROM product where userid!=$userid and category='$tt'";
         }
     }
     $result=$conn->query($sql);
@@ -32,8 +32,7 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active"><a class="nav-link" href="home.php">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="sale.php">Selling Crops</a></li>
-                <li class="nav-item"><a class="nav-link" href="buying.php">Buying Crops</a></li>
-                <li class="nav-item"><a class="nav-link" href="pesticides.php">Buying Pesticides</a></li>
+                <li class="nav-item"><a class="nav-link" href="buying.php">Buying Products</a></li>
                 <li class="nav-item"><a class="nav-link" href="profile.php">logged in as:<?php echo $_SESSION['email'];?></a></li>
             </ul>
             <ul class="nav navbar-nav">
@@ -52,6 +51,7 @@
                         <option value="Fruit" <?php if($tt=="Fruit")echo "selected"; ?> style="color: black;">Fruit</option>
                         <option value="Vegetable" <?php if($tt=="Vegetable")echo "selected"; ?> style="color: black;">Vegetable</option>
                         <option value="Grains" <?php if($tt=="Grains")echo "selected"; ?> style="color: black;">Grains</option>
+                        <option value="Grains" <?php if($tt=="Pesticide")echo "selected";?> style="color: black;">Pesticide</option>
                     </select>
                 </div>
                 <div class="form-group col-md-3"> 
@@ -74,8 +74,8 @@
                         <div class='card'>
                             <img class='card-img-top' src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['image']); ?>" alt='Card image cap'>
                             <div class='card-body'>
-                                <h4 class='card-title'><a href='product.html' title='View Product'><?php echo $row['cname'];?></a></h4>
-                                <p class='card-text'><?php echo $row['cinfo'];?></p>
+                                <h4 class='card-title'><a href='product.html' title='View Product'><?php echo $row['pname'];?></a></h4>
+                                <p class='card-text'><?php echo $row['pinfo'];?></p>
                                 <div class='row'>
                                     <div class='col'>
                                         <p class='btn btn-danger btn-block'><?php echo $row['price'];?></p>
