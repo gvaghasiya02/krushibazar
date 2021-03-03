@@ -13,6 +13,23 @@
         }
     }
     $result=$conn->query($sql);
+    if(isset($_POST['addToCart']))
+    {
+        $pid=$_POST['pid'];
+        $sql="INSERT INTO `cart`(`userid`,`productid`,`qty`) VALUES ('$userid','$pid','1')";
+        $insertSuccess=$conn->query($sql);
+        //var_dump($insertSuccess);
+    }
+    $sql="SELECT `productid` FROM `cart` WHERE `userid`='$userid'";
+    $cartVal=$conn->query($sql);
+    $cart=array();
+    if($cartVal)
+    {
+        while($row=$cartVal->fetch_assoc())
+        {
+            array_push($cart,$row['productid']);
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,6 +60,25 @@
     </nav>
     
     <div class='container mt-4' >
+    <?php 
+        if(isset($_POST['addToCart']) && $insertSuccess)
+        {
+            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+            <strong>Success</strong> Product added to the Cart.
+            <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+              <span aria-hidden='true'>&times;</span>
+            </button>
+          </div>";
+        }
+        elseif(isset($_POST['addToCart']))
+        {
+            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+            <strong>Failed</strong> Failed to add the Product to Cart.<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+            <span aria-hidden='true'>&times</span>
+            </button>  
+            </div>";
+        }
+    ?>
     <form action="" method="post" enctype="multipart/form-data">
     <div class="form-row"> 
     <div class="form-group col-md-4">
@@ -80,8 +116,20 @@
                                     <div class='col'>
                                         <p class='btn btn-danger btn-block'><?php echo $row['price'];?></p>
                                     </div>
+
                                     <div class='col'>
-                                        <a href='#' class='btn btn-success btn-block'>Add to cart</a>
+                                    <?php
+                                        if(in_array($row['pid'],$cart))
+                                        {
+                                            echo "<a href='cart.php' class='btn btn-success btn-block'>Go To Cart</a>";
+                                        }
+                                        else
+                                        {?>
+                                        <form action="" method="post">
+                                            <input type="hidden" name="pid" value=<?php echo $row['pid']; ?>>
+                                            <button name="addToCart" class="btn btn-success btn-block">Add To Cart</button>
+                                        </form>
+                                        <?php } ?>
                                     </div>
                                 </div>
                             </div>
