@@ -2,16 +2,37 @@
     session_start();
     require_once 'config.php';
     $userid=$_SESSION['id']; 
-    $sql="SELECT `productid` FROM `cart` WHERE `userid`='$userid'";
+    if(isset($_POST['increment']))
+    {
+        $product_id=$_POST['pid'];
+        $quantity=(int)$_POST['qty']+1;
+        $sql="UPDATE `cart` SET `qty` = $quantity WHERE `userid` = $userid and `productid`=$product_id";
+        $increment=$conn->query($sql);
+    }
+    if(isset($_POST['decrement']))
+    {
+        $product_id=$_POST['pid'];
+        $quantity=(int)$_POST['qty']-1;
+        $sql="UPDATE `cart` SET `qty` = $quantity WHERE `userid` = $userid and `productid`=$product_id";
+        $increment=$conn->query($sql);
+    }
+    if(isset($_POST['removeFromCart']))
+    {
+        $product_id=$_POST['pid'];
+        $sql="DELETE FROM `cart` WHERE `userid` = $userid and `productid`=$product_id";
+        $remove=$conn->query($sql);
+    }
+    $sql="SELECT `productid`,`qty` FROM `cart` WHERE `userid`='$userid'";
     $cartVal=$conn->query($sql);
     $cart=array();
     if($cartVal)
     {
         while($row=$cartVal->fetch_assoc())
         {
-            array_push($cart,$row['productid']);
+            array_push($cart,$row);
         }
     }
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -48,7 +69,7 @@
             }
             else
             { ?>
-                <table className="table" border=1px>
+                <table className="table" cellpadding=5px align=center border=1px>
                     <thead className="thead-light">
                         <tr>
                             <th>Sr. No.</th>
@@ -57,34 +78,76 @@
                             <th>Category</th>
                             <th>Info</th>
                             <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                     <?php 
-                    $srno=1;
+                        $srno=1;
+                        $cart_total=0;
+                        $cart_qty=0;
                         $sql="SELECT `pid`,`pname`,`category`,`pinfo`,`price`,`image` FROM `product` WHERE `pid`=?";
                         $stmt=$conn->prepare($sql);
                         $stmt->bind_param('s',$param_pid);
-                        foreach($cart as $param_pid)
+                        foreach($cart as $key=>$value)
                         {
+                            $param_pid=$value['productid'];
                             $stmt->execute();
                             $result=$stmt->get_result();
                             $item=$result->fetch_array(MYSQLI_ASSOC);
+                            $cart_total+=($item['price']*$value['qty']);
+                            $cart_qty+=$value['qty'];
                             ?>
                             <tr>
-                            <th><?php echo $srno ?></th>
+                            <th class="text-center"><?php echo $srno ?></th>
                             <?php $srno++?>
-                            <th><img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($item['image']);?>" height=150 /> </th>
-                            <th><?php echo $item['pname']?></th>
-                            <th><?php echo $item['category']?></th>
-                            <th><?php echo $item['pinfo']?></th>
-                            <th><?php echo $item['price']?></th>
+                            <th class="text-center"><img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($item['image']);?>" height=150 /> </th>
+                            <th class="text-center"><?php echo $item['pname']?></th>
+                            <th class="text-center"><?php echo $item['category']?></th>
+                            <th class="text-center"><?php echo $item['pinfo']?></th>
+                            <th class="text-center"><?php echo $item['price']?></th>
+                            <th class="text-center"><form action="" method="post">
+                                <input type="hidden" name="pid" value=<?php echo $item['pid']; ?>>
+                                <input name="qty" type="hidden" value=<?php echo $value['qty']?>></input>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <button name="increment" type="submit" class="btn btn-success btn-block">+</button>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <h4><?php echo $value['qty']?></h4>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <button name="decrement" type="submit" class="btn btn-success btn-block">-</button>
+                                    </div>
+                                </div>
+                            </form></th>
+                            <th class="text-center"><?php echo $item['price']*$value['qty']; ?></th>
+                            <th><form action="" method="post">
+                                <input type="hidden" name="pid" value=<?php echo $item['pid']; ?>>
+                                <button name="removeFromCart" class="btn btn-success btn-block">Remove from Cart</button>
+                            </form></th>
                         </tr>
-                            
-                       <?php } ?>                </tbody>
+                        <?php } ?>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th class="text-center">Total Quantity : <?php echo $cart_qty; ?></th>
+                            <th class="text-center">Cart Sub-Total : <?php echo $cart_total; ?></th>
+                            <th></th>
+                        </tr>
+                        </tbody>
                 </table>
             <?php } ?>
+
+            <div class="d-flex flex-row-reverse bd-highlight my-4">
+            <a class="btn btn-success ml-12" href="checkout.php">Checkout</a>
+            </div>
     </div>
-    
 </body>
 </html>
