@@ -1,4 +1,5 @@
 <?php
+$insertSuccess=false;
     session_start();
     require_once 'config.php';
     $userid=$_SESSION['id']; 
