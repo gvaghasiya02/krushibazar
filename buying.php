@@ -106,7 +106,7 @@
                 {
                     while($row=$result->fetch_assoc())
                     { ?>
-                    <div class='col-md-6 col-lg-3'>
+                    <div class='col-12 col-md-6 col-lg-3'>
                         <div class='card'>
                             <img class='card-img-top' src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['image']); ?>" alt='Card image cap'>
                             <div class='card-body'>
