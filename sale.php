@@ -32,6 +32,12 @@
         else{
             $productPrice =$_POST['price'];
         }
+        if(empty(trim($_POST['qty']))){
+            $err.="Please Enter Product avaliable Quantity<br>";
+        }
+        else{
+            $productQty =$_POST['qty'];
+        }
 
         if(!empty($_FILES["croppic"]["name"]))
         {
@@ -57,7 +63,7 @@
         if($err=="<br>")
         {
             // Insert image content into database 
-            $sql="INSERT INTO `product` (`pname`, `category`, `pinfo`, `price`, `image`,`userid`) VALUES ('$productName', '$productType', '$productInfo', '$productPrice','$imgContent','$userid')";
+            $sql="INSERT INTO `product` (`pname`, `category`, `pinfo`, `price`, `image`,`userid`,`qty`) VALUES ('$productName', '$productType', '$productInfo', '$productPrice','$imgContent','$userid','$productQty')";
             $insert = $conn->query($sql);
 
             if($insert)
@@ -137,13 +143,17 @@
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                     <label for="price">Price</label>
-                    <input class="form-control" type="number" name="price" id="price" placeholder="Enter Price">
+                    <input class="form-control" type="number" name="price" id="price" placeholder="Enter Price of 500 grams">
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                     <label for="croppic">Upload an Image</label>
                     <input class="form-control" type="file" name="croppic" id="croppic"></input>
+                </div>
+                <div class="form-group col-md-4"> 
+                    <label for="qty">Enter Quantity(in 500 grams packets)</label>
+                    <input class="form-control" type="number" name="qty" id="qty" placeholder="Enter Quantity(no of packets 500 grams)">
                 </div>
             </div>
             <div class="form-row"> 

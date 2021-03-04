@@ -21,6 +21,12 @@
         else{
             $productInfo = $_POST['pestinfo'];
         }
+        if(empty(trim($_POST['pqty']))){
+            $err.="Please Enter Product avaliable Quantity<br>";
+        }
+        else{
+            $productQty =$_POST['pqty'];
+        }
 
         if(empty(trim($_POST['price']))){
             $err.="Please Enter Pesticide Price<br>";
@@ -28,6 +34,7 @@
         else{
             $productPrice =$_POST['price'];
         }
+        
 
         if(!empty($_FILES["pestpic"]["name"]))
         {
@@ -54,7 +61,7 @@
         {
             $category="Pesticide";
             // Insert image content into database 
-            $sql="INSERT INTO `product` (`pname`, `pinfo`, `price`, `image`,`category`,`userid`) VALUES ('$productName', '$productInfo', '$productPrice','$imgContent','$category','9')";
+            $sql="INSERT INTO `product` (`pname`, `pinfo`, `price`, `image`,`category`,`userid`,`qty`) VALUES ('$productName', '$productInfo', '$productPrice','$imgContent','$category','9','$productQty')";
             $insert = $conn->query($sql);
 
             if($insert)
@@ -76,7 +83,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://cdn.ckeditor.com/4.8.0/full/ckeditor.js"></script>
-    <title>Home</title>
+    <title>addpesticide</title>
 </head>
 <body>
     <div class="container">
@@ -116,26 +123,32 @@
         }
     ?>
     <div class="container mt-4 shadow">
-        <h1 class="text-primary">Upload Pesticide</h1>
+        <h1 class="text-primary">Add Pesticide</h1>
         <form action="" method="post" enctype="multipart/form-data">
             <div class="form-row">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6">
                     <label for="pestname">Pesticide name</label>
                     <input class="form-control" type="text" name="pestname" id="pestname" placeholder="Enter Pesticide name">
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6">
                     <label for="price">Price</label>
                     <input class="form-control" type="number" name="price" id="price" placeholder="Enter Price">
                 </div>
-                <div class="form-group col-md-4">
+            </div>
+            <div class="from-row">
+            <div class="form-group col-md-6"> 
+                    <label for="pqty">Enter Quantity</label>
+                    <input class="form-control" type="number" name="pqty" id="pqty" placeholder="Enter Quantity">
+                </div>
+                <div class="form-group col-md-6">
                     <label for="pestpic">Upload an Image</label>
                     <input class="form-control" type="file" name="pestpic" id="pestpic"></input>
                 </div>
-                </div>
+            </div>
                 <div class="form-row"> 
                 <div class="form-group col-md-10"> 
                     <label for="pestinfo">Enter Information</label>
-                    <textarea  name="pestinfo" id="pestinfo" rows="12"></textarea>
+                    <textarea name="pestinfo" id="pestinfo" rows="12"></textarea>
                 </div>
             </div>
             <div class="form-row"> 
