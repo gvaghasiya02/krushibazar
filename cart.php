@@ -143,11 +143,10 @@
                         </tr>
                         </tbody>
                 </table>
-            <?php } ?>
-
-            <div class="d-flex flex-row-reverse bd-highlight my-4">
+                <div class="d-flex flex-row-reverse bd-highlight my-4">
             <a class="btn btn-success ml-12" href="checkout.php">Checkout</a>
             </div>
+            <?php } ?>
     </div>
 </body>
 </html>
