@@ -88,7 +88,7 @@
                         $srno=1;
                         $cart_total=0;
                         $cart_qty=0;
-                        $sql="SELECT `pid`,`pname`,`category`,`pinfo`,`price`,`image` FROM `product` WHERE `pid`=?";
+                        $sql="SELECT `pid`,`pname`,`category`,`pinfo`,`price`,`image`,`qty` FROM `product` WHERE `pid`=?";
                         $stmt=$conn->prepare($sql);
                         $stmt->bind_param('s',$param_pid);
                         foreach($cart as $key=>$value)
@@ -113,13 +113,13 @@
                                 <input name="qty" type="hidden" value=<?php echo $value['qty']?>></input>
                                 <div class="row">
                                     <div class="col-lg-4">
-                                        <button name="increment" type="submit" class="btn btn-success btn-block">+</button>
+                                        <button name="increment" type="submit" <?php if($value['qty']==$item['qty']) echo "disabled"; ?> class="btn btn-success btn-block">+</button>
                                     </div>
                                     <div class="col-lg-4">
                                         <h4><?php echo $value['qty']?></h4>
                                     </div>
                                     <div class="col-lg-4">
-                                        <button name="decrement" type="submit" class="btn btn-success btn-block">-</button>
+                                        <button name="decrement" type="submit" <?php if($value['qty']==1) echo "disabled"; ?>class="btn btn-success btn-block">-</button>
                                     </div>
                                 </div>
                             </form></th>
