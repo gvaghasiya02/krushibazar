@@ -33,7 +33,7 @@
             if($result->num_rows==1)
             {
                 $row = $result->fetch_assoc();
-                echo $row['password'];
+                //echo $row['password'];
                 if(password_verify($password,$row['password']))
                 {
                     session_start();
@@ -42,11 +42,15 @@
                     $_SESSION['loggedin']=true;
                     header('location:home.php');
                 }
+                else{
+                    $err.="Please enter correct Username and Password.";
+                    $success=false;
+                }
             }
             else
             {
                 $err.="Please enter correct Username and Password.";
-            $success=false;
+                $success=false;
             }
         }
     }
@@ -69,7 +73,7 @@
         if($err!="<br>")
         {
             echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
-            <strong>Failed to Add the Product</strong>";
+            <strong>Failed</strong>Sign In Failed";
             echo $err;
             echo "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
             <span aria-hidden='true'  >&times;</span>
