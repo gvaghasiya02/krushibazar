@@ -135,15 +135,15 @@
                     <input class="form-control" type="number" name="price" id="price" placeholder="Enter Price">
                 </div>
             </div>
-            <div class="from-row">
-            <div class="form-group col-md-6"> 
-                    <label for="pqty">Enter Quantity</label>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                <label for="pqty">Enter Quantity</label>
                     <input class="form-control" type="number" name="pqty" id="pqty" placeholder="Enter Quantity">
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="pestpic">Upload an Image</label>
+                <label for="pestpic">Upload an Image</label>
                     <input class="form-control" type="file" name="pestpic" id="pestpic"></input>
-                </div>
+                    </div>
             </div>
                 <div class="form-row"> 
                 <div class="form-group col-md-10"> 
