@@ -40,8 +40,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Cart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+.btn {
+  background-color: green;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}
+</style>
 </head>
 <body>
 <div class="container">
@@ -78,7 +88,7 @@
                             <th>Category</th>
                             <th>Info</th>
                             <th>Price</th>
-                            <th>Quantity</th>
+                            <th colspan=3>Quantity</th>
                             <th>Total</th>
                             <th>Actions</th>
                         </tr>
@@ -103,42 +113,36 @@
                             <tr>
                             <th class="text-center"><?php echo $srno ?></th>
                             <?php $srno++?>
-                            <th class="text-center"><img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($item['image']);?>" height=150 /> </th>
-                            <th class="text-center"><?php echo $item['pname']?></th>
-                            <th class="text-center"><?php echo $item['category']?></th>
-                            <th class="text-center"><?php echo $item['pinfo']?></th>
-                            <th class="text-center"><?php echo $item['price']?></th>
-                            <th class="text-center"><form action="" method="post">
-                                <input type="hidden" name="pid" value=<?php echo $item['pid']; ?>>
-                                <input name="qty" type="hidden" value=<?php echo $value['qty']?>></input>
-                                <div class="row">
-                                    <div class="col-lg-4">
-                                        <button name="increment" type="submit" <?php if($value['qty']==$item['qty']) echo "disabled"; ?> class="btn btn-success btn-block">+</button>
-                                    </div>
-                                    <div class="col-lg-4">
+                                <th class="text-center"><img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($item['image']);?>" height=150 /></th>
+                                <th class="text-center"><?php echo $item['pname']?></th>
+                                <th class="text-center"><?php echo $item['category']?></th>
+                                <th class="text-center"><?php echo $item['pinfo']?></th>
+                                <th class="text-center"><?php echo $item['price']?></th>
+                                <form action="" method="post">
+                                    <th width=5 class="text-center">
+                                        <button name="increment" type="submit" <?php if($value['qty']==$item['qty']) echo "disabled"; ?> class="btn btn-success btn-block"><b>+</b></button>
+                                    </th>
+                                    <th width=auto class="text-center">
+                                        <input type="hidden" name="pid" value=<?php echo $item['pid']; ?>>
+                                        <input name="qty" type="hidden" value=<?php echo $value['qty']?>></input>
                                         <h4><?php echo $value['qty']?></h4>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <button name="decrement" type="submit" <?php if($value['qty']==1) echo "disabled"; ?>class="btn btn-success btn-block">-</button>
-                                    </div>
-                                </div>
-                            </form></th>
-                            <th class="text-center"><?php echo $item['price']*$value['qty']; ?></th>
-                            <th><form action="" method="post">
-                                <input type="hidden" name="pid" value=<?php echo $item['pid']; ?>>
-                                <button name="removeFromCart" class="btn btn-success btn-block">Remove from Cart</button>
-                            </form></th>
+                                    </th>
+                                    <th  width=5 class="text-center">
+                                        <button name="decrement" type="submit" <?php if($value['qty']=='1') echo "disabled"; ?> class="btn btn-success btn-block"><b>−</b></button>
+                                    </th>
+                                </form>
+                                <th class="text-center"><?php echo $item['price']*$value['qty']; ?></th>
+                                <th><form action="" method="post">
+                                    <input type="hidden" name="pid" value=<?php echo $item['pid']; ?>>                                  
+                                    <button name="removeFromCart" class="btn" alt="Remove"><i class="fa fa-close"></i></button>
+                                </form>
+                                </th>
                         </tr>
                         <?php } ?>
                         <tr>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th class="text-center">Total Quantity : <?php echo $cart_qty; ?></th>
-                            <th class="text-center">Cart Sub-Total : <?php echo $cart_total; ?></th>
+                            <th colspan=6></th>
+                            <th colspan=3 class="text-center">Total Quantity:<?php echo $cart_qty; ?></th>
+                            <th class="text-center">Cart Total : <?php echo $cart_total; ?></th>
                             <th></th>
                         </tr>
                         </tbody>
