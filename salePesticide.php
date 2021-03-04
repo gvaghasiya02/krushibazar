@@ -21,14 +21,14 @@
         else{
             $productInfo = $_POST['pestinfo'];
         }
-        if(empty(trim($_POST['pqty']))){
-            $err.="Please Enter Product avaliable Quantity<br>";
+        if(empty(trim($_POST['pqty'])) || trim($_POST['pqty'])<=0){
+            $err.="Please Enter Product vaild avaliable Quantity<br>";
         }
         else{
             $productQty =$_POST['pqty'];
         }
 
-        if(empty(trim($_POST['price']))){
+        if(empty(trim($_POST['price'])) || trim($_POST['price'])<=0){
             $err.="Please Enter Pesticide Price<br>";
         }
         else{

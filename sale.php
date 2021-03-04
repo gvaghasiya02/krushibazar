@@ -26,13 +26,13 @@
             $productInfo = $_POST['cinfo'];
         }
 
-        if(empty(trim($_POST['price']))){
+        if(empty(trim($_POST['price'])) || trim($_POST['price'])<=0){
             $err.="Please Enter Product Price<br>";
         }
         else{
             $productPrice =$_POST['price'];
         }
-        if(empty(trim($_POST['qty']))){
+        if(empty(trim($_POST['qty'])) || trim($_POST['qty'])<=0){
             $err.="Please Enter Product avaliable Quantity<br>";
         }
         else{
