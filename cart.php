@@ -48,7 +48,7 @@
             }
             else
             { ?>
-                <table className="table">
+                <table className="table" border=1px>
                     <thead className="thead-light">
                         <tr>
                             <th>Sr. No.</th>
@@ -78,7 +78,6 @@
                             <th><?php echo $item['pname']?></th>
                             <th><?php echo $item['category']?></th>
                             <th><?php echo $item['pinfo']?></th>
-                            <th><?php echo $item['pname']?></th>
                             <th><?php echo $item['price']?></th>
                         </tr>
                             
