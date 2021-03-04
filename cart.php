@@ -74,7 +74,7 @@
                             <tr>
                             <th><?php echo $srno ?></th>
                             <?php $srno++?>
-                            <th><img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($item['image']);?>" height=300 width=200/> </th>
+                            <th><img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($item['image']);?>" height=150 /> </th>
                             <th><?php echo $item['pname']?></th>
                             <th><?php echo $item['category']?></th>
                             <th><?php echo $item['pinfo']?></th>
