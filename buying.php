@@ -111,7 +111,7 @@
                             <img class='card-img-top' src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['image']); ?>" alt='Card image cap'>
                             <div class='card-body'>
                                 <h4 class='card-title'><a href='product.html' title='View Product'><?php echo $row['pname'];?></a></h4>
-                                <p class='card-text'><?php echo $row['pinfo'];?></p>
+                                <p class='card-text'><b><?php echo $row['category'];?></b><br><?php echo $row['pinfo'];?></p>
                                 <div class='row'>
                                     <div class='col'>
                                         <p class='btn btn-danger btn-block'><?php echo $row['price'];?></p>
