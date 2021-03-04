@@ -62,7 +62,7 @@
                     <tbody>
                     <?php 
                     $srno=1;
-                        $sql="SELECT `pid`,`pname`,`category`,`pinfo`,`price` FROM `product` WHERE `pid`=?";
+                        $sql="SELECT `pid`,`pname`,`category`,`pinfo`,`price`,`image` FROM `product` WHERE `pid`=?";
                         $stmt=$conn->prepare($sql);
                         $stmt->bind_param('s',$param_pid);
                         foreach($cart as $param_pid)
@@ -70,18 +70,19 @@
                             $stmt->execute();
                             $result=$stmt->get_result();
                             $item=$result->fetch_array(MYSQLI_ASSOC);
+                            ?>
+                            <tr>
+                            <th><?php echo $srno ?></th>
+                            <?php $srno++?>
+                            <th><img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($item['image']);?>" height=300 width=200/> </th>
+                            <th><?php echo $item['pname']?></th>
+                            <th><?php echo $item['category']?></th>
+                            <th><?php echo $item['pinfo']?></th>
+                            <th><?php echo $item['pname']?></th>
+                            <th><?php echo $item['price']?></th>
+                        </tr>
                             
-                            echo "<tr>";
-                                echo "<td>".$srno."</td>";    
-                                $srno++;
-                                echo "<td>tp</td>";
-                                echo "<td>". $item['pname'] ."</td>";
-                                echo "<td>".$item['category']."</td>";
-                                echo "<td>".$item['pinfo']."</td>";
-                                echo "<td>".$item['price']."</td>";
-                                echo "</tr>";
-                       } ?>
-                    </tbody>
+                       <?php } ?>                </tbody>
                 </table>
             <?php } ?>
     </div>
