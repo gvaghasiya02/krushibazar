@@ -48,7 +48,7 @@
   background-color: green;
   border: none;
   color: white;
-  font-size: 20px;
+  font-size: 16px;
   cursor: pointer;
 }
 </style>
