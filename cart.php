@@ -43,15 +43,6 @@
     <title>Cart</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <style>
-.btn {
-  background-color: green;
-  border: none;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-}
-</style>
 </head>
 <body>
 <div class="container">
@@ -79,18 +70,17 @@
             }
             else
             { ?>
-                <table className="table" cellpadding=5px align=center>
-                    <thead className="thead-light">
+                <table class="table  table-striped" cellpadding=5px align=center>
+                    <thead class="thead-dark">
                         <tr>
-                            <th>Sr. No.</th>
-                            <th>Image</th>
-                            <th>Name</th>
-                            <th>Category</th>
-                            <th>Info</th>
-                            <th>Price</th>
-                            <th colspan=3>Quantity</th>
-                            <th>Total</th>
-                            <th>Actions</th>
+                            <th class="text-center" scope="col">Sr. No.</th>
+                            <th class="text-center" scope="col">Image</th>
+                            <th class="text-center" scope="col">Name</th>
+                            <th class="text-center" scope="col">Category</th>
+                            <th class="text-center" scope="col">Price</th>
+                            <th class="text-center" scope="col" colspan=3>Quantity</th>
+                            <th class="text-center" scope="col">Total</th>
+                            <th class="text-center" scope="col">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -116,11 +106,10 @@
                                 <th class="text-center"><img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($item['image']);?>" height=150 /></th>
                                 <th class="text-center"><?php echo $item['pname']?></th>
                                 <th class="text-center"><?php echo $item['category']?></th>
-                                <th class="text-center"><?php echo $item['pinfo']?></th>
                                 <th class="text-center"><?php echo $item['price']?></th>
                                 <form action="" method="post">
                                     <th width=5 class="text-center">
-                                        <button name="increment" type="submit" <?php if($value['qty']==$item['qty']) echo "disabled"; ?> class="btn"><i class="fa fa-plus"></i></button>
+                                        <button name="increment" type="submit" <?php if($value['qty']==$item['qty']) echo "disabled"; ?> class="btn btn-success"><i class="fa fa-plus"></i></button>
                                     </th>
                                     <th class="text-center">
                                         <input type="hidden" name="pid" value=<?php echo $item['pid']; ?>>
@@ -128,19 +117,19 @@
                                         <h4><?php echo $value['qty']?></h4>
                                     </th>
                                     <th  width=5 class="text-center">
-                                        <button name="decrement" type="submit" <?php if($value['qty']=='1') echo "disabled"; ?> class="btn"><i class="fa fa-minus"></i></button>
+                                        <button name="decrement" type="submit" <?php if($value['qty']=='1') echo "disabled"; ?> class="btn btn-success"><i class="fa fa-minus"></i></button>
                                     </th>
                                 </form>
                                 <th class="text-center"><?php echo $item['price']*$value['qty']; ?></th>
                                 <th><form action="" method="post">
                                     <input type="hidden" name="pid" value=<?php echo $item['pid']; ?>>                                  
-                                    <button name="removeFromCart" class="btn" alt="Remove"><i class="fa fa-close"></i></button>
+                                    <button type="button" name="removeFromCart" class="btn btn-danger" alt="Remove"><i class="fa fa-close"></i></button>
                                 </form>
                                 </th>
                         </tr>
                         <?php } ?>
                         <tr>
-                            <th colspan=6></th>
+                            <th colspan=5></th>
                             <th colspan=3 class="text-center">Total Quantity:<?php echo $cart_qty; ?></th>
                             <th class="text-center">Cart Total : <?php echo $cart_total; ?></th>
                             <th></th>
