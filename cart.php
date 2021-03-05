@@ -120,15 +120,15 @@
                                 <th class="text-center"><?php echo $item['price']?></th>
                                 <form action="" method="post">
                                     <th width=5 class="text-center">
-                                        <button name="increment" type="submit" <?php if($value['qty']==$item['qty']) echo "disabled"; ?> class="btn btn-success btn-block"><b>+</b></button>
+                                        <button name="increment" type="submit" <?php if($value['qty']==$item['qty']) echo "disabled"; ?> class="btn"><i class="fa"><b>+</b></i></button>
                                     </th>
-                                    <th width=auto class="text-center">
+                                    <th class="text-center">
                                         <input type="hidden" name="pid" value=<?php echo $item['pid']; ?>>
                                         <input name="qty" type="hidden" value=<?php echo $value['qty']?>></input>
                                         <h4><?php echo $value['qty']?></h4>
                                     </th>
                                     <th  width=5 class="text-center">
-                                        <button name="decrement" type="submit" <?php if($value['qty']=='1') echo "disabled"; ?> class="btn btn-success btn-block"><b>−</b></button>
+                                        <button name="decrement" type="submit" <?php if($value['qty']=='1') echo "disabled"; ?> class="btn"><i class="fa"><b>−</b></i></button>
                                     </th>
                                 </form>
                                 <th class="text-center"><?php echo $item['price']*$value['qty']; ?></th>
