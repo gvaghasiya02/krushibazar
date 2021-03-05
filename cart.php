@@ -79,7 +79,7 @@
             }
             else
             { ?>
-                <table className="table" cellpadding=5px align=center border=1px>
+                <table className="table" cellpadding=5px align=center>
                     <thead className="thead-light">
                         <tr>
                             <th>Sr. No.</th>
