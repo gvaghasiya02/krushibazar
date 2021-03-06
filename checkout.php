@@ -1,3 +1,9 @@
+<?php
+if(isset($_POST["submit"]))
+{
+  echo "hi";
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,8 +37,11 @@
         ...
       </div>
       <div class="modal-footer">
+      <form method="post" action="">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="submit" name="submit" class="btn btn-primary">Save changes</button>
+
+        </form>
       </div>
     </div>
   </div>
