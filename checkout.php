@@ -57,6 +57,7 @@ if(isset($_POST["submit"]))
     #echo $sql;
     $insert = $conn->query($sql);
     $oid = $conn->insert_id;
+    $_SESSION['oid']=$oid;
     if($insert)
             {    
                 $sql="SELECT `productid`,`qty` FROM `cart` WHERE `userid`='$userid'";
