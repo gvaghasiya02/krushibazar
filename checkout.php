@@ -80,6 +80,7 @@ if(isset($_POST["submit"]))
                 $dsql="DELETE FROM `cart` WHERE `userid`='$userid'";
                 $dcart=$conn->query($dsql);
                 $success=true;
+                header("location:bill.php");
 
     }
     else
@@ -141,7 +142,7 @@ $conn->close();
             </div>";
         }
     ?>
-<form action="bill.php" method="post">
+<form action="" method="post">
 <div class="container col-md-5 mt-10">
           <div class="form-row">
               <div class="form-group col-md-12">

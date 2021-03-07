@@ -20,9 +20,7 @@
     {
         $product_id=$_POST['pid'];
         $sql="DELETE FROM `cart` WHERE `userid` = $userid and `productid`=$product_id";
-        echo $sql;
         $remove=$conn->query($sql);
-        
     }
     $sql="SELECT `productid`,`qty` FROM `cart` WHERE `userid`='$userid'";
     $cartVal=$conn->query($sql);
@@ -71,7 +69,7 @@
         <?php
             if($cartVal->num_rows==0)
             {
-                echo "<h4 class='text-center'>Cart is Empty:(</h4>";
+                echo "<h4 class='text-center'>Cart is Empty</h4>";
             }
             else
             { ?>
