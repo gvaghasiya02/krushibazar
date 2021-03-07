@@ -47,13 +47,14 @@ if(isset($_POST["submit"]))
     $err.="vaild date";
             $success=false;
   }
-  else{
+  else
+  {
     $dadd=$_POST["address"];
     $dcity=$_POST["city"];
     $dstate=$_POST["state"];
     $cardno=$_POST["cardno"];
-    $sql="INSERT INTO `listorder` (`daddress`,`dcity`,`cardno`,`userid`) VALUES ('$dadd','$dcity','$dstate','$cardno','$userid')";
-    echo $sql;
+    $sql="INSERT INTO `listorder` (`daddress`,`dcity`,`dstate`,`cardno`,`userid`) VALUES ('$dadd','$dcity','$dstate','$cardno','$userid')";
+    #echo $sql;
     $insert = $conn->query($sql);
     if($insert)
             {
@@ -63,7 +64,6 @@ if(isset($_POST["submit"]))
               $success=false;
                 $err.="Failed to Upload the Details<br>";
             }
-
   }
 }
 $conn->close();
@@ -117,7 +117,7 @@ $conn->close();
             </div>";
         }
     ?>
-<form action="" method="post">
+<form action="bill.php" method="post">
 <div class="container col-md-5 mt-10">
           <div class="form-row">
               <div class="form-group col-md-12">
