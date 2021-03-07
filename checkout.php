@@ -1,7 +1,52 @@
 <?php
+$err1="<br>";
+$success=true;
+$err="<br>";
+session_start();
+require_once 'config.php';
+$userid=$_SESSION['id'];
+$email=$password=$firstname=$lastname=$address=$state=$city=$phonenumber=$gender=$dob="";
+$sql="SELECT email,password,firstname,lastname,address,state,city,phonenumber,gender,dob FROM user where id='$userid'";
+$result=$conn->query($sql);
+if($result->num_rows==1)
+{
+    $row = $result->fetch_assoc();
+    $email=$row['email'];
+    $password=$row['password'];
+    $firstname=$row['firstname'];
+    $lastname=$row['lastname'];
+    $address=$row['address'];
+    $state=$row['state'];
+    $city=$row['city'];
+    $phonenumber=$row['phonenumber'];
+    $gender=$row['gender'];
+    $dob=$row['dob'];
+}
+$conn->close();
+#echo date("F Y");
 if(isset($_POST["submit"]))
 {
-  echo "hi";
+  if(empty(trim($_POST['cardname']))|| empty(trim($_POST['cardno'])) || empty(trim($_POST['date'])) || empty(trim($_POST['cvv'])) )
+  {
+    $err.="Enter all details<br>";
+            $success=false;
+  }
+  elseif(strlen((string)trim($_POST['cardno']))!=16)
+  {
+    $err.="Enter valid Card Number<br>";
+            $success=false;
+  }
+  elseif((strtotime($_POST['date']))<strtotime(date("F Y")))
+  {
+    #echo strtotime($_POST['date']);
+    $err.="vaild date";
+            $success=false;
+  }
+  if(empty(trim($_POST['address'])) || empty(trim($_POST['city'])) || empty(trim($_POST['state'])))
+  {
+    $err.="Enter address<br>";
+            $success=false;    
+  }
 }
 ?>
 <!DOCTYPE html>
@@ -16,32 +61,99 @@ if(isset($_POST["submit"]))
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </head>
 <body>
-
 <div class="container">
+        <h1 class="text-center">Welcome to Krushibazar</h1>
+    </div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a class="nav-link" href="home.php">Home</a></li>
+                <li class="nav-item active"><a class="nav-link" href="sale.php">Selling Crops</a></li>
+                <li class="nav-item"><a class="nav-link" href="buying.php">Buying Products</a></li>
+                <li class="nav-item"><a class="nav-link" href="profile.php">logged in as:<?php echo $_SESSION['email'];?></a></li>
+            </ul>
+            <ul class="nav navbar-nav">
+            <li class="nav-item"><a  class="nav-link" href="cart.php">My Cart</a></li>
+                <li class="nav-item"><a class="nav-link" href="logout.php">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+    <?php 
+        if($err!="<br>")
+        {
+            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+            <strong>Failed to Add the Product</strong>";
+            echo $err;
+            echo "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+            <span aria-hidden='true'  >&times;</span>
+            </button> 
+            </div>";
+        }
+    ?>
+    <form action="" method="post">
+<div class="container col-md-5 mt-10">
+<div class="form-row">
+            <div class="form-group col-md-12">
+                <label for="address">Address</label>
+                <input class="form-control py-5" type="textarea" name="address" id="address" value=<?php echo $address;?> placeholder="Enter your Address" required>
+            </div>
+        </div >
+        <div class="form-row">
+        <div class="form-group col-md-6">
+                <label for="city">City</label>
+                <input class="form-control" type="text" name="city" id="city" value=<?php echo $city;?> placeholder="Enter City" required>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="state">State</label>
+                <input class="form-control" type="text" name="state" id="state" value=<?php echo $state;?> placeholder="Enter State" required>
+            </div>
+           
+        </div>
   <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  Launch demo modal
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#payment">
+  Pay Through Card
 </button>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="payment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Enter card Details</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        ...
+      <div class="form-row">
+      <div class="form-group col-md-12">
+      <label for="cardname">Name on Card</label>
+                <input class="form-control" type="text" name="cardname" id="cardname" placeholder="Enter Name on card">
+            </div>
+            </div>
+            <div class="form-row">
+      <div class="form-group col-md-12">
+      <label for="cardno">Card Number</label>
+                <input class="form-control" type="number" name="cardno" id="cardno" placeholder="Enter Card Number">
+            </div>
+            </div>
+            <div class="form-row">
+            <div class="form-group col-md-6">
+            <label for="date">Expiration</label>
+                <input class="form-control" type="month" name="date" id="date" placeholder="Valid Date">
+            </div>
+            <div class="form-group col-md-6">
+            <label for="cvv">Security Code</label>
+                <input class="form-control" type="password" name="cvv" id="cvv" placeholder="CVV">
+            </div>
+            
+            </div>
       </div>
       <div class="modal-footer">
-      <form method="post" action="">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" name="submit" class="btn btn-primary">Save changes</button>
 
-        </form>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" name="submit" class="btn btn-primary">Proceed</button>
+
       </div>
     </div>
   </div>
@@ -49,5 +161,6 @@ if(isset($_POST["submit"]))
   
 </div>
 
+</form>
 </body>
 </html>
