@@ -53,12 +53,14 @@ if(isset($_POST["submit"]))
     $dstate=$_POST["state"];
     $cardno=$_POST["cardno"];
     $sql="INSERT INTO `listorder` (`daddress`,`dcity`,`cardno`,`userid`) VALUES ('$dadd','$dcity','$dstate','$cardno','$userid')";
+    echo $sql;
     $insert = $conn->query($sql);
     if($insert)
             {
                 $success=true;
             }
             else{
+              $success=false;
                 $err.="Failed to Upload the Details<br>";
             }
 
