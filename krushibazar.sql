@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 07, 2021 at 10:48 AM
+-- Generation Time: Mar 07, 2021 at 12:27 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -53,18 +53,6 @@ CREATE TABLE `cart` (
   `qty` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `cart`
---
-
-INSERT INTO `cart` (`id`, `userid`, `productid`, `qty`) VALUES
-(13, 12, 38, 1),
-(23, 11, 37, 4),
-(24, 11, 38, 2),
-(25, 11, 43, 2),
-(26, 11, 42, 2),
-(27, 11, 39, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -75,7 +63,7 @@ CREATE TABLE `listorder` (
   `orderid` int(11) NOT NULL,
   `daddress` varchar(255) NOT NULL,
   `dcity` varchar(255) NOT NULL,
-  `cardno` int(11) NOT NULL,
+  `cardno` varchar(16) NOT NULL,
   `userid` int(11) NOT NULL,
   `dstate` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -85,13 +73,7 @@ CREATE TABLE `listorder` (
 --
 
 INSERT INTO `listorder` (`orderid`, `daddress`, `dcity`, `cardno`, `userid`, `dstate`) VALUES
-(1, 'fdfdfd', 'fdfd', 2147483647, 11, 'fdfd'),
-(4, 'fdfdfd', 'fdfd', 2147483647, 11, 'fdfd'),
-(5, 'fdfdfd', 'fdfd', 2147483647, 11, 'fdfd'),
-(6, 'fdfdfd', 'fdfd', 2147483647, 11, 'fdfd'),
-(7, 'fdfdfd', 'fdfd', 2147483647, 11, 'fdfd'),
-(8, 'fdfdfd', 'fdfd', 2147483647, 11, 'fdfd'),
-(9, 'fdfdfd', 'fdfd', 2147483647, 11, 'fdfd');
+(15, 'fdfdfd', 'fdfd', '7894561237894560', 11, 'fdfd');
 
 -- --------------------------------------------------------
 
@@ -111,11 +93,8 @@ CREATE TABLE `orderdetail` (
 --
 
 INSERT INTO `orderdetail` (`id`, `pid`, `qty`, `orderid`) VALUES
-(1, 37, 4, 9),
-(2, 38, 2, 9),
-(3, 43, 2, 9),
-(4, 42, 2, 9),
-(5, 39, 1, 9);
+(21, 38, 3, 15),
+(22, 39, 1, 15);
 
 -- --------------------------------------------------------
 
@@ -194,9 +173,7 @@ ALTER TABLE `adminuser`
 -- Indexes for table `cart`
 --
 ALTER TABLE `cart`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `user_fk` (`userid`),
-  ADD KEY `product_fk` (`productid`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `listorder`
@@ -214,8 +191,7 @@ ALTER TABLE `orderdetail`
 -- Indexes for table `product`
 --
 ALTER TABLE `product`
-  ADD PRIMARY KEY (`pid`),
-  ADD KEY `productfk` (`userid`);
+  ADD PRIMARY KEY (`pid`);
 
 --
 -- Indexes for table `user`
@@ -237,19 +213,19 @@ ALTER TABLE `adminuser`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT for table `listorder`
 --
 ALTER TABLE `listorder`
-  MODIFY `orderid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `orderid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `orderdetail`
 --
 ALTER TABLE `orderdetail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `product`
@@ -266,13 +242,6 @@ ALTER TABLE `user`
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `cart`
---
-ALTER TABLE `cart`
-  ADD CONSTRAINT `product_fk` FOREIGN KEY (`productid`) REFERENCES `product` (`pid`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `user_fk` FOREIGN KEY (`userid`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `product`
