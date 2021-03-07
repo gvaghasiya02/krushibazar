@@ -51,16 +51,11 @@ $sql="SELECT `pid`,`qty` FROM `orderdetail` WHERE `orderid`='$oid'";
             </ul>
         </div>
     </nav>
-    <div class="container mt-4">
+    <div class="container mt-4 col-md-6">
     <table class="table" align=center>
         <tr>
-        <th colspan=3 class="text-left">Order ID:<?php echo $oid;?></th>
+        <th colspan=3 class="text-left">Order ID: <?php echo $oid;?><br>TO: <?php echo $_SESSION['email'];?><br>Delivery Address:<br><?php echo $delivery['daddress'];?><br><?php echo $delivery['dcity'].",".$delivery['dstate'];?></th>
         <th colspan=3 rowspan=3 class="text-right" scope="col"><?php echo date("l jS \of F Y h:i:s A");?></th>
-        </tr>
-        <tr>
-        <th colspan=3 class="text-left" scope="col">TO:<?php echo $_SESSION['email'];?></th>
-        </tr><tr>
-        <th colspan=3 class="text-left" scope="col">Delivery Address:<br><?php echo $delivery['daddress'];?><br><?php echo $delivery['dcity'].",".$delivery['dstate'];?></th>
         </tr>
         </table>
     <table class="table  table-striped" cellpadding=5px align=center>
@@ -97,14 +92,14 @@ $sql="SELECT `pid`,`qty` FROM `orderdetail` WHERE `orderid`='$oid'";
                                 <th class="text-center"><?php echo $item['pname']?></th>
                                 <th class="text-center"><?php echo $item['category']?></th>
                                 <th class="text-center"><?php echo $item['price']?></th>
-                                <th class="text-center"><h4><?php echo $value['qty']?></h4></th>                        
+                                <th class="text-center"><?php echo $value['qty']?></th>                        
                                 <th class="text-center"><?php echo $item['price']*$value['qty']; ?></th>
                         </tr>
                         <?php } ?>
                         <tr>
                             <th colspan=4></th>
-                            <th class="text-center">Total Quantity:<?php echo $cart_qty; ?></th>
-                            <th class="text-center">Cart Total : <?php echo $cart_total; ?></th>
+                            <th class="text-center">Total<br>Quantity: <?php echo $cart_qty; ?></th>
+                            <th class="text-center">Cart Total :<br><?php echo $cart_total; ?></th>
                                                     </tr>
                         </tbody>
                 </table>
