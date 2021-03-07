@@ -23,6 +23,19 @@ if($result->num_rows==1)
     $dob=$row['dob'];
 }
 $conn->close();
+if(isset($_POST["pay"]))
+{
+  if(empty(trim($_POST['address']))|| empty(trim($_POST['city'])) || empty(trim($_POST['state'])))
+  {
+    $err.="Enter all detailsvsdv<br>";
+            $success1=false;
+  }
+  else
+  {
+
+  }
+  echo $err1;
+}
 #echo date("F Y");
 if(isset($_POST["submit"]))
 {
@@ -42,11 +55,10 @@ if(isset($_POST["submit"]))
     $err.="vaild date";
             $success=false;
   }
-  if(empty(trim($_POST['address'])) || empty(trim($_POST['city'])) || empty(trim($_POST['state'])))
-  {
-    $err.="Enter address<br>";
-            $success=false;    
+  else{
+    
   }
+  echo $err;
 }
 ?>
 <!DOCTYPE html>
@@ -90,8 +102,8 @@ if(isset($_POST["submit"]))
             </div>";
         }
     ?>
-    <form action="" method="post">
 <div class="container col-md-5 mt-10">
+<form action="" method="post" target="#payment">
 <div class="form-row">
             <div class="form-group col-md-12">
                 <label for="address">Address</label>
@@ -110,10 +122,10 @@ if(isset($_POST["submit"]))
            
         </div>
   <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#payment">
+<button type="submit" class="btn btn-primary" name="pay" data-toggle="modal" data-target="#payment">
   Pay Through Card
 </button>
-
+</form>
 <!-- Modal -->
 <div class="modal fade" id="payment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -125,6 +137,7 @@ if(isset($_POST["submit"]))
         </button>
       </div>
       <div class="modal-body">
+      <form method="post" action="">
       <div class="form-row">
       <div class="form-group col-md-12">
       <label for="cardname">Name on Card</label>
@@ -154,6 +167,7 @@ if(isset($_POST["submit"]))
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="submit" name="submit" class="btn btn-primary">Proceed</button>
 
+        </form>
       </div>
     </div>
   </div>
@@ -161,6 +175,5 @@ if(isset($_POST["submit"]))
   
 </div>
 
-</form>
 </body>
 </html>
