@@ -124,9 +124,9 @@
                                     </th>
                                 </form>
                                 <th class="text-center"><?php echo $item['price']*$value['qty']; ?></th>
-                                <th><form action="" method="post">
+                                <th><form action="" method="post" id="form1">
                                     <input type="hidden" name="pid" value=<?php echo $item['pid']; ?>>                                  
-                                    <button type="button" name="removeFromCart" class="btn btn-danger" alt="Remove"><i class="fa fa-close"></i></button>
+                                    <button type="submit" name="removeFromCart" class="btn btn-danger" alt="Remove"><i class="fa fa-close"></i></button>
                                 </form>
                                 </th>
                         </tr>
