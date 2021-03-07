@@ -22,13 +22,13 @@ if($result->num_rows==1)
     $gender=$row['gender'];
     $dob=$row['dob'];
 }
-$conn->close();
+
 
 if(isset($_POST["submit"]))
 {
   if(empty(trim($_POST['address']))|| empty(trim($_POST['city'])) || empty(trim($_POST['state'])))
   {
-    $err.="Enter all detailsvsdv<br>";
+    $err.="Enter details for address<br>";
             $success=false;
   }
   elseif(empty(trim($_POST['cardname']))|| empty(trim($_POST['cardno'])) || empty(trim($_POST['date'])) || empty(trim($_POST['cvv'])) )
@@ -48,10 +48,23 @@ if(isset($_POST["submit"]))
             $success=false;
   }
   else{
-    
+    $dadd=$_POST["address"];
+    $dcity=$_POST["city"];
+    $dstate=$_POST["state"];
+    $cardno=$_POST["cardno"];
+    $sql="INSERT INTO `listorder` (`daddress`,`dcity`,`cardno`,`userid`) VALUES ('$dadd','$dcity','$dstate','$cardno','$userid')";
+    $insert = $conn->query($sql);
+    if($insert)
+            {
+                $success=true;
+            }
+            else{
+                $err.="Failed to Upload the Details<br>";
+            }
+
   }
-  echo $err;
 }
+$conn->close();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -83,7 +96,15 @@ if(isset($_POST["submit"]))
         </div>
     </nav>
     <?php 
-        if($err!="<br>")
+    if($success)
+    {
+        echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+        <strong>Success</strong> Product Addedd Successfully.<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+        <span aria-hidden='true'  >&times</span>
+        </button>  
+        </div>";
+    }
+        elseif($err!="<br>")
         {
             echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
             <strong>Failed to Add the Product</strong>";
