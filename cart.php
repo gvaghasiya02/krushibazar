@@ -69,7 +69,7 @@
         <?php
             if($cartVal->num_rows==0)
             {
-                echo "<h4 class='text-center'>Cart is Empty:(</h4>";
+                echo "<h4 class='text-center'>Cart is Empty</h4>";
             }
             else
             { ?>

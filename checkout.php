@@ -77,7 +77,9 @@ if(isset($_POST["submit"]))
                           $insub = $conn->query($sql);
                                  
                         }
-                        $success=true;
+                $dsql="DELETE FROM `cart` WHERE `userid`='$userid'";
+                $dcart=$conn->query($dsql);
+                $success=true;
 
     }
     else
