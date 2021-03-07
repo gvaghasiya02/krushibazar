@@ -56,14 +56,36 @@ if(isset($_POST["submit"]))
     $sql="INSERT INTO `listorder` (`daddress`,`dcity`,`dstate`,`cardno`,`userid`) VALUES ('$dadd','$dcity','$dstate','$cardno','$userid')";
     #echo $sql;
     $insert = $conn->query($sql);
+    $oid = $conn->insert_id;
     if($insert)
-            {
-                $success=true;
-            }
-            else{
+            {    
+                $sql="SELECT `productid`,`qty` FROM `cart` WHERE `userid`='$userid'";
+                $cartVal=$conn->query($sql);
+                $cart=array();
+                if($cartVal)
+                {
+                    while($row=$cartVal->fetch_assoc())
+                    {
+                        array_push($cart,$row);
+                    }
+                }  
+                foreach($cart as $key=>$value)
+                        {
+                          $pid=$value['productid'];
+                          $qty=$value['qty'];
+                          $sql="INSERT INTO `orderdetail` (`pid`,`qty`,`orderid`) VALUES ('$pid','$qty','$oid')";
+                          $insub = $conn->query($sql);
+                                 
+                        }
+                        $success=true;
+
+    }
+    else
+    {
               $success=false;
                 $err.="Failed to Upload the Details<br>";
-            }
+    }
+            
   }
 }
 $conn->close();
@@ -117,7 +139,7 @@ $conn->close();
             </div>";
         }
     ?>
-<form action="bill.php" method="post">
+<form action="" method="post">
 <div class="container col-md-5 mt-10">
           <div class="form-row">
               <div class="form-group col-md-12">
