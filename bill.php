@@ -53,6 +53,7 @@ $sql="SELECT `pid`,`qty` FROM `orderdetail` WHERE `orderid`='$oid'";
     </nav>
     <div class="container mt-4 col-md-6">
     <table class="table" align=center>
+    <tr><th colspan=6 class="text-center"><h1>INVOICE</h1></th></tr>
         <tr>
         <th colspan=3 class="text-left">Order ID: <?php echo $oid;?><br>TO: <?php echo $_SESSION['email'];?><br>Delivery Address:<br><?php echo $delivery['daddress'];?><br><?php echo $delivery['dcity'].",".$delivery['dstate'];?></th>
         <th colspan=3 rowspan=3 class="text-right" scope="col"><?php echo date("l jS \of F Y h:i:s A");?></th>
