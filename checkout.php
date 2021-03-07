@@ -1,6 +1,6 @@
 <?php
 $err1="<br>";
-$success=true;
+$success=false;
 $err="<br>";
 session_start();
 require_once 'config.php';
@@ -141,7 +141,7 @@ $conn->close();
             </div>";
         }
     ?>
-<form action="" method="post">
+<form action="bill.php" method="post">
 <div class="container col-md-5 mt-10">
           <div class="form-row">
               <div class="form-group col-md-12">
