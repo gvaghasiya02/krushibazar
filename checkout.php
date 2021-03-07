@@ -113,7 +113,7 @@ if(isset($_POST["submit"]))
                 </div>            
           </div>
           <!-- Button trigger modal -->
-          <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#payment">
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#payment">
             Pay Through Card
           </button>
 
