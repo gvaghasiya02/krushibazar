@@ -39,6 +39,9 @@ $insertSuccess=false;
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js" ></script>
+
     <title>Buying</title>
 </head>
 <body>
@@ -63,22 +66,23 @@ $insertSuccess=false;
     <div class='container mt-4' >
     <?php 
         if(isset($_POST['addToCart']) && $insertSuccess)
-        {
-            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+        {?>
+            <div class='alert alert-success alert-dismissible fade show' role='alert'>
             <strong>Success</strong> Product added to the Cart.
             <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
               <span aria-hidden='true'>&times;</span>
             </button>
-          </div>";
+          </div>
+          <?php
         }
         elseif(isset($_POST['addToCart']))
-        {
-            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
-            <strong>Failed</strong> Failed to add the Product to Cart.<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+        {?>
+            <div class='alert alert-danger alert-dismissible fade show' role='alert'>
+            <strong>Failed</strong> Failed to add the Product to Cart.<button type="button" class='close' data-dismiss='alert' aria-label='Close'>
             <span aria-hidden='true'>&times</span>
             </button>  
-            </div>";
-        }
+            </div>
+       <?php }
     ?>
     <form action="" method="post" enctype="multipart/form-data">
     <div class="form-row"> 
