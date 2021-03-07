@@ -110,9 +110,13 @@ $sql="SELECT `pid`,`qty` FROM `orderdetail` WHERE `orderid`='$oid'";
                 </table>
                 <div class="d-flex flex-row-reverse bd-highlight my-4">
                     <!-- Button trigger modal -->
-                    <button type="save" class="btn btn-primary">
+                    <button type="submit" class="btn btn-primary">
                     Save
+                    </button>&nbsp;&nbsp;&nbsp;
+                    <a href="home.php"><button type="button" class="btn btn-primary" >
+                    Close
                     </button>
+                    </a>
                 </div>
                 </div>
                 </body>
