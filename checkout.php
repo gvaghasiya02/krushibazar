@@ -76,7 +76,13 @@ if(isset($_POST["submit"]))
                           $qty=$value['qty'];
                           $sql="INSERT INTO `orderdetail` (`pid`,`qty`,`orderid`) VALUES ('$pid','$qty','$oid')";
                           $insub = $conn->query($sql);
-                                 
+                          $sql="SELECT `qty` from `product` where `pid`='$pid'";
+                          $select=$conn->query($sql);
+                          $product=$select->fetch_assoc();
+                          $pQty=$product['qty'];
+                          $pQty-=$qty;
+                          $sql="UPDATE `product` SET `qty`='$pQty' WHERE `pid`='$pid'";
+                          $update=$conn->query($sql);
                         }
                 $dsql="DELETE FROM `cart` WHERE `userid`='$userid'";
                 $dcart=$conn->query($dsql);
