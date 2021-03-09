@@ -53,8 +53,8 @@ if(isset($_POST["submit"]))
     $dcity=$_POST["city"];
     $dstate=$_POST["state"];
     $cardno=$_POST["cardno"];
-    $date=date("Y-m-d H:i:s");
-    $sql="INSERT INTO `listorder` (`daddress`,`dcity`,`dstate`,`cardno`,`userid`,`odate`) VALUES ('$dadd','$dcity','$dstate','$cardno','$userid','$date')";
+    #$date=date("Y-m-d H:i:s");
+    $sql="INSERT INTO `listorder` (`daddress`,`dcity`,`dstate`,`cardno`,`userid`,`odate`) VALUES ('$dadd','$dcity','$dstate','$cardno','$userid',CURRENT_TIMESTAMP)";
     #echo $sql;
     $insert = $conn->query($sql);
     $oid = $conn->insert_id;

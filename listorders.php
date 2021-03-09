@@ -2,7 +2,7 @@
     session_start();
     require_once 'config.php';
     $userid=$_SESSION['id']; 
-    $sql="SELECT `orderid`,`daddress`,`dcity`,`dstate`,`odate` FROM `listorder` WHERE `userid`='$userid'";
+    $sql="SELECT `orderid`,`daddress`,`dcity`,`dstate`,`odate` FROM `listorder` WHERE `userid`='$userid' ORDER BY `odate` DESC";
     $lorders=$conn->query($sql);
     $ords=array();
     if($lorders)
