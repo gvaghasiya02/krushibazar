@@ -53,11 +53,11 @@ if(isset($_POST["submit"]))
     $dcity=$_POST["city"];
     $dstate=$_POST["state"];
     $cardno=$_POST["cardno"];
-    $sql="INSERT INTO `listorder` (`daddress`,`dcity`,`dstate`,`cardno`,`userid`) VALUES ('$dadd','$dcity','$dstate','$cardno','$userid')";
+    $date=date("l jS \of F Y h:i:s A");
+    $sql="INSERT INTO `listorder` (`daddress`,`dcity`,`dstate`,`cardno`,`userid`,`odate`) VALUES ('$dadd','$dcity','$dstate','$cardno','$userid','$date')";
     #echo $sql;
     $insert = $conn->query($sql);
     $oid = $conn->insert_id;
-    $_SESSION['oid']=$oid;
     if($insert)
             {    
                 $sql="SELECT `productid`,`qty` FROM `cart` WHERE `userid`='$userid'";
@@ -73,7 +73,7 @@ if(isset($_POST["submit"]))
                 foreach($cart as $key=>$value)
                         {
                           $pid=$value['productid'];
-                          $qty=$value['qty'];
+                          $qty=$value['qty'];                          
                           $sql="INSERT INTO `orderdetail` (`pid`,`qty`,`orderid`) VALUES ('$pid','$qty','$oid')";
                           $insub = $conn->query($sql);
                           $sql="SELECT `qty` from `product` where `pid`='$pid'";
@@ -87,7 +87,8 @@ if(isset($_POST["submit"]))
                 $dsql="DELETE FROM `cart` WHERE `userid`='$userid'";
                 $dcart=$conn->query($dsql);
                 $success=true;
-                header("location:bill.php");
+                #$_SESSION['oid']=$oid;
+                header("location:listorders.php");
 
     }
     else

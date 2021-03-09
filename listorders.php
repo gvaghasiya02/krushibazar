@@ -2,7 +2,7 @@
     session_start();
     require_once 'config.php';
     $userid=$_SESSION['id']; 
-    $sql="SELECT `orderid`,`daddress`,`dcity`,`dstate` FROM `listorder` WHERE `userid`='$userid'";
+    $sql="SELECT `orderid`,`daddress`,`dcity`,`dstate`,`odate` FROM `listorder` WHERE `userid`='$userid'";
     $lorders=$conn->query($sql);
     $ords=array();
     if($lorders)
@@ -49,7 +49,7 @@
         <?php
             if($lorders->num_rows==0)
             {
-                echo "<h4 class='text-center'>Cart is Empty</h4>";
+                echo "<h4 class='text-center'>You haven't Ordered Anything</h4>";
             }
             else
             { ?>
@@ -71,18 +71,20 @@
                         {
                             ?>
                             <tr>
-                            <form action="bill.php" method="post">
                             <th class="text-center"><?php echo $srno ?></th>
                             <?php $srno++;
-                            $_SESSION['oid']=$value['orderid'];?>
+                            $_SESSION['oid']=$value['orderid'];
+                            ?>
                                 <th class="text-center"><?php echo $value['orderid']?></th>
-                                <th class="text-center">Delivery Address:<br><?php echo $value['daddress'];?><br><?php echo $value['dcity'].",".$value['dstate'];?></th>
-                                <th class="text-center"></th>
-                                <form action="" method="post">
+                                <th class="text-center"><?php echo $value['daddress'];?><br><?php echo $value['dcity'].",".$value['dstate'];?></th>
+                                <th class="text-center"><?php echo $value['odate'];?></th>
+                                <form action="bill.php" method="post">
                                     <th width=5 class="text-center">
+                                    <input type="hidden" name="orid" value=<?php echo $value['orderid'];?> >
                                         <button name="viewbill" type="submit" class="btn btn-success">View Order</button>
                                     </th>
                                 </form>
+                               
                         </tr>
                         <?php } } ?>
                         </tbody>

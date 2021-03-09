@@ -1,9 +1,10 @@
 <?php
 session_start();
 require_once 'config.php';
-$oid=$_SESSION['oid'];
+$oid=$_POST['orid'];
+#$oid=$_SESSION['oid'];
 #echo $oid;
-$sql="SELECT `daddress`,`dcity`,`dstate` FROM `listorder` where `orderid`='$oid'";
+$sql="SELECT `daddress`,`dcity`,`dstate`,`odate` FROM `listorder` where `orderid`='$oid'";
             $result=$conn->query($sql);
             if($result->num_rows==1)
             {
@@ -81,7 +82,7 @@ $sql="SELECT `pid`,`qty` FROM `orderdetail` WHERE `orderid`='$oid'";
             </ul>
             <ul class="nav navbar-nav">
                 <li class="nav-item"><a  class="nav-link" href="cart.php">My Cart</a></li>
-                <li class="nav-item active"><a  class="nav-link" href="listorders.php">Your Orders</a></li>
+                <li class="nav-item"><a  class="nav-link" href="listorders.php">Your Orders</a></li>
                 <li class="nav-item"><a class="nav-link" href="logout.php">Logout</a></li>
             </ul>
         </div>
@@ -91,7 +92,7 @@ $sql="SELECT `pid`,`qty` FROM `orderdetail` WHERE `orderid`='$oid'";
     <tr><th colspan=6 class="text-center"><h1>INVOICE</h1></th></tr>
         <tr>
         <th colspan=3 class="text-left">Order ID: <?php echo $oid;?><br>TO: <?php echo $_SESSION['email'];?><br>Delivery Address:<br><?php echo $delivery['daddress'];?><br><?php echo $delivery['dcity'].",".$delivery['dstate'];?></th>
-        <th colspan=3 rowspan=3 class="text-right" scope="col"><?php echo date("l jS \of F Y h:i:s A");?></th>
+        <th colspan=3 rowspan=3 class="text-right" scope="col"><?php echo $delivery['odate'] ?></th>
         </tr>
         </table>
     <table class="table  table-striped" cellpadding=5px align=center>
