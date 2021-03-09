@@ -4,13 +4,13 @@ $insertSuccess=false;
     require_once 'config.php';
     $userid=$_SESSION['id']; 
     $tt="All";
-    $sql="SELECT `pname`,`category`,`pinfo`,`price`,`image`,`userid`,`pid`,`qty` FROM product where userid!=$userid";
+    $sql="SELECT `pname`,`category`,`pinfo`,`price`,`image`,`userid`,`pid`,`qty` FROM product where userid!=$userid and qty!=0";
     if(isset($_POST["submit"]))
     {   
         $tt=$_POST['type'];  
         if($tt!="All")
         {
-            $sql="SELECT `pname`,`category`,`pinfo`,`price`,`image`,`userid`,`pid`,`qty` FROM product where userid!=$userid and category='$tt'";
+            $sql="SELECT `pname`,`category`,`pinfo`,`price`,`image`,`userid`,`pid`,`qty` FROM product where userid!=$userid and category='$tt' and qty!=0";
         }
     }
     $result=$conn->query($sql);

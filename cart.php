@@ -22,6 +22,13 @@
         $sql="DELETE FROM `cart` WHERE `userid` = $userid and `productid`=$product_id";
         $remove=$conn->query($sql);
     }
+    if(isset($_POST['addToCart']))
+    {
+        $product_id=$_POST['pid'];
+        $quantity=(int)$_POST['qty'];
+        $sql="UPDATE `cart` SET `qty` = $quantity WHERE `userid` = $userid and `productid`=$product_id";
+        $increment=$conn->query($sql);
+    }
     $sql="SELECT `productid`,`qty` FROM `cart` WHERE `userid`='$userid'";
     $cartVal=$conn->query($sql);
     $cart=array();
@@ -32,7 +39,7 @@
             array_push($cart,$row);
         }
     }
-    
+    $savedForLater=0;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -73,6 +80,7 @@
             }
             else
             { ?>
+            <h4>Your Cart</h4>
                 <table class="table  table-striped" cellpadding=5px align=center>
                     <thead class="thead-dark">
                         <tr>
@@ -100,6 +108,11 @@
                             $stmt->execute();
                             $result=$stmt->get_result();
                             $item=$result->fetch_array(MYSQLI_ASSOC);
+                            if($item['qty']<$value['qty'])
+                            {
+                                $savedForLater++;
+                                continue;
+                            }
                             $cart_total+=($item['price']*$value['qty']);
                             $cart_qty+=$value['qty'];
                             ?>
@@ -141,30 +154,90 @@
                 </table>
                 <div class="d-flex flex-row-reverse bd-highlight my-4">
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    <button type="button" <?php if($savedForLater!=0) echo"disabled"; ?> class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                     Checkout
                     </button>
                 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Please Confirm</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        Are you sure you want to Checkout??
-      </div>
-      <div class="modal-footer">
-        <a href="checkout.php" class="btn btn-primary">Proceed to Checkout</a>
-      </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Please Confirm</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure you want to Checkout??
+                        </div>
+                        <div class="modal-footer">
+                            <a href="checkout.php" class="btn btn-primary">Proceed to Checkout</a>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+            <?php } ?>
     </div>
-  </div>
-</div>
+    <div class="container mt-4">
+        <?php
+            if($savedForLater!=0)
+            { ?>
+                <h4>Saved For Later</h4>
+                <table class="table  table-striped" cellpadding=5px align=center>
+                    <thead class="thead-dark">
+                        <tr>
+                            <th class="text-center" scope="col">Sr. No.</th>
+                            <th class="text-center" scope="col">Image</th>
+                            <th class="text-center" scope="col">Name</th>
+                            <th class="text-center" scope="col">Category</th>
+                            <th class="text-center" scope="col">Price</th>
+                            <th class="text-center" scope="col">Quantity</th>
+                            <th class="text-center" scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php 
+                        $srno=1;
+                        $cart_total=0;
+                        $cart_qty=0;
+                        $sql="SELECT `pid`,`pname`,`category`,`pinfo`,`price`,`image`,`qty` FROM `product` WHERE `pid`=?";
+                        $stmt=$conn->prepare($sql);
+                        $stmt->bind_param('s',$param_pid);
+                        foreach($cart as $key=>$value)
+                        {
+                            $param_pid=$value['productid'];
+                            $stmt->execute();
+                            $result=$stmt->get_result();
+                            $item=$result->fetch_array(MYSQLI_ASSOC);
+                            if($item['qty']>=$value['qty'])continue;
+                            ?>
+                            <tr>
+                            <th class="text-center"><?php echo $srno ?></th>
+                            <?php $srno++?>
+                                <th class="text-center"><img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($item['image']);?>" height=150 /></th>
+                                <th class="text-center"><?php echo $item['pname']?></th>
+                                <th class="text-center"><?php echo $item['category']?></th>
+                                <th class="text-center"><?php echo $item['price']?></th>
+                                <th class="text-center"><h4><?php echo $value['qty']; ?> Not Available <?php 
+                                if($item['qty']!=0){
+                                    echo "<br>only ".$item['qty']." Available";
+                                    echo "<form action='' method='post' id='form1'>
+                                    <input type='hidden' name='pid' value=".$item['pid'].">
+                                    <input type='hidden' name='qty' value=".$item['qty'].">                                  
+                                    <button type='submit' name='addToCart' class='btn btn-success' alt='Remove'><i class='fa fa-plus'></i></button>";
+                                } 
+                                ?></h4></th>
+                                <th><form action="" method="post" id="form1">
+                                    <input type="hidden" name="pid" value=<?php echo $item['pid']; ?>>                                  
+                                    <button type="submit" name="removeFromCart" class="btn btn-danger" alt="Remove"><i class="fa fa-close"></i></button>
+                                </form>
+                                </th>
+                        </tr>
+                        <?php } ?>
+                        </tbody>
+                </table>
             <?php } ?>
     </div>
 </body>
