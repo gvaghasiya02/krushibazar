@@ -58,6 +58,7 @@ $insertSuccess=false;
             </ul>
             <ul class="nav navbar-nav">
             <li class="nav-item"><a  class="nav-link" href="cart.php">My Cart</a></li>
+            <li class="nav-item"><a  class="nav-link" href="listorders.php">Your Orders</a></li>
                 <li class="nav-item"><a class="nav-link" href="logout.php">Logout</a></li>
             </ul>
         </div>
