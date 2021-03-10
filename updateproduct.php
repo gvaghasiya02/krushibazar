@@ -125,7 +125,7 @@ if($uproduct)
                                         <input type="hidden" name="oqty" value=<?php echo $value['qty']; ?>>
                                         <h4><?php echo $value['qty']?></h4>
                                     </th>                                   
-                                <th><div class="form-group col-md-12 text-center">
+                                <th class="text-center"><div class="form-group col-md-12 text-center">
                                             <input class="form-control" type="number" name="addqty" id="addqty" placeholder="Quantity need to be added">
                                                 </div><button type="submit" name="submit" class="btn btn-primary">Add Quantity</button></th>
                             </form>
