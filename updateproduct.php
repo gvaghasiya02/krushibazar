@@ -102,108 +102,115 @@ if($uproduct)
             </div>";
         }
     ?>
-    <div class="container-fluid mt-4">
-    <div class="row">
-    <div class="col-md-5">
-    <div class="card shadow px-3">
-    <div class="sidebar-sticky">
-            <ul class="nav flex-column">
-                <?php
-                if($uproduct->num_rows==0)
-                {
-                    echo "<h4 class='text-center'>You haven't added any products</h4>";
-                }
-                else
-                { ?>
-                <h4>Your Products</h4>
-                    <table class="table  table-striped text-center" align=center>
-                        <thead class="thead-dark">
-                            <tr>
-                                <th class="text-center" scope="col">Sr. No.</th>
-                                <th class="text-center" scope="col">Image</th>
-                                <th class="text-center" scope="col">Name</th>
-                                <th class="text-center" scope="col">Category</th>
-                                <th class="text-center" scope="col">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <?php 
-                            $srno=1;
-                            foreach($products as $key=>$value)
+    <div class="container-fluid my-3">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="card shadow px-3 py-3">
+                    <div class="sidebar-sticky">
+                        <ul class="nav flex-column">
+                            <?php
+                            if($uproduct->num_rows==0)
                             {
-                                ?>
-                                <tr>
-                                <th class="text-center"><?php echo $srno ?></th>
-                                <?php $srno++?>
-                                    <th class="text-center"><img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($value['image']);?>" height=75 /></th>
-                                    <th class="text-center"><?php echo $value['pname']?></th>
-                                    <th class="text-center"><?php echo $value['category']?></th>
-                                    <th class="text-center">
+                                echo "<h4 class='text-center'>You haven't added any products</h4>";
+                            }
+                            else
+                            { ?>
+                            <h4>Your Products</h4>
+                            <?php 
+                                $srno=1;
+                                foreach($products as $key=>$value)
+                                {?>
+                                    <li class="nav-item my-1">
                                         <form action="" method="post">
-                                            <input type="hidden" name="pid" value=<?php echo $value['pid']; ?>>
-                                            <button type="submit" name="editProduct" class="btn btn-primary"><i class="fa fa-pencil"></i></button></th>
+                                            <div class="row">
+                                                <div class="col-md-6 text-left">
+                                                    <?php echo $value['pname']; ?>
+                                                </div>
+                                                <div class="col-md-6 text-left">
+                                                    <input type="hidden" name="pid" value=<?php echo $value['pid']; ?>>
+                                                    <button type="submit" name="editProduct"><i class="fa fa-pencil"></i></button></th>
+                                                </div>
+                                            </div>
                                         </form>
-                                    </th>
-                                </tr>
+                                    </li>
                             <?php }
-                        } ?>
-                        </tbody>
-                </table>
-            </ul>
+                            } ?>
+                        </ul>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-        <div class="col-md-7">
-            <?php
-                if(isset($_POST['editProduct']))
-                { ?>
+            <div class="col-md-7">
+                <?php
+                    if(isset($_POST['editProduct']))
+                    { 
+                ?>
                 <h4>Edit Product</h4>
-                    <form action="" method="post" enctype="multipart/form-data">
+                <form action="" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="pid" value=<?php echo $productDetail['pid']; ?>>
                     <input type="hidden" name="oqty" value=<?php echo $productDetail['qty']; ?>>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="cname">Crop name</label>
-                    <input class="form-control" type="text" disabled value='<?php echo $productDetail['pname']; ?>' name="cname" id="cname" placeholder="Enter cname">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="cname">Category</label>
-                    <input class="form-control" type="text" disabled value='<?php echo $productDetail['category']; ?>' name="ccategory" id="cname" placeholder="Enter cname">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="cname">Crop name</label>
+                            <input class="form-control" type="text" disabled value='<?php echo $productDetail['pname']; ?>' name="cname" id="cname" placeholder="Enter cname">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="cname">Category</label>
+                            <input class="form-control" type="text" disabled value='<?php echo $productDetail['category']; ?>' name="ccategory" id="cname" placeholder="Enter cname">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="price">Price</label>
+                            <input class="form-control" type="number" disabled value=<?php echo $productDetail['price']; ?> name="price" id="price" placeholder="Enter Price of 500 grams">
+                        </div>
+                        <div class="form-group col-md-4"> 
+                            <label for="qty">Quantity Available</label>
+                            <input class="form-control" type="number" disabled value='<?php echo $productDetail['qty']; ?>' name="qty" id="qty" placeholder="Enter Quantity(no of packets 500 grams)">
+                        </div>
+                        <div class="form-group col-md-4"> 
+                            <label for="qty">New Quantity(in 500 grams packets)</label>
+                            <input class="form-control" type="number" name="addqty" id="qty" placeholder="Enter Quantity(no of packets 500 grams)">
+                        </div>
+                    </div>
+                    <div class="form-row"> 
+                        <div class="form-group col-md-12"> 
+                            <label for="cinfo">Enter Information</label>
+                            <textarea  name="cinfo" id="cinfo" rows="12"><?php echo $productDetail['pinfo']; ?></textarea>
+                        </div>
+                    </div>
+                    <div class="form-row"> 
+                        <div class="form-group col-md-3"> 
+                            <button type="submit" name="submit" class="btn btn-primary">Add Product</button>
+                        </div>
+                    </div>
+                </from>
+                <script>
+                    CKEDITOR.replace( 'cinfo' );
+                </script>
+            </div>
+            <div class="col-md-3">
+            <div class='card shadow'>
+                <img class='card-img-top' src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($productDetail['image']); ?>" alt='Card image cap'>
+                <div class='card-body'>
+                    <h4 class='card-title'><a href='product.html' title='View Product'><?php echo $productDetail['pname'];?></a></h4>
+                    <h5>Quantity:&nbsp<?php echo $productDetail['qty'];?></h5>
+                    <p class='card-text'><b><?php echo $productDetail['category'];?></b><br><?php echo $productDetail['pinfo'];?></p>
+                    <div class='row'>
+                        <div class='col'>
+                            <p class='btn btn-danger btn-block'><?php echo $productDetail['price'];?></p>
+                        </div>
+                        <div class='col'>
+                            <form action="" method="post">
+                                <input type="hidden" name="pid" value=<?php echo $productDetail['pid']; ?>>
+                                <button name="addToCart" class="btn btn-success btn-block">Add To Cart</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="form-row">
-                <div class="form-group col-md-4">
-                    <label for="price">Price</label>
-                    <input class="form-control" type="number" disabled value=<?php echo $productDetail['price']; ?> name="price" id="price" placeholder="Enter Price of 500 grams">
-                </div>
-                <div class="form-group col-md-4"> 
-                    <label for="qty">Quantity Available</label>
-                    <input class="form-control" type="number" disabled value='<?php echo $productDetail['qty']; ?>' name="qty" id="qty" placeholder="Enter Quantity(no of packets 500 grams)">
-                </div>
-                <div class="form-group col-md-4"> 
-                    <label for="qty">New Quantity(in 500 grams packets)</label>
-                    <input class="form-control" type="number" name="addqty" id="qty" placeholder="Enter Quantity(no of packets 500 grams)">
-                </div>
-            </div>
-            <div class="form-row"> 
-                <div class="form-group col-md-12"> 
-                    <label for="cinfo">Enter Information</label>
-                    <textarea  name="cinfo" id="cinfo" rows="12"><?php echo $productDetail['pinfo']; ?></textarea>
-                </div>
-            </div>
-            <div class="form-row"> 
-                <div class="form-group col-md-3"> 
-                    <button type="submit" name="submit" class="btn btn-primary">Add Product</button>
-                </div>
-            </div>
-        </from>
-    <script>
-		CKEDITOR.replace( 'cinfo' );
-	</script>
-
-            <?php }
-            ?>
         </div>
+            <?php }
+        ?>
     </div>
 </body>
 </html>
