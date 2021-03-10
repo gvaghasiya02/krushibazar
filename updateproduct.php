@@ -61,6 +61,8 @@ if($uproduct)
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://cdn.ckeditor.com/4.8.0/full/ckeditor.js"></script>
+    <style>
+    </style>
 <title>Update Products</title>
 </head>
 <body>
@@ -102,10 +104,10 @@ if($uproduct)
             </div>";
         }
     ?>
-    <div class="container-fluid my-3">
+    <div class="container-expand my-0">
         <div class="row">
             <div class="col-md-2">
-                <div class="card shadow px-3 py-3">
+                <div class="container-expand light shadow h-100 btn-light">
                     <div class="sidebar-sticky">
                         <ul class="nav flex-column">
                             <?php
@@ -115,35 +117,29 @@ if($uproduct)
                             }
                             else
                             { ?>
-                            <h4>Your Products</h4>
+                            <h4>&nbsp;&nbsp;Your Products</h4>
                             <?php 
                                 $srno=1;
                                 foreach($products as $key=>$value)
                                 {?>
-                                    <li class="nav-item my-1">
                                         <form action="" method="post">
-                                            <div class="row">
-                                                <div class="col-md-6 text-left">
-                                                    <?php echo $value['pname']; ?>
-                                                </div>
-                                                <div class="col-md-6 text-left">
+                                        <li class="nav-item">                                               
                                                     <input type="hidden" name="pid" value=<?php echo $value['pid']; ?>>
-                                                    <button type="submit" name="editProduct"><i class="fa fa-pencil"></i></button></th>
-                                                </div>
-                                            </div>
+                                                    <button type="submit" name="editProduct" class='btn col-md-12 text-left btn-light'>&nbsp;&nbsp;<?php echo $value['pname']; ?></button></th>
+                                            </li>
                                         </form>
-                                    </li>
                             <?php }
                             } ?>
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="col-md-7">
+            <div class="container shadow-sm col-md-7">
                 <?php
                     if(isset($_POST['editProduct']))
                     { 
                 ?>
+                <br>
                 <h4>Edit Product</h4>
                 <form action="" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="pid" value=<?php echo $productDetail['pid']; ?>>
@@ -189,10 +185,10 @@ if($uproduct)
                 </script>
             </div>
             <div class="col-md-3">
-            <div class='card shadow'>
+            <div class='card shadow-sm'>
                 <img class='card-img-top' src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($productDetail['image']); ?>" alt='Card image cap'>
                 <div class='card-body'>
-                    <h4 class='card-title'><a href='product.html' title='View Product'><?php echo $productDetail['pname'];?></a></h4>
+                    <h4 class='card-title'><?php echo $productDetail['pname'];?></h4>
                     <h5>Quantity:&nbsp<?php echo $productDetail['qty'];?></h5>
                     <p class='card-text'><b><?php echo $productDetail['category'];?></b><br><?php echo $productDetail['pinfo'];?></p>
                     <div class='row'>
@@ -202,7 +198,6 @@ if($uproduct)
                         <div class='col'>
                             <form action="" method="post">
                                 <input type="hidden" name="pid" value=<?php echo $productDetail['pid']; ?>>
-                                <button name="addToCart" class="btn btn-success btn-block">Add To Cart</button>
                             </form>
                         </div>
                     </div>
