@@ -13,10 +13,10 @@ if(isset($_POST['submit']))
     }
     else
     {
-        echo $_POST['oqty'];
+        #echo $_POST['oqty'];
         $newqty=$_POST['oqty']+$_POST['addqty'];
         $prid=$_POST['pid'];
-        echo $prid;
+        #echo $prid;
         $sql="UPDATE `product` SET `qty`='$newqty' WHERE `pid`='$prid'";
         $result=$conn->query($sql);
         $success=true;
