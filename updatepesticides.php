@@ -22,7 +22,7 @@ if(isset($_POST['submit']))
         $success=true;
     }
 }
-$sql="SELECT * FROM `product` WHERE `userid`='$userid'";
+$sql="SELECT * FROM `product` WHERE `userid`=9";
 $uproduct=$conn->query($sql);
 $products=array();
 if($uproduct)

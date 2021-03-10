@@ -186,7 +186,7 @@
             if($savedForLater!=0)
             { ?>
                 <h4>Saved For Later</h4>
-                <table class="table  table-striped" cellpadding=5px align=center>
+                <table class="table  table-striped text-center" cellpadding=5px align=center>
                     <thead class="thead-dark">
                         <tr>
                             <th class="text-center" scope="col">Sr. No.</th>

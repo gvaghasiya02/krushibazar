@@ -127,6 +127,13 @@
         }
     ?>
     <div class="container mt-4 shadow">
+    <div class="d-flex flex-row-reverse bd-highlight my-4">
+                    <!-- Button trigger modal -->
+                    <a href="updateproduct.php">
+                    <button type="button" class="btn btn-primary">
+                    Add Quantity in existing Products
+                    </button></a>
+                </div>
         <h1 class="text-primary">Upload crop</h1>
         <form action="" method="post" enctype="multipart/form-data">
             <div class="form-row">
@@ -165,7 +172,7 @@
             </div>
             <div class="form-row"> 
                 <div class="form-group col-md-3"> 
-                    <button type="submit" name="submit" class="btn btn-primary">Upload</button>
+                    <button type="submit" name="submit" class="btn btn-primary">Add Product</button>
                 </div>
             </div>
         </from>

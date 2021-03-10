@@ -123,6 +123,13 @@
         }
     ?>
     <div class="container mt-4 shadow">
+    <div class="d-flex flex-row-reverse bd-highlight my-4">
+                    <!-- Button trigger modal -->
+                    <a href="updatepesticides.php">
+                    <button type="button" class="btn btn-primary">
+                    Add Quantity in existing Pesticides
+                    </button></a>
+                </div>
         <h1 class="text-primary">Add Pesticide</h1>
         <form action="" method="post" enctype="multipart/form-data">
             <div class="form-row">
