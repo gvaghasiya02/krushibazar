@@ -107,7 +107,7 @@ if($uproduct)
     <div class="container-expand my-0">
         <div class="row">
             <div class="col-md-2">
-                <div class="container-expand light shadow h-100 btn-light">
+                <div class="container-expand light shadow h-100 ">
                     <div class="sidebar-sticky">
                         <ul class="nav flex-column">
                             <?php
