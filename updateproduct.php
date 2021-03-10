@@ -9,18 +9,34 @@ if(isset($_POST['submit']))
     if(empty(trim($_POST['addqty'])) || trim($_POST['addqty'])<1)
     {
         $err.="Enter valid Quantity<br>";
-            $success=false;
+        $success=false;
     }
-    else
+    if(empty(trim($_POST['cinfo'])))
     {
-        #echo $_POST['oqty'];
+        $err.="Enter valid information<br>";
+        $success=false;
+    }
+    if($err=="<br>")
+    {
+        echo $_POST['oqty']." ".$_POST['addqty']." ".$_POST['cinfo']." ".$_POST['pid'];
         $newqty=$_POST['oqty']+$_POST['addqty'];
+        echo $newqty;
+        $cinfo=$_POST['cinfo'];
         $prid=$_POST['pid'];
         #echo $prid;
-        $sql="UPDATE `product` SET `qty`='$newqty' WHERE `pid`='$prid'";
+        $sql="UPDATE `product` SET `qty`=$newqty,`pinfo`='$cinfo' WHERE `pid`=$prid";
+        echo $sql;
         $result=$conn->query($sql);
-        $success=true;
+        if($result)
+            $success=true;
     }
+}
+if(isset($_POST['editProduct']))
+{
+    $pid=$_POST['pid'];
+    $sql="SELECT * FROM `product` WHERE `userid`='$userid' and `pid`='$pid'";
+    $productInfo=$conn->query($sql);
+    $productDetail=$productInfo->fetch_assoc();
 }
 $sql="SELECT * FROM `product` WHERE `userid`='$userid'";
 $uproduct=$conn->query($sql);
@@ -44,6 +60,7 @@ if($uproduct)
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdn.ckeditor.com/4.8.0/full/ckeditor.js"></script>
 <title>Update Products</title>
 </head>
 <body>
@@ -85,54 +102,108 @@ if($uproduct)
             </div>";
         }
     ?>
-    <div class="container mt-4">
-        <?php
-            if($uproduct->num_rows==0)
-            {
-                echo "<h4 class='text-center'>You haven't added any products</h4>";
-            }
-            else
-            { ?>
-            <h4>Your Products</h4>
-                <table class="table  table-striped text-center" cellpadding=5px align=center>
-                    <thead class="thead-dark">
-                        <tr>
-                            <th class="text-center" scope="col">Sr. No.</th>
-                            <th class="text-center" scope="col">Image</th>
-                            <th class="text-center" scope="col">Name</th>
-                            <th class="text-center" scope="col">Category</th>
-                            <th class="text-center" scope="col">Price</th>
-                            <th class="text-center" scope="col">Quantity</th>
-                            <th class="text-center" scope="col">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <?php 
-                        $srno=1;
-                        foreach($products as $key=>$value)
-                        {
-                            ?>
+    <div class="container-fluid mt-4">
+    <div class="row">
+    <div class="col-md-5">
+    <div class="card shadow px-3">
+    <div class="sidebar-sticky">
+            <ul class="nav flex-column">
+                <?php
+                if($uproduct->num_rows==0)
+                {
+                    echo "<h4 class='text-center'>You haven't added any products</h4>";
+                }
+                else
+                { ?>
+                <h4>Your Products</h4>
+                    <table class="table  table-striped text-center" align=center>
+                        <thead class="thead-dark">
                             <tr>
-                            <th class="text-center"><?php echo $srno ?></th>
-                            <?php $srno++?>
-                                <th class="text-center"><img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($value['image']);?>" height=150 /></th>
-                                <th class="text-center"><?php echo $value['pname']?></th>
-                                <th class="text-center"><?php echo $value['category']?></th>
-                                <th class="text-center"><?php echo $value['price']?></th>
-                                <form action="" method="post">
-                                    <th class="text-center">
-                                    <input type="hidden" name="pid" value=<?php echo $value['pid']; ?>>
-                                        <input type="hidden" name="oqty" value=<?php echo $value['qty']; ?>>
-                                        <h4><?php echo $value['qty']?></h4>
-                                    </th>                                   
-                                <th class="text-center"><div class="form-group col-md-12 text-center">
-                                            <input class="form-control" type="number" name="addqty" id="addqty" placeholder="Quantity need to be added">
-                                                </div><button type="submit" name="submit" class="btn btn-primary">Add Quantity</button></th>
-                            </form>
+                                <th class="text-center" scope="col">Sr. No.</th>
+                                <th class="text-center" scope="col">Image</th>
+                                <th class="text-center" scope="col">Name</th>
+                                <th class="text-center" scope="col">Category</th>
+                                <th class="text-center" scope="col">Actions</th>
                             </tr>
-                        <?php }
-                    } ?>
+                        </thead>
+                        <tbody>
+                        <?php 
+                            $srno=1;
+                            foreach($products as $key=>$value)
+                            {
+                                ?>
+                                <tr>
+                                <th class="text-center"><?php echo $srno ?></th>
+                                <?php $srno++?>
+                                    <th class="text-center"><img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($value['image']);?>" height=75 /></th>
+                                    <th class="text-center"><?php echo $value['pname']?></th>
+                                    <th class="text-center"><?php echo $value['category']?></th>
+                                    <th class="text-center">
+                                        <form action="" method="post">
+                                            <input type="hidden" name="pid" value=<?php echo $value['pid']; ?>>
+                                            <button type="submit" name="editProduct" class="btn btn-primary"><i class="fa fa-pencil"></i></button></th>
+                                        </form>
+                                    </th>
+                                </tr>
+                            <?php }
+                        } ?>
                         </tbody>
                 </table>
+            </ul>
+            </div>
+        </div>
+    </div>
+        <div class="col-md-7">
+            <?php
+                if(isset($_POST['editProduct']))
+                { ?>
+                <h4>Edit Product</h4>
+                    <form action="" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="pid" value=<?php echo $productDetail['pid']; ?>>
+                    <input type="hidden" name="oqty" value=<?php echo $productDetail['qty']; ?>>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="cname">Crop name</label>
+                    <input class="form-control" type="text" disabled value='<?php echo $productDetail['pname']; ?>' name="cname" id="cname" placeholder="Enter cname">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="cname">Category</label>
+                    <input class="form-control" type="text" disabled value='<?php echo $productDetail['category']; ?>' name="ccategory" id="cname" placeholder="Enter cname">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="price">Price</label>
+                    <input class="form-control" type="number" disabled value=<?php echo $productDetail['price']; ?> name="price" id="price" placeholder="Enter Price of 500 grams">
+                </div>
+                <div class="form-group col-md-4"> 
+                    <label for="qty">Quantity Available</label>
+                    <input class="form-control" type="number" disabled value='<?php echo $productDetail['qty']; ?>' name="qty" id="qty" placeholder="Enter Quantity(no of packets 500 grams)">
+                </div>
+                <div class="form-group col-md-4"> 
+                    <label for="qty">New Quantity(in 500 grams packets)</label>
+                    <input class="form-control" type="number" name="addqty" id="qty" placeholder="Enter Quantity(no of packets 500 grams)">
+                </div>
+            </div>
+            <div class="form-row"> 
+                <div class="form-group col-md-12"> 
+                    <label for="cinfo">Enter Information</label>
+                    <textarea  name="cinfo" id="cinfo" rows="12"><?php echo $productDetail['pinfo']; ?></textarea>
+                </div>
+            </div>
+            <div class="form-row"> 
+                <div class="form-group col-md-3"> 
+                    <button type="submit" name="submit" class="btn btn-primary">Add Product</button>
+                </div>
+            </div>
+        </from>
+    <script>
+		CKEDITOR.replace( 'cinfo' );
+	</script>
+
+            <?php }
+            ?>
+        </div>
+    </div>
 </body>
 </html>
