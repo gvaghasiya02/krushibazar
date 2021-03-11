@@ -5,6 +5,14 @@
     $sql="select * from product inner join orderdetail where product.pid=orderdetail.pid and category='Pesticide'";
     $result=$conn->query($sql);
     #var_dump($result);
+    $listpest=array();
+    if($result)
+    {
+        while($row=$result->fetch_assoc())
+        {
+            array_push($listpest,$row);
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,5 +40,24 @@
             </ul>
         </div>
     </nav>
+    <table>
+    <?php 
+                        $srno=1;
+                        foreach($listpest as $key=>$value)
+                        {
+                            ?>
+                            <tr>
+                            <th class="text-center"><?php echo $srno ?></th>
+                            <?php $srno++?>
+                                <th class="text-center"><img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($value['image']);?>" height=150 /></th>
+                                <th class="text-center"><?php echo $value['pname']?></th>
+                                <th class="text-center"><?php echo $value['qty']?></th>
+                                <th class="text-center"><?php echo $value['price']?></th>
+                                <th><form action="" method="post" id="form1">
+                                    <input type="hidden" name="pid" value=<?php echo $value['pid']; ?>>                                  
+                                    <button type="submit" name="removeFromCart" class="btn btn-danger" alt="Remove"><i class="fa fa-close"></i></button>
+                                </form>
+                                </th>
+                        </tr><?php } ?></table>
 </body>
 </html>
