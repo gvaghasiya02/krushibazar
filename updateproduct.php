@@ -198,11 +198,7 @@ if($uproduct)
             <div class='card shadow-sm'>
                 <img class='card-img-top' src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($productDetail['image']); ?>" alt='Card image cap'>
                 <div class='card-body'>
-                    <h4 class='card-title'><?php echo $productDetail['pname'];?></h4>                    
-                    <b><?php echo $productDetail['category'];?><br>About:</b>
-                    <p class='card-text'><?php echo $productDetail['pinfo'];?></p>
-                        <b>Quantity:&nbsp<?php echo $productDetail['qty'];?></b><br>
-                            <b class=''>Price: <?php echo $productDetail['price'];?> ₹</b>
+                    <h4 class='card-title text-center'><?php echo $productDetail['pname'];?></h4>                    
                             <form action="" method="post">
                                 <input type="hidden" name="pid" value=<?php echo $productDetail['pid']; ?>>
                             </form>
