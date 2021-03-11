@@ -127,6 +127,7 @@
         }
     ?>
     <div class="container mt-4 shadow">
+        <br>
     <div class="d-flex flex-row-reverse bd-highlight my-4">
                     <!-- Button trigger modal -->
                     <a href="updateproduct.php">

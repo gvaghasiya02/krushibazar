@@ -18,14 +18,14 @@ if(isset($_POST['submit']))
     }
     if($err=="<br>")
     {
-        echo $_POST['oqty']." ".$_POST['addqty']." ".$_POST['cinfo']." ".$_POST['pid'];
+        #echo $_POST['oqty']." ".$_POST['addqty']." ".$_POST['cinfo']." ".$_POST['pid'];
         $newqty=$_POST['oqty']+$_POST['addqty'];
-        echo $newqty;
+        #echo $newqty;
         $cinfo=$_POST['cinfo'];
         $prid=$_POST['pid'];
         #echo $prid;
         $sql="UPDATE `product` SET `qty`=$newqty,`pinfo`='$cinfo' WHERE `pid`=$prid";
-        echo $sql;
+        #echo $sql;
         $result=$conn->query($sql);
         if($result)
             $success=true;
@@ -202,7 +202,7 @@ if($uproduct)
                     <b><?php echo $productDetail['category'];?><br>About:</b>
                     <p class='card-text'><?php echo $productDetail['pinfo'];?></p>
                         <b>Quantity:&nbsp<?php echo $productDetail['qty'];?></b><br>
-                            <b class=''>Price: <?php echo $productDetail['price'];?>₹</b>
+                            <b class=''>Price: <?php echo $productDetail['price'];?> ₹</b>
                             <form action="" method="post">
                                 <input type="hidden" name="pid" value=<?php echo $productDetail['pid']; ?>>
                             </form>

@@ -121,7 +121,7 @@ $insertSuccess=false;
                                 <p class='card-text'><b><?php echo $row['category'];?></b><br><?php echo $row['pinfo'];?></p>
                                 <div class='row'>
                                     <div class='col'>
-                                        <p class='btn btn-danger btn-block'><?php echo $row['price'];?></p>
+                                        <p class='btn btn-danger btn-block'>Price:<br><?php echo $row['price'];?> ₹</p>
                                     </div>
 
                                     <div class='col'>
