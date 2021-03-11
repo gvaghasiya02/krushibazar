@@ -62,6 +62,11 @@ if($uproduct)
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://cdn.ckeditor.com/4.8.0/full/ckeditor.js"></script>
     <style>
+    .btn-light{
+        background-color:white;
+        outline:white;
+        text:black;
+    }
     </style>
 <title>Update Products</title>
 </head>
@@ -105,7 +110,7 @@ if($uproduct)
         }
     ?>
     <div class="container-expand my-0">
-        <div class="row">
+        <div class="row h-100">
             <div class="col-md-2">
                 <div class="container-expand light shadow h-100 ">
                         <ul class="nav flex-column">
