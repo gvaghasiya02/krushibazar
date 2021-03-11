@@ -66,6 +66,11 @@ if($uproduct)
         background-color:white;
         outline:white;
         text:black;
+        border-radius:0px !important;
+        border:0;
+    }
+    .cont{
+        height:100vh;
     }
     </style>
 <title>Update Products</title>
@@ -112,7 +117,7 @@ if($uproduct)
     <div class="container-expand my-0">
         <div class="row">
             <div class="col-md-2">
-                <div class="container-expand light shadow h-100 ">
+                <div class="container-expand light shadow cont">
                         <ul class="nav flex-column">
                             <?php
                             if($uproduct->num_rows==0)
