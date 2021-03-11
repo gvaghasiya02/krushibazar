@@ -108,7 +108,6 @@ if($uproduct)
         <div class="row">
             <div class="col-md-2">
                 <div class="container-expand light shadow h-100 ">
-                    <div class="sidebar-sticky">
                         <ul class="nav flex-column">
                             <?php
                             if($uproduct->num_rows==0)
@@ -131,14 +130,15 @@ if($uproduct)
                             <?php }
                             } ?>
                         </ul>
-                    </div>
+                   
                 </div>
             </div>
-            <div class="container shadow-sm col-md-7">
+            
                 <?php
                     if(isset($_POST['editProduct']))
                     { 
                 ?>
+                <div class="container shadow-sm col-md-7 h-100">
                 <br>
                 <h4>Edit Product</h4>
                 <form action="" method="post" enctype="multipart/form-data">
@@ -164,7 +164,7 @@ if($uproduct)
                             <input class="form-control" type="number" disabled value='<?php echo $productDetail['qty']; ?>' name="qty" id="qty" placeholder="Enter Quantity(no of packets 500 grams)">
                         </div>
                         <div class="form-group col-md-4"> 
-                            <label for="qty">New Quantity(in 500 grams packets)</label>
+                            <label for="qty">New Quantity</label>
                             <input class="form-control" type="number" name="addqty" id="qty" placeholder="Enter Quantity(no of packets 500 grams)">
                         </div>
                     </div>
@@ -188,24 +188,27 @@ if($uproduct)
             <div class='card shadow-sm'>
                 <img class='card-img-top' src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($productDetail['image']); ?>" alt='Card image cap'>
                 <div class='card-body'>
-                    <h4 class='card-title'><?php echo $productDetail['pname'];?></h4>
-                    <h5>Quantity:&nbsp<?php echo $productDetail['qty'];?></h5>
-                    <p class='card-text'><b><?php echo $productDetail['category'];?></b><br><?php echo $productDetail['pinfo'];?></p>
-                    <div class='row'>
-                        <div class='col'>
-                            <p class='btn btn-danger btn-block'><?php echo $productDetail['price'];?></p>
-                        </div>
-                        <div class='col'>
+                    <h4 class='card-title'><?php echo $productDetail['pname'];?></h4>                    
+                    <b><?php echo $productDetail['category'];?><br>About:</b>
+                    <p class='card-text'><?php echo $productDetail['pinfo'];?></p>
+                        <b>Quantity:&nbsp<?php echo $productDetail['qty'];?></b><br>
+                            <b class=''>Price: <?php echo $productDetail['price'];?>₹</b>
                             <form action="" method="post">
                                 <input type="hidden" name="pid" value=<?php echo $productDetail['pid']; ?>>
                             </form>
-                        </div>
-                    </div>
                 </div>
-            </div>
+            </div>        
+            <?php 
+                }
+                else
+                {?>
+                <div class='col-md-10 h-100'>
+                    <h1 align='center'>Select Product To update</h1>
+
+                    </div>
+               <?php }
+            ?>
         </div>
-            <?php }
-        ?>
     </div>
 </body>
 </html>
