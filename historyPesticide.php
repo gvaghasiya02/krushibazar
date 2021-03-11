@@ -40,24 +40,36 @@
             </ul>
         </div>
     </nav>
-    <table>
+    <div class="container mt-4">
+    <table class="table table-striped text-center">
+    <thead class="thead-dark">
+                        <tr>
+                            <th class="text-center" scope="col">Sr. No.</th>
+                            <th class="text-center" scope="col">Image</th>
+                            <th class="text-center" scope="col">Name</th>
+                            <th class="text-center" scope="col">Quantity ordered</th>
+                            <th class="text-center" scope="col">Orderid</th>
+                            <th class="text-center" scope="col">Username</th>
+                        </tr>
+                    </thead>
     <?php 
                         $srno=1;
                         foreach($listpest as $key=>$value)
-                        {
+                        {  $oid=$value['orderid'];
+                            $sqlu="SELECT * FROM listorder natural join user where listorder.orderid=$oid and listorder.userid=user.id";
+                            $res=$conn->query($sqlu);
+                            $ord=$res->fetch_assoc();
+                            
                             ?>
+                            
                             <tr>
                             <th class="text-center"><?php echo $srno ?></th>
                             <?php $srno++?>
                                 <th class="text-center"><img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($value['image']);?>" height=150 /></th>
                                 <th class="text-center"><?php echo $value['pname']?></th>
                                 <th class="text-center"><?php echo $value['qty']?></th>
-                                <th class="text-center"><?php echo $value['price']?></th>
-                                <th><form action="" method="post" id="form1">
-                                    <input type="hidden" name="pid" value=<?php echo $value['pid']; ?>>                                  
-                                    <button type="submit" name="removeFromCart" class="btn btn-danger" alt="Remove"><i class="fa fa-close"></i></button>
-                                </form>
-                                </th>
-                        </tr><?php } ?></table>
+                                <th class="text-center"><?php echo $oid ?></th>
+                                <th class="text-center"><?php echo $ord['email']?><input type="hidden" name="pid" value=<?php echo $value['pid']; ?>></th>
+                        </tr><?php } ?></table></div>
 </body>
 </html>
