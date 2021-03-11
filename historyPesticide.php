@@ -21,7 +21,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title>Home</title>
+    <title>Pesticide History</title>
 </head>
 <body>
     <div class="container">
@@ -41,18 +41,19 @@
         </div>
     </nav>
     <div class="container mt-4">
-    <table class="table table-striped text-center">
-    <thead class="thead-dark">
+        <table class="table table-striped text-center">
+            <thead class="thead-dark">
                         <tr>
                             <th class="text-center" scope="col">Sr. No.</th>
                             <th class="text-center" scope="col">Image</th>
                             <th class="text-center" scope="col">Name</th>
                             <th class="text-center" scope="col">Quantity ordered</th>
                             <th class="text-center" scope="col">Orderid</th>
-                            <th class="text-center" scope="col">Username</th>
+                            <th class="text-center" scope="col">Ordered on</th>
+                            <th class="text-center" scope="col">Ordered By</th>
                         </tr>
                     </thead>
-    <?php 
+                    <?php 
                         $srno=1;
                         foreach($listpest as $key=>$value)
                         {  $oid=$value['orderid'];
@@ -69,7 +70,11 @@
                                 <th class="text-center"><?php echo $value['pname']?></th>
                                 <th class="text-center"><?php echo $value['qty']?></th>
                                 <th class="text-center"><?php echo $oid ?></th>
+                                <th class="text-center"><?php echo $ord['odate'] ?></th>
                                 <th class="text-center"><?php echo $ord['email']?><input type="hidden" name="pid" value=<?php echo $value['pid']; ?>></th>
-                        </tr><?php } ?></table></div>
+                        </tr>
+                        <?php } ?>
+        </table>
+    </div>
 </body>
 </html>
