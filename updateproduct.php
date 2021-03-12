@@ -166,7 +166,7 @@ if($uproduct)
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-4">
-                            <label for="price">Price</label>
+                            <label for="price">Price(₹)</label>
                             <input class="form-control" type="number" disabled value=<?php echo $productDetail['price']; ?> name="price" id="price" placeholder="Enter Price of 500 grams">
                         </div>
                         <div class="form-group col-md-4"> 

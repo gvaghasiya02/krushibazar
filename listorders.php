@@ -45,7 +45,7 @@
             </ul>
         </div>
     </nav>
-    <div class="container mt-4">
+    <div class="container mt-4 col-md-8">
         <?php
             if($lorders->num_rows==0)
             {

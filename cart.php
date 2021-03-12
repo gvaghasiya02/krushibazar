@@ -73,7 +73,7 @@
             </ul>
         </div>
     </nav>
-    <div class="container mt-4">
+    <div class="container mt-4 col-md-8">
         <?php
             if($cartVal->num_rows==0)
             {
@@ -82,7 +82,7 @@
             else
             { ?>
             <h4>Your Cart</h4>
-                <table class="table  table-striped" cellpadding=5px align=center>
+                <table class="table  table-striped " cellpadding=5px align=center>
                     <thead class="thead-dark">
                         <tr>
                             <th class="text-center" scope="col">Sr. No.</th>

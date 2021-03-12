@@ -122,16 +122,20 @@
             </div>";
         }
     ?>
-    <div class="container mt-4 shadow">
+    <div class="container mt-4 col-md-8 shadow">
         <br>
-    <div class="d-flex flex-row-reverse bd-highlight my-4">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <h1 class="text-primary">Add Pesticide</h1>
+            </div>
+            <div class="d-flex flex-row-reverse bd-highlight form-group col-md-6">
                     <!-- Button trigger modal -->
                     <a href="updatepesticides.php">
                     <button type="button" class="btn btn-primary">
                     Add Quantity in existing Pesticides
                     </button></a>
-                </div>
-        <h1 class="text-primary">Add Pesticide</h1>
+            </div>
+        </div>
         <form action="" method="post" enctype="multipart/form-data">
             <div class="form-row">
                 <div class="form-group col-md-6">
