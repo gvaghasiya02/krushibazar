@@ -3,6 +3,10 @@ $err1="<br>";
 $success=false;
 $err="<br>";
 session_start();
+if( $_SESSION['loggedin']!="user" || !isset($_SESSION['email']))
+    {
+        header('location:login.php');
+    }
 require_once 'config.php';
 $userid=$_SESSION['id'];
 $email=$password=$firstname=$lastname=$address=$state=$city=$phonenumber=$gender=$dob="";

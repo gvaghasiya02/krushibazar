@@ -1,5 +1,9 @@
 <?php
 session_start();
+    if( $_SESSION['loggedin']!="user" || !isset($_SESSION['email']))
+    {
+        header('location:login.php');
+    }
 require_once 'config.php';
 $oid=$_POST['orid'];
 #$oid=$_SESSION['oid'];

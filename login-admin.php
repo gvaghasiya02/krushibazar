@@ -39,7 +39,7 @@ $err="<br>";
                     session_start();
                     $_SESSION['id']=$row["id"];
                     $_SESSION['email']=$email;
-                    $_SESSION['loggedin']=true;
+                    $_SESSION['loggedin']="admin";
                     header('location:home-admin.php');
                 }
             }

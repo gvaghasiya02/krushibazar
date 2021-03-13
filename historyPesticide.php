@@ -1,5 +1,9 @@
 <?php
     session_start();
+    if( $_SESSION['loggedin']!="admin" || !isset($_SESSION['email']))
+    {
+        header('location:login.php');
+    }
     require_once 'config.php';
     $user_count=0;
     $sql="select * from product inner join orderdetail where product.pid=orderdetail.pid and category='Pesticide'";

@@ -1,5 +1,9 @@
 <?php
     session_start();
+    if( $_SESSION['loggedin']!="user" || !isset($_SESSION['email']))
+    {
+        header('location:login.php');
+    }
     require_once 'config.php';
     $userid=$_SESSION['id']; 
     $sql="SELECT `orderid`,`daddress`,`dcity`,`dstate`,`odate` FROM `listorder` WHERE `userid`='$userid' ORDER BY `odate` DESC";

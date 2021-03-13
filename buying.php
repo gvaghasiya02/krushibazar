@@ -1,6 +1,10 @@
 <?php
 $insertSuccess=false;
     session_start();
+    if( $_SESSION['loggedin']!="user" || !isset($_SESSION['email']))
+    {
+        header('location:login.php');
+    }
     require_once 'config.php';
     $userid=$_SESSION['id']; 
     $tt="All";
