@@ -57,12 +57,12 @@ $err="<br>";
             $err.="Enter all details<br>";
             $success=false;
         }
-        if(strlen((string)$_POST['phonenumber'])!=10)
+        elseif(strlen((string)$_POST['phonenumber'])!=10)
         {
             $err.="Enter correct PhoneNumber<br>";
             $success=false;
         }
-        else
+                else
         {
             $firstname=$_POST['firstname'];
             $lastname=$_POST['lastname'];
