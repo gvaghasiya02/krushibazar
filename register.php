@@ -62,7 +62,7 @@ $err="<br>";
             $err.="Enter correct PhoneNumber<br>";
             $success=false;
         }
-                else
+        else
         {
             $firstname=$_POST['firstname'];
             $lastname=$_POST['lastname'];
