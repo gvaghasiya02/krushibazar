@@ -62,6 +62,11 @@ $err="<br>";
             $err.="Enter correct PhoneNumber<br>";
             $success=false;
         }
+        elseif(round((strtotime(date("D F Y"))-(strtotime($_POST['dob'])))/(31540000))<18)
+        {   echo round((strtotime(date("D F Y"))-(strtotime($_POST['dob'])))/(31540000));
+            $err.="Enter date correct<br>";
+            $success=false;
+        }
         else
         {
             $firstname=$_POST['firstname'];
@@ -145,7 +150,7 @@ $err="<br>";
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="dob">Date Of Birth</label>
-                <input class="form-control" type="date" name="dob" id="dob" placeholder="Enter DOB">
+                <input class="form-control" type="date" name="dob" id="dob" placeholder="Enter DOB(age must be 18)">
             </div>
             <div class="form-group col-md-6">
                 <label for="phonenumber">Phone Number</label>
