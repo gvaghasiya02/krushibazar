@@ -4,7 +4,7 @@ $success=false;
 session_start();
 if( $_SESSION['loggedin']!="admin" || !isset($_SESSION['email']))
     {
-        header('location:login.php');
+        header('location:login-admin.php');
     }
 require_once 'config.php';
 $userid=$_SESSION['id'];
