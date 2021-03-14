@@ -85,25 +85,15 @@ if(isset($_POST['editprofile']))
         #echo $err1;
     }
 
-
-    
-    $email=$password=$firstname=$lastname=$address=$state=$city=$phonenumber=$gender=$dob="";
-    $sql="SELECT email,password,firstname,lastname,address,state,city,phonenumber,gender,dob FROM user where id='$userid'";
-    $result=$conn->query($sql);
-    if($result->num_rows==1)
-    {
-        $row = $result->fetch_assoc();
-        $email=$row['email'];
-        $password=$row['password'];
-        $firstname=$row['firstname'];
-        $lastname=$row['lastname'];
-        $address=$row['address'];
-        $state=$row['state'];
-        $city=$row['city'];
-        $phonenumber=$row['phonenumber'];
-        $gender=$row['gender'];
-        $dob=$row['dob'];
-    }
+    $email=$user->email;
+    $firstname=$user->fname;
+    $lastname=$user->lname;
+    $address=$user->address;
+    $state=$user->state;
+    $city=$user->city;
+    $phonenumber=$user->phno;
+    $gender=$user->gender;
+    $dob=$user->dob;
     $conn->close();
 ?>
 <!DOCTYPE html>

@@ -11,9 +11,9 @@ require_once('./classes/user.php');
             header('location:logout.php');
     }
     else header('location:login.php');
+
   require_once 'config.php';
   $userid=$user->userid;
-  $row = $result->fetch_assoc();
   $email=$user->email;
   $firstname=$user->fname;
   $lastname=$user->lname;
@@ -29,23 +29,23 @@ if(isset($_POST["submit"]))
   if(empty(trim($_POST['address']))|| empty(trim($_POST['city'])) || empty(trim($_POST['state'])))
   {
     $err.="Enter details for address<br>";
-            $success=false;
+    $success=false;
   }
   elseif(empty(trim($_POST['cardname']))|| empty(trim($_POST['cardno'])) || empty(trim($_POST['date'])) || empty(trim($_POST['cvv'])) )
   {
     $err.="Enter all details<br>";
-            $success=false;
+    $success=false;
   }
   elseif(strlen((string)trim($_POST['cardno']))!=16)
   {
     $err.="Enter valid Card Number<br>";
-            $success=false;
+    $success=false;
   }
   elseif((strtotime($_POST['date']))<strtotime(date("F Y")))
   {
     #echo strtotime($_POST['date']);
     $err.="vaild date";
-            $success=false;
+    $success=false;
   }
   else
   {
@@ -59,42 +59,41 @@ if(isset($_POST["submit"]))
     $insert = $conn->query($sql);
     $oid = $conn->insert_id;
     if($insert)
-            {    
-                $sql="SELECT `productid`,`qty` FROM `cart` WHERE `userid`='$userid'";
-                $cartVal=$conn->query($sql);
-                $cart=array();
-                if($cartVal)
-                {
-                    while($row=$cartVal->fetch_assoc())
-                    {
-                        array_push($cart,$row);
-                    }
-                }  
-                foreach($cart as $key=>$value)
-                        {
-                          $pid=$value['productid'];
-                          $qty=$value['qty'];                          
-                          $sql="INSERT INTO `orderdetail` (`pid`,`qty`,`orderid`) VALUES ('$pid','$qty','$oid')";
-                          $insub = $conn->query($sql);
-                          $sql="SELECT `qty` from `product` where `pid`='$pid'";
-                          $select=$conn->query($sql);
-                          $product=$select->fetch_assoc();
-                          $pQty=$product['qty'];
-                          $pQty-=$qty;
-                          $sql="UPDATE `product` SET `qty`='$pQty' WHERE `pid`='$pid'";
-                          $update=$conn->query($sql);
-                        }
-                $dsql="DELETE FROM `cart` WHERE `userid`='$userid'";
-                $dcart=$conn->query($dsql);
-                $success=true;
-                #$_SESSION['oid']=$oid;
-                header("location:listorders.php");
-
+    {    
+      $sql="SELECT `productid`,`qty` FROM `cart` WHERE `userid`='$userid'";
+      $cartVal=$conn->query($sql);
+      $cart=array();
+      if($cartVal)
+      {
+        while($row=$cartVal->fetch_assoc())
+        {
+          array_push($cart,$row);
+        }
+      }  
+      foreach($cart as $key=>$value)
+      {
+        $pid=$value['productid'];
+        $qty=$value['qty'];                          
+        $sql="INSERT INTO `orderdetail` (`pid`,`qty`,`orderid`) VALUES ('$pid','$qty','$oid')";
+        $insub = $conn->query($sql);
+        $sql="SELECT `qty` from `product` where `pid`='$pid'";
+        $select=$conn->query($sql);
+        $product=$select->fetch_assoc();
+        $pQty=$product['qty'];
+        $pQty-=$qty;
+        $sql="UPDATE `product` SET `qty`='$pQty' WHERE `pid`='$pid'";
+        $update=$conn->query($sql);
+      }
+      $dsql="DELETE FROM `cart` WHERE `userid`='$userid'";
+      $dcart=$conn->query($dsql);
+      $success=true;
+      #$_SESSION['oid']=$oid;
+      header("location:listorders.php");
     }
     else
     {
-              $success=false;
-                $err.="Failed to Upload the Details<br>";
+      $success=false;
+      $err.="Failed to Upload the Details<br>";
     }
             
   }

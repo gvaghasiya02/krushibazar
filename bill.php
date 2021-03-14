@@ -11,24 +11,22 @@
     
     require_once 'config.php';
     $oid=$_POST['orid'];
-    #$oid=$_SESSION['oid'];
-    #echo $oid;
     $sql="SELECT `daddress`,`dcity`,`dstate`,`odate` FROM `listorder` where `orderid`='$oid'";
-                $result=$conn->query($sql);
-                if($result->num_rows==1)
-                {
-                $delivery = $result->fetch_assoc();
-                }
+    $result=$conn->query($sql);
+    if($result->num_rows==1)
+    {
+        $delivery = $result->fetch_assoc();
+    }
     $sql="SELECT `pid`,`qty` FROM `orderdetail` WHERE `orderid`='$oid'";
-        $cartVal=$conn->query($sql);
-        $cart=array();
-        if($cartVal)
+    $cartVal=$conn->query($sql);
+    $cart=array();
+    if($cartVal)
+    {
+        while($row=$cartVal->fetch_assoc())
         {
-            while($row=$cartVal->fetch_assoc())
-            {
-                array_push($cart,$row);
-            }
+            array_push($cart,$row);
         }
+    }
         $ss="<head>
         <meta charset='UTF-8'>
         <meta http-equiv='X-UA-Compatible' content='IE=edge'>
@@ -46,7 +44,7 @@
         <table class='table' align=center>
         <tr><th colspan=6 class='text-center'><h1>INVOICE</h1></th></tr>
             <tr>
-            <th colspan=3 class='text-left'>Order ID: ".$oid."<br>TO: ".$_SESSION['email']."<br>Delivery Address:<br> ".$delivery['daddress']."<br>". $delivery['dcity'].",".$delivery['dstate']."</th>
+            <th colspan=3 class='text-left'>Order ID: ".$oid."<br>TO: ".$user->email."<br>Delivery Address:<br> ".$delivery['daddress']."<br>". $delivery['dcity'].",".$delivery['dstate']."</th>
             <th colspan=3 rowspan=3 class='text-right' scope='col'>". date('l jS \of F Y h:i:s A')."</th>
             </tr>
             </table>
@@ -81,17 +79,17 @@
 <div class="container">
         <h1 class="text-center">Welcome to Krushibazar</h1>
 </div>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item"><a class="nav-link" href="home.php">Home</a></li>
+                <li class="nav-item active"><a class="nav-link" href="home.php">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="sale.php">Selling Crops</a></li>
                 <li class="nav-item"><a class="nav-link" href="buying.php">Buying Products</a></li>
-                <li class="nav-item"><a class="nav-link" href="profile.php">logged in as:<?php echo $_SESSION['email'];?></a></li>
+                <li class="nav-item"><a class="nav-link" href="profile.php">logged in as:<?php echo $user->email;?></a></li>
             </ul>
             <ul class="nav navbar-nav">
-                <li class="nav-item"><a  class="nav-link" href="cart.php">My Cart</a></li>
-                <li class="nav-item"><a  class="nav-link" href="listorders.php">Your Orders</a></li>
+            <li class="nav-item"><a  class="nav-link" href="cart.php">My Cart</a></li>
+            <li class="nav-item"><a  class="nav-link" href="listorders.php">Your Orders</a></li>
                 <li class="nav-item"><a class="nav-link" href="logout.php">Logout</a></li>
             </ul>
         </div>
@@ -100,7 +98,7 @@
     <table class="table" align=center>
     <tr><th colspan=6 class="text-center"><h1>INVOICE</h1></th></tr>
         <tr>
-        <th colspan=3 class="text-left">Order ID: <?php echo $oid;?><br>TO: <?php echo $_SESSION['email'];?><br>Delivery Address:<br><?php echo $delivery['daddress'];?><br><?php echo $delivery['dcity'].",".$delivery['dstate'];?></th>
+        <th colspan=3 class="text-left">Order ID: <?php echo $oid;?><br>TO: <?php echo $user->email;?><br>Delivery Address:<br><?php echo $delivery['daddress'];?><br><?php echo $delivery['dcity'].",".$delivery['dstate'];?></th>
         <th colspan=3 rowspan=3 class="text-right" scope="col"><?php echo $delivery['odate'] ?></th>
         </tr>
         </table>
