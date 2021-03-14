@@ -4,12 +4,17 @@
 $success=true;
 $err="<br>";
     session_start();
-    if( $_SESSION['loggedin']!="user" || !isset($_SESSION['email']))
+    require_once('./classes/user.php');
+    if(isset($_SESSION['user']))
     {
-        header('location:login.php');
+        $user=unserialize($_SESSION['user']);
+        if($user->category!='user')
+            header('location:logout.php');
     }
+    else header('location:login.php');
+
     require_once 'config.php';
-    $userid=$_SESSION['id'];
+    $userid=$user->userid;
     if(isset($_POST['editpass']))
     {
         if(empty(trim($_POST['password'])))
@@ -61,6 +66,18 @@ if(isset($_POST['editprofile']))
             $gender=$_POST['gender'];
             $sql="UPDATE `user` set `firstname`='$firstname',`lastname`='$lastname',`address`='$address',`state`='$state',`city`='$city',`phonenumber`='$phonenumber',`gender`='$gender',`dob`='$dob' where id='$userid'";
             $result=$conn->query($sql);
+
+            $sql="SELECT id,email,password,firstname,lastname,address,state,city,phonenumber,gender,dob FROM user where id='$userid'";
+            $result=$conn->query($sql);
+            if($result->num_rows==1)
+            {
+                $row = $result->fetch_assoc();
+                require_once('./classes/user.php');
+                $user=new User($row["id"],$row["email"],$row["firstname"],$row["lastname"],$row["address"],$row["state"],$row["city"],$row["phonenumber"],$row["gender"],$row["dob"],'user');
+                $_SESSION['user']=serialize($user);
+                $_SESSION['loggedin']='user';
+                header('location:profile.php');
+            }
             #echo $sql;
             #var_dump($result);
             #echo $result;
