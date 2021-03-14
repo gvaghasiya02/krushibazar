@@ -1,11 +1,15 @@
 <?php
     session_start();
-    if( $_SESSION['loggedin']!="user" || !isset($_SESSION['email']))
+    require_once('./classes/user.php');
+    if(isset($_SESSION['user']))
     {
-        header('location:login.php');
+        $user=unserialize($_SESSION['user']);
+        if($user->category!='user')
+            header('location:logout.php');
     }
+    else header('location:login.php');
     require_once 'config.php';
-    $userid=$_SESSION['id']; 
+    $userid=$user->userid; 
     if(isset($_POST['increment']))
     {
         $product_id=$_POST['pid'];
