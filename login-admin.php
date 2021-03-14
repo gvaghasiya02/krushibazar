@@ -3,9 +3,9 @@ $success=true;
 $err="<br>";
     session_start();
 
-    if(isset($_SESSION['email']))
+    if(isset($_SESSION['user']))
     {
-        header('location:home.php');
+        header('location:home-admin.php');
         exit;
     }
 
@@ -36,10 +36,10 @@ $err="<br>";
                 echo $row['password'];
                 if($password==$row['password'])
                 {
-                    session_start();
-                    $_SESSION['id']=$row["id"];
-                    $_SESSION['email']=$email;
-                    $_SESSION['loggedin']="admin";
+                    require_once('./classes/user.php');
+                    $user=new User($row["id"],$row["email"],$row["firstname"],$row["lastname"],$row["address"],$row["state"],$row["city"],$row["phonenumber"],$row["gender"],$row["dob"],'admin');
+                    $_SESSION['user']=serialize($user);
+                    $_SESSION['loggedin']='user';
                     header('location:home-admin.php');
                 }
             }
