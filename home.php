@@ -1,9 +1,13 @@
 <?php
     session_start();
-    if( $_SESSION['loggedin']!="user" || !isset($_SESSION['email']))
+    require_once('./classes/user.php');
+    if(isset($_SESSION['user']))
     {
-        header('location:login.php');
+        $user=unserialize($_SESSION['user']);
+        if($user->category!='user')
+            header('location:logout.php');
     }
+    else header('location:login.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,7 +28,7 @@
                 <li class="nav-item active"><a class="nav-link" href="home.php">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="sale.php">Selling Crops</a></li>
                 <li class="nav-item"><a class="nav-link" href="buying.php">Buying Products</a></li>
-                <li class="nav-item"><a class="nav-link" href="profile.php">logged in as:<?php echo $_SESSION['email'];?></a></li>
+                <li class="nav-item"><a class="nav-link" href="profile.php">logged in as:<?php echo $user->email;?></a></li>
             </ul>
             <ul class="nav navbar-nav">
             <li class="nav-item"><a  class="nav-link" href="cart.php">My Cart</a></li>

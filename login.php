@@ -2,7 +2,7 @@
     $success=true;
     $err="<br>";
     session_start();
-    if(isset($_SESSION['email']))
+    if(isset($_SESSION['user']))
     {
         header('location:home.php');
         exit;
@@ -28,7 +28,7 @@
 
         if($err=="<br>")
         {
-            $sql="SELECT id,email,password FROM user where email='$email'";
+            $sql="SELECT id,email,password,firstname,lastname,address,state,city,phonenumber,gender,dob FROM user where email='$email'";
             $result=$conn->query($sql);
             if($result->num_rows==1)
             {
@@ -36,10 +36,10 @@
                 //echo $row['password'];
                 if(password_verify($password,$row['password']))
                 {
-                    session_start();
-                    $_SESSION['id']=$row["id"];
-                    $_SESSION['email']=$email;
-                    $_SESSION['loggedin']="user";
+                    require_once('./classes/user.php');
+                    $user=new User($row["id"],$row["email"],$row["firstname"],$row["lastname"],$row["address"],$row["state"],$row["city"],$row["phonenumber"],$row["gender"],$row["dob"],'user');
+                    $_SESSION['user']=serialize($user);
+                    $_SESSION['loggedin']='user';
                     header('location:home.php');
                 }
                 else{
