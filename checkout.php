@@ -3,30 +3,26 @@ $err1="<br>";
 $success=false;
 $err="<br>";
 session_start();
-if( $_SESSION['loggedin']!="user" || !isset($_SESSION['email']))
+require_once('./classes/user.php');
+    if(isset($_SESSION['user']))
     {
-        header('location:login.php');
+        $user=unserialize($_SESSION['user']);
+        if($user->category!='user')
+            header('location:logout.php');
     }
-require_once 'config.php';
-$userid=$_SESSION['id'];
-$email=$password=$firstname=$lastname=$address=$state=$city=$phonenumber=$gender=$dob="";
-$sql="SELECT email,password,firstname,lastname,address,state,city,phonenumber,gender,dob FROM user where id='$userid'";
-$result=$conn->query($sql);
-if($result->num_rows==1)
-{
-    $row = $result->fetch_assoc();
-    $email=$row['email'];
-    $password=$row['password'];
-    $firstname=$row['firstname'];
-    $lastname=$row['lastname'];
-    $address=$row['address'];
-    $state=$row['state'];
-    $city=$row['city'];
-    $phonenumber=$row['phonenumber'];
-    $gender=$row['gender'];
-    $dob=$row['dob'];
-}
-
+    else header('location:login.php');
+  require_once 'config.php';
+  $userid=$user->userid;
+  $row = $result->fetch_assoc();
+  $email=$user->email;
+  $firstname=$user->fname;
+  $lastname=$user->lname;
+  $address=$user->address;
+  $state=$user->state;
+  $city=$user->city;
+  $phonenumber=$user->phno;
+  $gender=$user->gender;
+  $dob=$user->dob;
 
 if(isset($_POST["submit"]))
 {
@@ -120,13 +116,13 @@ $conn->close();
 <div class="container">
         <h1 class="text-center">Welcome to Krushibazar</h1>
 </div>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item"><a class="nav-link" href="home.php">Home</a></li>
-                <li class="nav-item active"><a class="nav-link" href="sale.php">Selling Crops</a></li>
+                <li class="nav-item active"><a class="nav-link" href="home.php">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="sale.php">Selling Crops</a></li>
                 <li class="nav-item"><a class="nav-link" href="buying.php">Buying Products</a></li>
-                <li class="nav-item"><a class="nav-link" href="profile.php">logged in as:<?php echo $_SESSION['email'];?></a></li>
+                <li class="nav-item"><a class="nav-link" href="profile.php">logged in as:<?php echo $user->email;?></a></li>
             </ul>
             <ul class="nav navbar-nav">
             <li class="nav-item"><a  class="nav-link" href="cart.php">My Cart</a></li>
