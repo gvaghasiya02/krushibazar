@@ -1,11 +1,16 @@
 <?php
     session_start();
-    if( $_SESSION['loggedin']!="user" || !isset($_SESSION['email']))
+    require_once('./classes/user.php');
+    if(isset($_SESSION['user']))
     {
-        header('location:login.php');
+        $user=unserialize($_SESSION['user']);
+        if($user->category!='user')
+            header('location:logout.php');
     }
+    else header('location:login.php');
+
     require_once 'config.php';
-    $userid=$_SESSION['id']; 
+    $userid=$user->userid; 
     $sql="SELECT `orderid`,`daddress`,`dcity`,`dstate`,`odate` FROM `listorder` WHERE `userid`='$userid' ORDER BY `odate` DESC";
     $lorders=$conn->query($sql);
     $ords=array();
@@ -37,14 +42,14 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item"><a class="nav-link" href="home.php">Home</a></li>
+                <li class="nav-item active"><a class="nav-link" href="home.php">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="sale.php">Selling Crops</a></li>
                 <li class="nav-item"><a class="nav-link" href="buying.php">Buying Products</a></li>
-                <li class="nav-item"><a class="nav-link" href="profile.php">logged in as:<?php echo $_SESSION['email'];?></a></li>
+                <li class="nav-item"><a class="nav-link" href="profile.php">logged in as:<?php echo $user->email;?></a></li>
             </ul>
             <ul class="nav navbar-nav">
-                <li class="nav-item"><a  class="nav-link" href="cart.php">My Cart</a></li>
-                <li class="nav-item active"><a  class="nav-link" href="listorders.php">Your Orders</a></li>
+            <li class="nav-item"><a  class="nav-link" href="cart.php">My Cart</a></li>
+            <li class="nav-item"><a  class="nav-link" href="listorders.php">Your Orders</a></li>
                 <li class="nav-item"><a class="nav-link" href="logout.php">Logout</a></li>
             </ul>
         </div>
