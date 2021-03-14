@@ -4,10 +4,10 @@
     if(isset($_SESSION['user']))
     {
         $user=unserialize($_SESSION['user']);
-        if($user->category!='user')
-            header('location:logout.php');
+        if($user->category!='admin')
+            header('location:logout-admin.php');
     }
-    else header('location:login.php');
+    else header('location:login-admin.php');
 
     require_once 'config.php';
     $user_count=0;

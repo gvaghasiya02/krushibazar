@@ -28,19 +28,25 @@ $err="<br>";
         }
         if($err=="<br>")
         {
-            $sql="SELECT id,email,password FROM adminuser where email='$email'";
+            $sql="SELECT password FROM adminuser where email='$email'";
             $result=$conn->query($sql);
             if($result->num_rows==1)
             {
                 $row = $result->fetch_assoc();
-                echo $row['password'];
                 if($password==$row['password'])
                 {
+                    $sql="SELECT id,email,password,firstname,lastname,address,state,city,phonenumber,gender,dob FROM user where email='$email'";
+                    $result=$conn->query($sql);
+                    $row = $result->fetch_assoc();
                     require_once('./classes/user.php');
                     $user=new User($row["id"],$row["email"],$row["firstname"],$row["lastname"],$row["address"],$row["state"],$row["city"],$row["phonenumber"],$row["gender"],$row["dob"],'admin');
                     $_SESSION['user']=serialize($user);
                     $_SESSION['loggedin']='user';
                     header('location:home-admin.php');
+                }
+                else{
+                    $err.="Please enter correct Username and Password.";
+                    $success=false;
                 }
             }
             else{
