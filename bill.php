@@ -1,63 +1,68 @@
 <?php
-session_start();
-    if( $_SESSION['loggedin']!="user" || !isset($_SESSION['email']))
+    session_start();
+    require_once('./classes/user.php');
+    if(isset($_SESSION['user']))
     {
-        header('location:login.php');
+        $user=unserialize($_SESSION['user']);
+        if($user->category!='user')
+            header('location:logout.php');
     }
-require_once 'config.php';
-$oid=$_POST['orid'];
-#$oid=$_SESSION['oid'];
-#echo $oid;
-$sql="SELECT `daddress`,`dcity`,`dstate`,`odate` FROM `listorder` where `orderid`='$oid'";
-            $result=$conn->query($sql);
-            if($result->num_rows==1)
-            {
-            $delivery = $result->fetch_assoc();
-            }
-$sql="SELECT `pid`,`qty` FROM `orderdetail` WHERE `orderid`='$oid'";
-    $cartVal=$conn->query($sql);
-    $cart=array();
-    if($cartVal)
-    {
-        while($row=$cartVal->fetch_assoc())
+    else header('location:login.php');
+    
+    require_once 'config.php';
+    $oid=$_POST['orid'];
+    #$oid=$_SESSION['oid'];
+    #echo $oid;
+    $sql="SELECT `daddress`,`dcity`,`dstate`,`odate` FROM `listorder` where `orderid`='$oid'";
+                $result=$conn->query($sql);
+                if($result->num_rows==1)
+                {
+                $delivery = $result->fetch_assoc();
+                }
+    $sql="SELECT `pid`,`qty` FROM `orderdetail` WHERE `orderid`='$oid'";
+        $cartVal=$conn->query($sql);
+        $cart=array();
+        if($cartVal)
         {
-            array_push($cart,$row);
+            while($row=$cartVal->fetch_assoc())
+            {
+                array_push($cart,$row);
+            }
         }
-    }
-    $ss="<head>
-    <meta charset='UTF-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-    <title>Cart</title>
-    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
-    <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous'>
-    <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js' integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo' crossorigin='anonymous'></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js' integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1' crossorigin='anonymous'></script>
-    <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js' integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM' crossorigin='anonymous'></script>
-</head>";
-            $data="
-            <body>
-            <div class='container mt-4 col-md-6'>
-    <table class='table' align=center>
-    <tr><th colspan=6 class='text-center'><h1>INVOICE</h1></th></tr>
-        <tr>
-        <th colspan=3 class='text-left'>Order ID: ".$oid."<br>TO: ".$_SESSION['email']."<br>Delivery Address:<br> ".$delivery['daddress']."<br>". $delivery['dcity'].",".$delivery['dstate']."</th>
-        <th colspan=3 rowspan=3 class='text-right' scope='col'>". date('l jS \of F Y h:i:s A')."</th>
-        </tr>
-        </table>
-        <table class='table  table-striped' cellpadding=5px align=center>
-        <thead class='thead-dark'>
+        $ss="<head>
+        <meta charset='UTF-8'>
+        <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <title>Cart</title>
+        <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+        <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous'>
+        <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js' integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo' crossorigin='anonymous'></script>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js' integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1' crossorigin='anonymous'></script>
+        <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js' integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM' crossorigin='anonymous'></script>
+    </head>";
+                $data="
+                <body>
+                <div class='container mt-4 col-md-6'>
+        <table class='table' align=center>
+        <tr><th colspan=6 class='text-center'><h1>INVOICE</h1></th></tr>
             <tr>
-                <th class='text-center' scope='col'>Sr. No.</th>
-                <th class='text-center' scope='col'>Name</th>
-                <th class='text-center' scope='col'>Category</th>
-                <th class='text-center' scope='col'>Price</th>
-                <th class='text-center' scope='col'>Quantity</th>
-                <th class='text-center' scope='col'>Total</th>
+            <th colspan=3 class='text-left'>Order ID: ".$oid."<br>TO: ".$_SESSION['email']."<br>Delivery Address:<br> ".$delivery['daddress']."<br>". $delivery['dcity'].",".$delivery['dstate']."</th>
+            <th colspan=3 rowspan=3 class='text-right' scope='col'>". date('l jS \of F Y h:i:s A')."</th>
             </tr>
-        </thead>
-        <tbody>
-        ";
+            </table>
+            <table class='table  table-striped' cellpadding=5px align=center>
+            <thead class='thead-dark'>
+                <tr>
+                    <th class='text-center' scope='col'>Sr. No.</th>
+                    <th class='text-center' scope='col'>Name</th>
+                    <th class='text-center' scope='col'>Category</th>
+                    <th class='text-center' scope='col'>Price</th>
+                    <th class='text-center' scope='col'>Quantity</th>
+                    <th class='text-center' scope='col'>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+            ";
 ?>
 <!DOCTYPE html>
 <html lang="en">
