@@ -35,13 +35,12 @@ $err="<br>";
                 $row = $result->fetch_assoc();
                 if($password==$row['password'])
                 {
-                    $sql="SELECT id,email,password,firstname,lastname,address,state,city,phonenumber,gender,dob FROM user where email='$email'";
+                    $sql="SELECT id,email,password,firstname,lastname,address,state,city,phonenumber,gender,dob FROM user where id=9";
                     $result=$conn->query($sql);
                     $row = $result->fetch_assoc();
                     require_once('./classes/user.php');
-                    $user=new User($row["id"],$row["email"],$row["firstname"],$row["lastname"],$row["address"],$row["state"],$row["city"],$row["phonenumber"],$row["gender"],$row["dob"],'admin');
+                    $user=new User($row["id"],$email,$row["firstname"],$row["lastname"],$row["address"],$row["state"],$row["city"],$row["phonenumber"],$row["gender"],$row["dob"],'admin');
                     $_SESSION['user']=serialize($user);
-                    $_SESSION['loggedin']='user';
                     header('location:home-admin.php');
                 }
                 else{
