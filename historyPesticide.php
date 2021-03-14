@@ -1,9 +1,14 @@
 <?php
     session_start();
-    if( $_SESSION['loggedin']!="admin" || !isset($_SESSION['email']))
+    require_once('./classes/user.php');
+    if(isset($_SESSION['user']))
     {
-        header('location:login-admin.php');
+        $user=unserialize($_SESSION['user']);
+        if($user->category!='admin')
+            header('location:logout-admin.php');
     }
+    else header('location:login-admin.php');
+
     require_once 'config.php';
     $user_count=0;
     $sql="select * from product inner join orderdetail where product.pid=orderdetail.pid and category='Pesticide'";
@@ -37,7 +42,7 @@
                 <li class="nav-item "><a class="nav-link" href="home-admin.php">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="salePesticide.php">Add Pesticides</a></li>
                 <li class="nav-item active"><a class="nav-link" href="historyPesticide.php">Pesticides History</a></li>
-                <li class="nav-item"><a class="nav-link">logged in as:<?php echo $_SESSION['email'];?></a></li>
+                <li class="nav-item"><a class="nav-link">logged in as:<?php echo $user->email;?></a></li>
             </ul>
             <ul class="nav navbar-nav">
             <li class="nav-item"><a class="nav-link" href="logout-admin.php">Logout</a></li>

@@ -31,18 +31,16 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active"><a class="nav-link" href="home.php">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="salePesticide.php">Selling Crops</a></li>
-                <li class="nav-item"><a class="nav-link" href="buying.php">Buying Products</a></li>
-                <li class="nav-item"><a class="nav-link" href="profile.php">logged in as:<?php echo $user->email;?></a></li>
+                <li class="nav-item active"><a class="nav-link" href="home-admin.php">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="salePesticide.php">Add Pesticides</a></li>
+                <li class="nav-item"><a class="nav-link" href="historyPesticide.php">Pesticides History</a></li>
+                <li class="nav-item"><a class="nav-link">logged in as:<?php echo $user->email;?></a></li>
             </ul>
             <ul class="nav navbar-nav">
-            <li class="nav-item"><a  class="nav-link" href="cart.php">My Cart</a></li>
-            <li class="nav-item"><a  class="nav-link" href="listorders.php">Your Orders</a></li>
-                <li class="nav-item"><a class="nav-link" href="logout-admin.php">Logout</a></li>
+            <li class="nav-item"><a class="nav-link" href="logout-admin.php">Logout</a></li>
             </ul>
         </div>
-    </nav>  
+    </nav> 
     <div class="container">
         <h4>Users Registered : <?php echo $user_count?></h4>
         <p>Agriculture, with its allied sectors, is unquestionably the largest livelihood provider in India, more so in the vast rural areas. It also contributes a significant figure to the Gross Domestic Product (GDP). Sustainable agriculture, in terms of food security, rural employment, and environmentally sustainable technologies such as soil conservation, sustainable natural resource management and biodiversity protection, are essential for holistic rural development. Indian agriculture and allied activities have witnessed a green revolution, a white revolution, a yellow revolution and a blue revolution.
