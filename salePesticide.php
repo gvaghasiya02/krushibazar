@@ -2,15 +2,17 @@
     $err="<br>";
     $success=false;
     session_start();
-    if( $_SESSION['loggedin']!="admin" || !isset($_SESSION['email']))
+    require_once('./classes/user.php');
+    if(isset($_SESSION['user']))
     {
-        header('location:login-admin.php');
+        $user=unserialize($_SESSION['user']);
+        if($user->category!='admin')
+            header('location:logout-admin.php');
     }
+    else header('location:login-admin.php');
+
+    $userid=$user->userid;
     require_once 'config.php';
-    $user_count=0;
-    $sql="SELECT id,email,password FROM user";
-    $result=$conn->query($sql);
-    $user_count=$result->num_rows;
     if(isset($_POST["submit"])){ 
         if(empty(trim($_POST['pestname']))){
             $err.="Please Enter Pesticide Name<br>";
@@ -65,7 +67,7 @@
         {
             $category="Pesticide";
             // Insert image content into database 
-            $sql="INSERT INTO `product` (`pname`, `pinfo`, `price`, `image`,`category`,`userid`,`qty`) VALUES ('$productName', '$productInfo', '$productPrice','$imgContent','$category','9','$productQty')";
+            $sql="INSERT INTO `product` (`pname`, `pinfo`, `price`, `image`,`category`,`userid`,`qty`) VALUES ('$productName', '$productInfo', '$productPrice','$imgContent','$category','$userid','$productQty')";
             $insert = $conn->query($sql);
 
             if($insert)
@@ -96,16 +98,18 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item"><a class="nav-link" href="home-admin.php">Home</a></li>
-                <li class="nav-item active"><a class="nav-link" href="salePesticide.php">Add Pesticides</a></li>
-                <li class="nav-item"><a class="nav-link" href="historyPesticide.php">Pesticides History</a></li>
-                <li class="nav-item"><a class="nav-link">logged in as:<?php echo $_SESSION['email'];?></a></li>
+                <li class="nav-item active"><a class="nav-link" href="home.php">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="salePesticide.php">Selling Crops</a></li>
+                <li class="nav-item"><a class="nav-link" href="buying.php">Buying Products</a></li>
+                <li class="nav-item"><a class="nav-link" href="profile.php">logged in as:<?php echo $user->email;?></a></li>
             </ul>
             <ul class="nav navbar-nav">
-            <li class="nav-item"><a class="nav-link" href="logout.php">Logout</a></li>
+            <li class="nav-item"><a  class="nav-link" href="cart.php">My Cart</a></li>
+            <li class="nav-item"><a  class="nav-link" href="listorders.php">Your Orders</a></li>
+                <li class="nav-item"><a class="nav-link" href="logout-admin.php">Logout</a></li>
             </ul>
         </div>
-    </nav>
+    </nav>  
     <?php 
         if($success)
         {
