@@ -25,13 +25,5 @@
             $this->dob=$dob;
             $this->category=$category;
         }
-
-        function getUserId(){
-            return $this->userid;
-        }
-
-        function getUserEmail(){
-            return $this->email;
-        }
     }
 ?>
