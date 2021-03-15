@@ -10,6 +10,7 @@ $insertSuccess=false;
     }
     else header('location:login.php');
 
+    require_once('./classes/product.php');
     require_once 'config.php';
     $userid=$user->userid; 
     $tt="All";
@@ -120,29 +121,31 @@ $insertSuccess=false;
                 else
                 {
                     while($row=$result->fetch_assoc())
-                    { ?>
+                    { 
+                        $product=new Product($row['pid'],$row['pname'],$row['category'],$row['pinfo'],$row['price'],$row['image'],$row['userid'],$row['qty']);
+                        $p=serialize($product);?>
                     <div class='col-12 col-md-6 col-lg-3'>
                         <div class='card'>
-                            <img class='card-img-top' src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['image']); ?>" alt='Card image cap'>
+                            <img class='card-img-top' height="200px" src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($product->image); ?>" alt='Card image cap'>
                             <div class='card-body'>
-                                <h4 class='card-title'><a href='product.html' title='View Product'><?php echo $row['pname'];?></a></h4>
-                                <h5>Quantity:&nbsp<?php echo $row['qty'];?></h5>
-                                <p class='card-text'><b><?php echo $row['category'];?></b><br><?php echo $row['pinfo'];?></p>
+                                <h4 class='card-title'><a href='product.html' title='View Product'><?php echo $product->pname;?></a></h4>
+                                <h5>Quantity:&nbsp<?php echo $product->qty;?></h5>
+                                <p class='card-text'><b><?php echo $product->category;?></b><br><?php echo $product->pinfo;?></p>
                                 <div class='row'>
                                     <div class='col'>
-                                        <p class='btn btn-danger btn-block'>Price:<br><?php echo $row['price'];?> ₹</p>
+                                        <p class='btn btn-danger btn-block'>Price:<br><?php echo $product->price?> ₹</p>
                                     </div>
 
                                     <div class='col'>
                                     <?php
-                                        if(in_array($row['pid'],$cart))
+                                        if(in_array($product->pid,$cart))
                                         {
                                             echo "<a href='cart.php' class='btn btn-success btn-block'>Go To Cart</a>";
                                         }
                                         else
                                         {?>
                                         <form action="" method="post">
-                                            <input type="hidden" name="pid" value=<?php echo $row['pid']; ?>>
+                                            <input type="hidden" name="pid" value=<?php echo $product->pid; ?>>
                                             <button name="addToCart" class="btn btn-success btn-block">Add To Cart</button>
                                         </form>
                                         <?php } ?>

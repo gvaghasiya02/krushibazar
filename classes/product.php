@@ -9,18 +9,15 @@
         public $userid;
         public $qty;
 
-        function __construct($userid,$email,$fname,$lname,$address,$state,$city,$phno,$gender,$dob,$category){
+        function __construct($pid,$pname,$category,$pinfo,$price,$image,$userid,$qty){
             $this->pid=$pid;
             $this->pname=$pname;
             $this->category=$category;
             $this->pinfo=$pinfo;
+            $this->price=$price;
             $this->image=$image;
             $this->userid=$userid;
             $this->qty=$qty;
-            $this->phno=$phno;
-            $this->gender=$gender;
-            $this->dob=$dob;
-            $this->category=$category;
         }
     }
 ?>
