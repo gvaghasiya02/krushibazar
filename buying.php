@@ -81,10 +81,10 @@ $insertSuccess=false;
             <div class='alert alert-success alert-dismissible fade show' role='alert'>
             <strong>Success</strong> Product added to the Cart.
             <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-              <span aria-hidden='true'>&times;</span>
+                <span aria-hidden='true'>&times;</span>
             </button>
-          </div>
-          <?php
+            </div>
+        <?php
         }
         elseif(isset($_POST['addToCart']))
         {?>
@@ -93,7 +93,7 @@ $insertSuccess=false;
             <span aria-hidden='true'>&times</span>
             </button>  
             </div>
-       <?php }
+        <?php }
     ?>
     <form action="" method="post" enctype="multipart/form-data">
     <div class="form-row"> 
@@ -123,7 +123,7 @@ $insertSuccess=false;
                     while($row=$result->fetch_assoc())
                     { 
                         $product=new Product($row['pid'],$row['pname'],$row['category'],$row['pinfo'],$row['price'],$row['image'],$row['userid'],$row['qty']);
-                        $p=serialize($product);?>
+                        ?>
                     <div class='col-12 col-md-6 col-lg-3'>
                         <div class='card'>
                             <img class='card-img-top' height="200px" src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($product->image); ?>" alt='Card image cap'>
