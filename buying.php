@@ -130,10 +130,13 @@ $insertSuccess=false;
                             <div class='card-body'>
                                 <h4 class='card-title'><a href='product.html' title='View Product'><?php echo $product->pname;?></a></h4>
                                 <h5>Quantity:&nbsp<?php echo $product->qty;?></h5>
-                                <p class='card-text'><b><?php echo $product->category;?></b><br><?php echo $product->pinfo;?></p>
+                                <p class='card-text'><b><?php echo $product->category;?></b><br><b>Price: <?php echo $product->price;?>₹</p></b>
                                 <div class='row'>
                                     <div class='col'>
-                                        <p class='btn btn-danger btn-block'>Price:<br><?php echo $product->price?> ₹</p>
+                                    <form action="productInfo.php" method="post">
+                                        <input type="hidden" name="pid" value=<?php echo $product->pid; ?>>
+                                        <button type="submit" name="productInfo" class='btn btn-warning btn-block'>See Reviews</button>
+                                    </form>
                                     </div>
 
                                     <div class='col'>
