@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 09, 2021 at 12:45 PM
+-- Generation Time: Mar 16, 2021 at 11:38 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -136,6 +136,28 @@ INSERT INTO `product` (`pid`, `pname`, `category`, `pinfo`, `price`, `image`, `u
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `rating`
+--
+
+CREATE TABLE `rating` (
+  `rid` int(11) NOT NULL,
+  `pid` int(11) NOT NULL,
+  `userid` int(11) NOT NULL,
+  `star` set('1','2','3','4','5') NOT NULL,
+  `comment` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `rating`
+--
+
+INSERT INTO `rating` (`rid`, `pid`, `userid`, `star`, `comment`) VALUES
+(1, 42, 11, '5', 'test'),
+(2, 42, 11, '4', 'test1');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user`
 --
 
@@ -198,6 +220,12 @@ ALTER TABLE `product`
   ADD KEY `productfk` (`userid`);
 
 --
+-- Indexes for table `rating`
+--
+ALTER TABLE `rating`
+  ADD PRIMARY KEY (`rid`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -236,6 +264,12 @@ ALTER TABLE `orderdetail`
 --
 ALTER TABLE `product`
   MODIFY `pid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+
+--
+-- AUTO_INCREMENT for table `rating`
+--
+ALTER TABLE `rating`
+  MODIFY `rid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `user`
