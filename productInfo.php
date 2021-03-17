@@ -134,7 +134,7 @@
             <div class="col-md-12">Comments</div>
             <?php 
                 for($i=0;$i<10 && $i<count($comments);$i++)
-                    echo "<div class='col-md-12'>".$comments[$i]['comment']." by ".$comments[$i]['email']."</div>";
+                    echo "<div class='my-1 col-md-12'><div class='card bg-info col-md-4 shadow-sm'>".$comments[$i]['comment']." by ".$comments[$i]['email']."</div></div>";
                     ?>
         </div>
     </div>
