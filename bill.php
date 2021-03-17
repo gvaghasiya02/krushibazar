@@ -94,7 +94,7 @@
             </ul>
         </div>
     </nav>
-    <div class="container mt-4 col-md-6">
+    <div class="container mt-4 col-md-7">
     <table class="table" align=center>
     <tr><th colspan=6 class="text-center"><h1>INVOICE</h1></th></tr>
         <tr>
@@ -111,6 +111,7 @@
                             <th class="text-center" scope="col">Price</th>
                             <th class="text-center" scope="col">Quantity</th>
                             <th class="text-center" scope="col">Total</th>
+                            <th class="text-center" scope="col">Review</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -138,6 +139,16 @@
                                 <th class="text-center"><?php echo $item['price']?></th>
                                 <th class="text-center"><?php echo $value['qty']?></th>                        
                                 <th class="text-center"><?php echo $item['price']*$value['qty']; ?></th>
+                                <th class="text-center">
+                                    <form action="productInfo.php" method="post">
+                                        <input type="hidden" name="pid" value=<?php echo $item['pid']; ?>>
+                                        <div class="form-row">
+                                            <div class="form-group d-flex justify-content-center col-md-12"> 
+                                                <button type="submit" name="productInfo" class="btn btn-primary">Give Review</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </th>
                         </tr>
                         <?php 
                             $data.="<tr>
@@ -152,8 +163,9 @@
                         <tr>
                             <th colspan=4></th>
                             <th class="text-center">Total<br>Quantity: <?php echo $cart_qty; ?></th>
-                            <th class="text-center">Cart Total :<br><?php echo $cart_total; ?></th>
-                                                    </tr>
+                            <th class="text-center">Cart Total :<br><?php echo $cart_total; ?>₹</th>
+                            <th class="text-center"></th>
+                        </tr>
                         </tbody>
                 </table>
                 <?php $data.="<tr>
