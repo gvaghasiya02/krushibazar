@@ -192,7 +192,7 @@
             </div>
         </div>
     </div>     
-    <div class='container shadow'>       
+    <div class='container shadow p-3'>       
         <div class="row">
         <?php 
             if($userCount!=0){ ?>
@@ -306,7 +306,7 @@
                 } }
                  else
                  {
-                    echo "<div class='my-1 text-center col-md-12'><h3>No Reviews Yet</h3></div>";
+                    echo "<div class='my-1 text-center col-md-12'><h4>No Reviews Yet</h4></div>";
                  } ?>
             </div>
         </div>
