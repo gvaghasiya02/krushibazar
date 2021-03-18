@@ -101,6 +101,32 @@
         .checked {
             color: orange;
         }
+        .bar-container {
+  width: 100%;
+  background-color:#f1f1f1;
+  text-align: center;
+  color: white;
+}
+.span {
+    font-size:18px;
+}
+.bar{ height: 18px; background-color: #4CAF50;}
+.side {
+  float: left;
+  width: 15%;
+  margin-top:10px;
+}
+
+.middle {
+  margin-top:10px;
+  float: left;
+  width: 70%;
+}
+
+/* Place text to the right */
+.right {
+  text-align: right;
+}
     </style>
 </head>
 <body>
@@ -150,19 +176,90 @@
             <div class="col-md-8">
                 <div class="row">
                     <div class="col-md-12">
-                        <h4>Name : <?php echo $product->pname;?></h4>
+                        <h4><?php echo $product->pname;?></h4>
                     </div>
                     <div class="col-md-12">
                         <h5>Category : <?php echo $product->category;?></h5>
                     </div>
                     <div class="col-md-12">
-                        <h4>About : <?php echo $product->pinfo;?></h4>
+                        <h6>About : <?php echo $product->pinfo;?></h6>
+                    </div>
+                    <div class="col-md-12">
+                        <h5>Price : <?php echo $product->price;?>₹</h5>
                     </div>
                 </div>
             </div>
-        </div>            
+        </div>
+    </div>     
+    <div class='container shadow'>       
         <div class="row">
-            <div class="col-md-6">
+        <?php 
+            if($userCount!=0){ ?>
+                <div class="col-md-12 content-center text-center">
+                    <div class="row">
+                        <div class="col-md-12 text-left"><h3>Ratings</h3></div>
+                        <div class="col-md-4">
+                        <p><h5><?php echo $avgRating; ?>&nbsp;<i class="fa fa-star checked"></i></h5> based on <?php echo $userCount; ?> reviews</p>
+                            <i class="fa fa-star <?php if($avgRating>=1) echo 'checked'; ?>"></i>
+                            <i class="fa fa-star <?php if($avgRating>=2) echo 'checked'; ?>"></i>
+                            <i class="fa fa-star <?php if($avgRating>=3) echo 'checked'; ?>"></i>
+                            <i class="fa fa-star <?php if($avgRating>=4) echo 'checked'; ?>"></i>
+                            <i class="fa fa-star <?php if($avgRating==5) echo 'checked'; ?>"></i>
+                        </div>
+                        <div class="col-md-6"> 
+                                <div class="side">
+                                    <div>5 star</div>
+                                </div>
+                                <div class="middle">
+                                    <div class="bar-container"><div class="bar mw-100" style="width:<?php echo round($star5*100/$userCount);?>%;"></div></div>
+                                </div>
+                                <div class="side right">
+                                    <div><?php echo $star5; ?> Users</div>
+                                </div>
+                                <div class="side">
+                                    <div>4 star</div>
+                                </div>
+                                <div class="middle">
+                                    <div class="bar-container"><div class="bar mw-100" style="width:<?php echo round($star4*100/$userCount);?>%;"></div></div>
+                                </div>
+                                <div class="side right">
+                                    <div><?php echo $star4; ?> Users</div>
+                                </div>
+                                <div class="side">
+                                    <div>3 star</div>
+                                </div>
+                                <div class="middle">
+                                    <div class="bar-container"><div class="bar mw-100" style="width:<?php echo round($star3*100/$userCount);?>%;"></div></div>
+                                </div>
+                                <div class="side right">
+                                    <div><?php echo $star3; ?> Users</div>
+                                </div>
+                                <div class="side">
+                                    <div>2 star</div>
+                                </div>
+                                <div class="middle">
+                                    <div class="bar-container"><div class="bar mw-100" style="width:<?php echo round($star2*100/$userCount);?>%;"></div></div>
+                                </div>
+                                <div class="side right">
+                                    <div><?php echo $star2; ?> Users</div>
+                                </div>
+                                <div class="side">
+                                    <div>1 star</div>
+                                </div>
+                                <div class="middle">
+                                    <div class="bar-container"><div class="bar mw-100" style="width:<?php echo round($star1*100/$userCount);?>%;"></div></div>
+                                </div>
+                                <div class="side right">
+                                    <div><?php echo $star1; ?> Users</div>
+                                </div>
+                        </div>                            
+                    </div>
+                </div>
+                <?php }
+             ?>
+        
+            <div class="col-md-12">
+            <h3>Rate the Product</h3>
             <form action="" method="post">
                 <input type="hidden" name="pid" value=<?php echo $product->pid; ?>>
                 <div class="form-row">
@@ -186,42 +283,28 @@
                     </div>
                 </div>
             </form>
-            </div>
-        <?php 
-            if($userCount!=0){ ?>
-                <div class="col-md-6 content-center text-center">
-                    <div class="row">
-                        <div class="col-md-6"><h3>User Rating</h3>
-                            <i class="fa fa-star <?php if($avgRating>=1) echo 'checked'; ?>"></i>
-                            <i class="fa fa-star <?php if($avgRating>=2) echo 'checked'; ?>"></i>
-                            <i class="fa fa-star <?php if($avgRating>=3) echo 'checked'; ?>"></i>
-                            <i class="fa fa-star <?php if($avgRating>=4) echo 'checked'; ?>"></i>
-                            <i class="fa fa-star <?php if($avgRating==5) echo 'checked'; ?>"></i>
-                            <p><?php echo $avgRating; ?> average based on <?php echo $userCount; ?> reviews.</p>
-                        </div>
-                        <div class="col-md-6 ">
-                            <span>5 Star : <?php echo $star5; ?> Users</span><br>
-                            <span>4 Star : <?php echo $star4; ?> Users</span><br>
-                            <span>3 Star : <?php echo $star3; ?> Users</span><br>
-                            <span>2 Star : <?php echo $star2; ?> Users</span><br>
-                            <span>1 Star : <?php echo $star1; ?> Users</span><br>
-                        </div>
-                    </div>
-                </div>
+            </div>        
         </div>
+    </div>
+    <br>
+    <div class='container shadow'>
         <div class="row">
-            <div class="col-md-12">Comments</div>
+            <div class="col-md-12"><h3>Reviews</h3></div>
                 <?php 
+                if($userCount!=0){
                     for($i=0;$i<10 && $i<count($comments);$i++)
-                        echo "<div class='my-1 col-md-12'><div class='card bg-light col-md-10 shadow-sm'>".$comments[$i]['comment']."<br><p align='right' class='font-italic font-weight-bold'>by ".$comments[$i]['email']."</p></div></div>";
-                        ?>
+                        echo "<div class='my-1 col-md-12'><div class='card bg-light col-md-12 shadow-sm'>".$comments[$i]['comment']."<br><p align='right' class='font-italic font-weight-bold'>by ".$comments[$i]['email']."</p></div></div>";
+                 }
+                 else
+                 {
+                    echo "<div class='my-1 text-center col-md-12'><h3>No Reviews Yet</h3></div>";
+                 } ?>
             </div>
-            </div>
-            <?php }
-             ?>
+        </div>
+            
     </div>
     <script>
-		CKEDITOR.replace( '' );
+		CKEDITOR.replace( 'comment' );
 	</script>
 </body>
 </html>
