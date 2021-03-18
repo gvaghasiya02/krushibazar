@@ -288,7 +288,7 @@
         </div>
     </div>
     <br>
-    <div class='container shadow'>
+    <div class='container p-5 shadow'>
         <div class="row">
             <div class="col-md-12"><h3>Reviews</h3></div>
                 <?php 
