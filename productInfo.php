@@ -97,6 +97,7 @@
         .fa {
             font-size: 25px;
             color:grey;
+            display:inline;
         }
         .checked {
             color: orange;
@@ -265,7 +266,7 @@
                 <div class="form-row">
                     <div class="form-group col-md-10">
                         <label for="comment">Comment</label>
-                        <input class="form-control" type="text"  name="comment" id="comment" placeholder="Enter Comment">
+                        <textarea name="comment" id="comment" rows=5 placeholder="Enter Comment"></textarea>
                     </div>
                     <div class="form-group col-md-2">
                         <label for="star">Select Stars</label>
@@ -292,9 +293,17 @@
             <div class="col-md-12"><h3>Reviews</h3></div>
                 <?php 
                 if($userCount!=0){
-                    for($i=0;$i<10 && $i<count($comments);$i++)
-                        echo "<div class='my-1 col-md-12'><div class='card bg-light col-md-12 shadow-sm'>".$comments[$i]['comment']."<br><p align='right' class='font-italic font-weight-bold'>by ".$comments[$i]['email']."</p></div></div>";
-                 }
+                    for($i=0;$i<10 && $i<count($comments);$i++) {?>
+                        <div class="my-1 card bg-light col-md-12 shadow-sm"><div class='my-1 d-flex flex-row '>
+                            <i class="fa fa-star <?php if($comments[$i]['star']>=1) echo 'checked'; ?>"></i>
+                            <i class="fa fa-star <?php if($comments[$i]['star']>=2) echo 'checked'; ?>"></i>
+                            <i class="fa fa-star <?php if($comments[$i]['star']>=3) echo 'checked'; ?>"></i>
+                            <i class="fa fa-star <?php if($comments[$i]['star']>=4) echo 'checked'; ?>"></i>
+                            <i class="fa fa-star <?php if($comments[$i]['star']==5) echo 'checked'; ?>"></i></div>
+                            <?php echo $comments[$i]['comment'];?>
+                            <p align='right' class='font-italic font-weight-bold'>by <?php echo $comments[$i]['email']?></p></div>
+                <?php
+                } }
                  else
                  {
                     echo "<div class='my-1 text-center col-md-12'><h3>No Reviews Yet</h3></div>";
