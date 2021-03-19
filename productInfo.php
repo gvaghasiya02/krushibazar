@@ -1,5 +1,6 @@
 <?php
     $err="";
+    $er="";
     $success=false;
     session_start();
     require_once('./classes/user.php');
@@ -19,6 +20,7 @@
         if($_POST['star']=='0')
         {
             $err.="Please Select Stars";
+            $er="Select Stars";
         }
         else $star=$_POST['star'];
 
@@ -149,26 +151,7 @@
             </ul>
         </div>
     </nav>
-    <?php 
-        if($success)
-        {?>
-            <div class='alert alert-success alert-dismissible fade show' role='alert'>
-            <strong>Success</strong> Your Reviewed has been added.
-            <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-                <span aria-hidden='true'>&times;</span>
-            </button>
-            </div>
-        <?php
-        }
-        elseif($err!="")
-        {?>
-            <div class='alert alert-danger alert-dismissible fade show' role='alert'>
-            <strong>Failed </strong><?php echo $err; ?><button type="button" class='close' data-dismiss='alert' aria-label='Close'>
-            <span aria-hidden='true'>&times</span>
-            </button>  
-            </div>
-        <?php }
-    ?>
+    
     <div class="container shadow my-4 content-center">
         <div class="row py-3">
             <div class="col-md-4">
@@ -269,7 +252,7 @@
                         <textarea name="comment" id="comment" rows=5 placeholder="Enter Comment"></textarea>
                     </div>
                     <div class="form-group col-md-2">
-                        <label for="star">Select Stars</label>
+                        <label for="star">Select Stars<span class='text-danger'>*</span></label>
                             <select class="form-control" name="star" id="star">
                                 <option value="0"  style="color: black;">Select Star</option>
                                 <option value="1"  style="color: black;">1</option>
@@ -278,6 +261,28 @@
                                 <option value="4"  style="color: black;">4</option>
                                 <option value="5"  style="color: black;">5</option>
                             </select>
+                    </div>
+                    <div class='col-md-12'>
+                        <?php 
+                            if($success)
+                            {?>
+                                <div class='alert alert-success alert-dismissible fade show' role='alert'>
+                                <strong>Success</strong> Your Reviewed has been added.
+                                <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                                    <span aria-hidden='true'>&times;</span>
+                                </button>
+                                </div>
+                            <?php
+                            }
+                            elseif($err!="")
+                            {?>
+                                <div class='alert alert-danger alert-dismissible fade show' role='alert'>
+                                <strong>Failed </strong><?php echo $err; ?><button type="button" class='close' data-dismiss='alert' aria-label='Close'>
+                                <span aria-hidden='true'>&times</span>
+                                </button>  
+                                </div>
+                            <?php }
+                        ?>
                     </div>
                     <div class="form-group d-flex justify-content-center col-md-12"> 
                         <button type="submit" name="review" class="btn btn-primary">Submit Review</button>
