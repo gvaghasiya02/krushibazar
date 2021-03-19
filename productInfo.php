@@ -1,6 +1,8 @@
 <?php
     $err="";
     $er="";
+    $comment="";
+    $star="";
     $success=false;
     session_start();
     require_once('./classes/user.php');
@@ -249,11 +251,11 @@
                 <div class="form-row">
                     <div class="form-group col-md-10">
                         <label for="comment">Comment</label>
-                        <textarea name="comment" id="comment" rows=5 placeholder="Enter Comment"></textarea>
+                        <textarea name="comment" id="comment" rows=5 placeholder="Enter Comment"><?php if($err!="") echo $comment;?></textarea>
                     </div>
                     <div class="form-group col-md-2">
                         <label for="star">Select Stars<span class='text-danger'>*</span></label>
-                            <select class="form-control" name="star" id="star">
+                            <select class="form-control" value="<?php echo $star;?>" name="star" id="star">
                                 <option value="0"  style="color: black;">Select Star</option>
                                 <option value="1"  style="color: black;">1</option>
                                 <option value="2"  style="color: black;">2</option>
