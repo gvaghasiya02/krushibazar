@@ -195,7 +195,7 @@ if($uproduct)
                     </div>
                     <div class="form-row"> 
                         <div class="form-group col-md-3"> 
-                            <button type="submit" name="submit" class="btn btn-primary">Add Product</button>
+                            <button type="submit" name="submit" class="btn btn-primary">Update Product</button>
                         </div>
                     </div>
                 </from>
