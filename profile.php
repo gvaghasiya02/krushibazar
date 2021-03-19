@@ -1,7 +1,7 @@
 <?php
-    $success1=true;
+    $success1=false;
     $err1="<br>";
-$success=true;
+$success=false;
 $err="<br>";
     session_start();
     require_once('./classes/user.php');
@@ -39,6 +39,7 @@ $err="<br>";
             $result=$conn->query($sql);
             #var_dump($result);
             #echo $result;
+            $success=true;
         }
         #echo $err;
     }
@@ -49,9 +50,14 @@ if(isset($_POST['editprofile']))
             $err1.="Enter all details<br>";
             $success1=false;
         }
-        if(strlen((string)$_POST['phonenumber'])!=10)
+        elseif(strlen((string)$_POST['phonenumber'])!=10)
         {
             $err1.="Enter correct PhoneNumber<br>";
+            $success1=false;
+        }
+        elseif(round((strtotime(date("D F Y"))-(strtotime($_POST['dob'])))/(31540000))<18)
+        {
+            $err1.="You Should be 18";
             $success1=false;
         }
         else
@@ -77,10 +83,12 @@ if(isset($_POST['editprofile']))
                 $_SESSION['user']=serialize($user);
                 $_SESSION['loggedin']='user';
                 header('location:profile.php');
+                
             }
             #echo $sql;
             #var_dump($result);
             #echo $result;
+            $success1=true;
         }
         #echo $err1;
     }
@@ -132,17 +140,37 @@ if(isset($_POST['editprofile']))
                             if($success)
                             {?>
                                 <div class='alert alert-success alert-dismissible fade show' role='alert'>
-                                <strong>Success</strong> Your Reviewed has been added.
+                                <strong>Success</strong> Your Password is changed.
                                 <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                                     <span aria-hidden='true'>&times;</span>
                                 </button>
                                 </div>
                             <?php
                             }
-                            elseif($err!="")
+                            elseif($err!="<br>")
                             {?>
                                 <div class='alert alert-danger alert-dismissible fade show' role='alert'>
                                 <strong>Failed </strong><?php echo $err; ?><button type="button" class='close' data-dismiss='alert' aria-label='Close'>
+                                <span aria-hidden='true'>&times</span>
+                                </button>  
+                                </div>
+                            <?php }
+                        ?>
+                        <?php 
+                            if($success1)
+                            {?>
+                                <div class='alert alert-success alert-dismissible fade show' role='alert'>
+                                <strong>Success</strong> Your Profile updated.
+                                <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                                    <span aria-hidden='true'>&times;</span>
+                                </button>
+                                </div>
+                            <?php
+                            }
+                            elseif($err1!="<br>")
+                            {?>
+                                <div class='alert alert-danger alert-dismissible fade show' role='alert'>
+                                <strong>Failed </strong><?php echo $err1; ?><button type="button" class='close' data-dismiss='alert' aria-label='Close'>
                                 <span aria-hidden='true'>&times</span>
                                 </button>  
                                 </div>
@@ -287,44 +315,44 @@ if(isset($_POST['editprofile']))
       <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="firstname">FirstName</label>
-                <input class="form-control" type="text" name="firstname" id="firstname" placeholder="Enter First Name">
+                <input class="form-control" type="text" name="firstname" id="firstname" value="<?php echo $firstname;?>" placeholder="Enter First Name">
             </div>
             <div class="form-group col-md-6">
                 <label for="lastname">LastName</label>
-                <input class="form-control" type="text" name="lastname" id="lastname" placeholder="Enter Last Name">
+                <input class="form-control" type="text" name="lastname" id="lastname" value="<?php echo $lastname;?>" placeholder="Enter Last Name">
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="dob">Date Of Birth</label>
-                <input class="form-control" type="date" name="dob" id="dob" placeholder="Enter DOB">
+                <input class="form-control" type="date" name="dob" value="<?php echo $dob;?>" id="dob" placeholder="Enter DOB">
             </div>
             <div class="form-group col-md-6">
                 <label for="phonenumber">Phone Number</label>
-                <input class="form-control" type="number" name="phonenumber" id="phonenumber" placeholder="Enter your Phone Number">
+                <input class="form-control" type="number" name="phonenumber" id="phonenumber" value="<?php echo $phonenumber;?>" placeholder="Enter your Phone Number">
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-12">
                 <label for="address">Address</label>
-                <input class="form-control" type="textarea" name="address" id="address" placeholder="Enter your Address">
+                <input class="form-control" type="textarea" name="address" value="<?php echo $address;?>" id="address" placeholder="Enter your Address">
             </div>
         </div >
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="state">State</label>
-                <input class="form-control" type="text" name="state" id="state" placeholder="Enter State">
+                <input class="form-control" type="text" name="state" value="<?php echo $state;?>"id="state" placeholder="Enter State">
             </div>
             <div class="form-group col-md-6">
                 <label for="city">City</label>
-                <input class="form-control" type="text" name="city" id="city" placeholder="Enter City">
+                <input class="form-control" type="text" name="city" value="<?php echo $city;?>" id="city" placeholder="Enter City">
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="male">Gender</label>
-                <input class="form-control-md" type="radio" name="gender" value="Male">Male
-                <input class="form-control-md" type="radio" name="gender" value="Female">Female
+                <input class="form-control-md" type="radio"  <?php if(!empty($gender) && $gender=="Male") echo 'checked'; ?> name="gender" value="Male">Male
+                <input class="form-control-md" type="radio" <?php if(!empty($gender) && $gender=="Female") echo 'checked'; ?> name="gender" value="Female">Female
             </div>
         </div>
       </div>
