@@ -1,6 +1,7 @@
 <?php
     $err="<br>";
     $success=false;
+    $productName=$productType=$productInfo=$productPrice=$file=$productQty="";
     session_start();
     require_once('./classes/user.php');
     if(isset($_SESSION['user']))
@@ -51,6 +52,7 @@
         if(!empty($_FILES["croppic"]["name"]))
         {
             // Get file info 
+            $file=$_FILES["croppic"]["name"];
             $fileName = basename($_FILES["croppic"]["name"]); 
             $fileType = pathinfo($fileName, PATHINFO_EXTENSION); 
 
@@ -153,21 +155,21 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="cname">Crop name</label>
-                    <input class="form-control" type="text" name="cname" id="cname" placeholder="Enter cname">
+                    <input class="form-control" type="text" name="cname" id="cname" value="<?php if($success!=true)echo $productName;?>" placeholder="Enter cname">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="type">Select catagory:</label>
                     <select class="form-control" name="type" id="type">
-                        <option value="Fruit" style="color: black;">Fruit</option>
-                        <option value="Vegetable" style="color: black;">Vegetable</option>
-                        <option value="Grains" style="color: black;">Grains</option>
+                        <option value="Fruit" <?php if($productType=="Fruit" || ($success!=true))echo "selected"; ?> style="color: black;">Fruit</option>
+                        <option value="Vegetable" <?php if($productType=="Vegetable" || ($success!=true))echo "selected"; ?> style="color: black;">Vegetable</option>
+                        <option value="Grains" <?php if($productType=="Grains" || ($success!=true))echo "selected"; ?> style="color: black;">Grains</option>
                     </select>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="price">Price</label>
-                    <input class="form-control" type="number" name="price" id="price" placeholder="Enter Price of 500 grams">
+                    <input class="form-control" type="number" name="price" id="price" value="<?php if($success!=true)echo $productPrice;?>" placeholder="Enter Price of 500 grams">
                 </div>
                 <div class="form-group col-md-4">
                     <label for="croppic">Upload an Image</label>
@@ -175,13 +177,13 @@
                 </div>
                 <div class="form-group col-md-4"> 
                     <label for="qty">Enter Quantity(in 500 grams packets)</label>
-                    <input class="form-control" type="number" name="qty" id="qty" placeholder="Enter Quantity(no of packets 500 grams)">
+                    <input class="form-control" type="number" name="qty" value="<?php if($success!=true)echo $productQty;?>" id="qty" placeholder="Enter Quantity(no of packets 500 grams)">
                 </div>
             </div>
             <div class="form-row"> 
                 <div class="form-group col-md-10"> 
                     <label for="cinfo">Enter Information</label>
-                    <textarea  name="cinfo" id="cinfo" rows="12"></textarea>
+                    <textarea  name="cinfo" id="cinfo" rows="12"><?php if($success!=true)echo $productInfo;?></textarea>
                 </div>
             </div>
             <div class="form-row"> 
