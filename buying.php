@@ -135,7 +135,7 @@ $insertSuccess=false;
                                     <div class='col'>
                                     <form action="productInfo.php" method="post">
                                         <input type="hidden" name="pid" value=<?php echo $product->pid; ?>>
-                                        <button type="submit" name="productInfo" class='btn btn-warning btn-block'>See Reviews</button>
+                                        <button type="submit" name="productInfo" class='btn btn-link btn-block'>Product info</button>
                                     </form>
                                     </div>
 
