@@ -83,20 +83,9 @@ $err="<br>";
         //if no error
         if($err=="<br>")
         {
-            $sql="INSERT INTO user(email,password,firstname,lastname,dob,address,state,city,phonenumber,gender) VALUES (?,?,?,?,?,?,?,?,?,?)";
-            $stmt=$conn->prepare($sql);
-            $stmt->bind_param('ssssssssss',$param_email,$param_password,$param_firstname,$param_lastname,$param_dob,$param_address,$param_state,$param_city,$param_phonenumber,$param_gender);
-            $param_email=$email;
-            $param_password=$password;
-            $param_firstname=$firstname;
-            $param_lastname=$lastname;
-            $param_dob=$dob;
-            $param_address=$address;
-            $param_state=$state;
-            $param_city=$city;
-            $param_phonenumber=$phonenumber;
-            $param_gender=$gender;
-            if($stmt->execute()==TRUE){
+            $sql="INSERT INTO user(email,password,firstname,lastname,dob,address,state,city,phonenumber,gender) VALUES ('$email','$password','$firstname','$lastname','$dob','$address','$state','$city','$phonenumber','$gender')";
+            $stmt=$conn->query($sql);
+            if($stmt){
                 header("location:login.php");
                 $success=true;
             }
