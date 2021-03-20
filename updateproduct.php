@@ -135,60 +135,7 @@ if($uproduct)
                                 {?>
                                     <a class="nav-link <?php if(isset($_POST['submit']) && $_POST['pid']==$value['pid']) echo 'active'; ?>" id="v-pills-<?php echo $value['pname']; ?>-tab" data-toggle="pill" href="#v-pills-<?php echo $value['pname']; ?>" role="tab" aria-controls="v-pills-<?php echo $value['pname']; ?>" aria-selected="true"><?php echo $value['pname']; ?></a>
                             <?php }
-<<<<<<< HEAD
                         } ?>
-=======
-                            } ?>
-                        </ul>
-                   
-                </div>
-            </div>
-            
-                <?php
-                    if(isset($_POST['editProduct']))
-                    { 
-                ?>
-                <div class="container shadow-sm col-md-7 h-100">
-                <br>
-                <h4>Edit Product</h4>
-                <form action="" method="post" enctype="multipart/form-data">
-                    <input type="hidden" name="pid" value=<?php echo $productDetail['pid']; ?>>
-                    <input type="hidden" name="oqty" value=<?php echo $productDetail['qty']; ?>>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="cname">Crop name</label>
-                            <input class="form-control" type="text" disabled value='<?php echo $productDetail['pname']; ?>' name="cname" id="cname" placeholder="Enter cname">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="cname">Category</label>
-                            <input class="form-control" type="text" disabled value='<?php echo $productDetail['category']; ?>' name="ccategory" id="cname" placeholder="Enter cname">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label for="price">Price(₹)</label>
-                            <input class="form-control" type="number" disabled value=<?php echo $productDetail['price']; ?> name="price" id="price" placeholder="Enter Price of 500 grams">
-                        </div>
-                        <div class="form-group col-md-4"> 
-                            <label for="qty">Quantity Available</label>
-                            <input class="form-control" type="number" disabled value='<?php echo $productDetail['qty']; ?>' name="qty" id="qty" placeholder="Enter Quantity(no of packets 500 grams)">
-                        </div>
-                        <div class="form-group col-md-4"> 
-                            <label for="qty">New Quantity</label>
-                            <input class="form-control" type="number" name="addqty" id="qty" placeholder="Enter Quantity(no of packets 500 grams)">
-                        </div>
-                    </div>
-                    <div class="form-row"> 
-                        <div class="form-group col-md-12"> 
-                            <label for="cinfo">Enter Information</label>
-                            <textarea  name="cinfo" id="cinfo" rows="12"><?php echo $productDetail['pinfo']; ?></textarea>
-                        </div>
-                    </div>
-                    <div class="form-row"> 
-                        <div class="form-group col-md-3"> 
-                            <button type="submit" name="submit" class="btn btn-primary">Update Product</button>
-                        </div>
->>>>>>> 6361fa4b77c806682b29473f6e05a6867f7b61cb
                     </div>
                 </div>
             </div>
