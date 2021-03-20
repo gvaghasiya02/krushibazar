@@ -1,6 +1,8 @@
 <?php
-    $err="<br>";
+    $err="";
     $success=false;
+    $qty_err=$pname_err=$price_err=$pinfo_err=$image_err="";
+    $productPrice=$productInfo=$productName=$productQty="";
     session_start();
     require_once('./classes/user.php');
     if(isset($_SESSION['user']))
@@ -15,27 +17,31 @@
     require_once 'config.php';
     if(isset($_POST["submit"])){ 
         if(empty(trim($_POST['pestname']))){
-            $err.="Please Enter Pesticide Name<br>";
+            $pname_err.="Please Enter Pesticide Name<br>";
+            $err="failed";
         }
         else{
             $productName =$_POST['pestname'];
         }
 
         if(empty(trim($_POST['pestinfo']))){
-            $err.="Please Enter Pesticide Information<br>";
+            $pinfo_err.="Please Enter Pesticide Information<br>";
+            $err="failed";
         }
         else{
             $productInfo = $_POST['pestinfo'];
         }
         if(empty(trim($_POST['pqty'])) || trim($_POST['pqty'])<=0){
-            $err.="Please Enter Product vaild avaliable Quantity<br>";
+            $qty_err.="Please Enter Product vaild avaliable Quantity<br>";
+            $err="failed";
         }
         else{
             $productQty =$_POST['pqty'];
         }
 
         if(empty(trim($_POST['price'])) || trim($_POST['price'])<=0){
-            $err.="Please Enter Pesticide Price<br>";
+            $price_err.="Please Enter Pesticide Price<br>";
+            $err="failed";
         }
         else{
             $productPrice =$_POST['price'];
@@ -55,15 +61,17 @@
                 $imgContent = addslashes(file_get_contents($image)); 
             }
             else{
-                $err.="Sorry, only JPG, JPEG, PNG, & GIF files are allowed to upload.<br>";
+                $image_err.="Sorry, only JPG, JPEG, PNG, & GIF files are allowed to upload.<br>";
+                $err="failed";
             }
         }
         else
         {
-            $err.="Please Select an Image<br>";
+            $image_err.="Please Select an Image<br>";
+            $err="failed";
         }
         
-        if($err=="<br>")
+        if($err=="")
         {
             $category="Pesticide";
             // Insert image content into database 
@@ -75,7 +83,7 @@
                 $success=true;
             }
             else{
-                $err.="Failed to Upload the Details<br>";
+                $err="failed";
             }
         }
     } 
@@ -117,12 +125,10 @@
             </button>  
             </div>";
         }
-        elseif($err!="<br>")
+        elseif($err!="")
         {
             echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
-            <strong>Failed to Add the Product</strong>";
-            echo $err;
-            echo "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+            <strong>Failed to Add the Product</strong><button type='button' class='close' data-dismiss='alert' aria-label='Close'>
             <span aria-hidden='true'  >&times;</span>
             </button> 
             </div>";
@@ -146,27 +152,32 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="pestname">Pesticide name</label>
-                    <input class="form-control" type="text" name="pestname" id="pestname" placeholder="Enter Pesticide name">
+                    <input class="form-control" type="text" name="pestname" id="pestname" value="<?php if($success!=true)echo $productName;?>" placeholder="Enter Pesticide name">
+                    <span class='text-danger'><?php echo $pname_err; ?></span>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="price">Price</label>
-                    <input class="form-control" type="number" name="price" id="price" placeholder="Enter Price">
+                    <input class="form-control" type="number" name="price" id="price" value="<?php if($success!=true)echo $productPrice;?>" placeholder="Enter Price">
+                    <span class='text-danger'><?php echo $price_err; ?></span>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                 <label for="pqty">Enter Quantity</label>
-                    <input class="form-control" type="number" name="pqty" id="pqty" placeholder="Enter Quantity">
+                    <input class="form-control" type="number" name="pqty" id="pqty" value="<?php if($success!=true)echo $productQty;?>" placeholder="Enter Quantity">
+                    <span class='text-danger'><?php echo $qty_err; ?></span>
                 </div>
                 <div class="form-group col-md-6">
                 <label for="pestpic">Upload an Image</label>
                     <input class="form-control" type="file" name="pestpic" id="pestpic"></input>
+                    <span class='text-danger'><?php echo $image_err; ?></span>
                     </div>
             </div>
                 <div class="form-row"> 
                 <div class="form-group col-md-10"> 
                     <label for="pestinfo">Enter Information</label>
-                    <textarea name="pestinfo" id="pestinfo" rows="12"></textarea>
+                    <textarea name="pestinfo" id="pestinfo" rows="12"><?php if($success!=true) echo $productInfo;?></textarea>
+                    <span class='text-danger'><?php echo $pinfo_err; ?></span>
                 </div>
             </div>
             <div class="form-row"> 

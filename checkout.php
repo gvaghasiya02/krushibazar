@@ -134,7 +134,7 @@ $conn->close();
     if($success)
     {
         echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
-        <strong>Success</strong> Product Addedd Successfully.<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+        <strong>Success</strong>Payment successfully done.<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
         <span aria-hidden='true'  >&times</span>
         </button>  
         </div>";
@@ -142,7 +142,7 @@ $conn->close();
         elseif($err!="<br>")
         {
             echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
-            <strong>Failed to Add the Product</strong>";
+            <strong>Failed to Process Your Payment</strong>";
             echo $err;
             echo "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
             <span aria-hidden='true'  >&times;</span>
