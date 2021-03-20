@@ -2,6 +2,7 @@
     $err="<br>";
     $success=false;
     $productName=$productType=$productInfo=$productPrice=$file=$productQty="";
+    $cname_err=$price_err=$cinfo_err=$qty_err=$image_err="";
     session_start();
     require_once('./classes/user.php');
     if(isset($_SESSION['user']))
@@ -16,34 +17,38 @@
     $userid=$user->userid;
     if(isset($_POST["submit"])){ 
         if(empty(trim($_POST['type']))){
-            $err.="Please Select Product Type<br>";
+            #$err.="Please Select Product Type<br>";
         }
         else{
             $productType = $_POST['type'];
         }
         
         if(empty(trim($_POST['cname']))){
-            $err.="Please Enter Product Name<br>";
+            $cname_err.="Please Enter Product Name<br>";
+            $err="Failed";
         }
         else{
             $productName =$_POST['cname'];
         }
 
         if(empty(trim($_POST['cinfo']))){
-            $err.="Please Enter Product Information<br>";
+            $cinfo_err.="Please Enter Product Information<br>";
+            $err="Failed";
         }
         else{
             $productInfo = $_POST['cinfo'];
         }
 
         if(empty(trim($_POST['price'])) || trim($_POST['price'])<=0){
-            $err.="Please Enter Product Price<br>";
+            $price_err.="Please Enter Product Price<br>";
+            $err="Failed";
         }
         else{
             $productPrice =$_POST['price'];
         }
         if(empty(trim($_POST['qty'])) || trim($_POST['qty'])<=0){
-            $err.="Please Enter Product avaliable Quantity<br>";
+            $qty_err.="Please Enter valid Product avaliable Quantity<br>";
+            $err="Failed";
         }
         else{
             $productQty =$_POST['qty'];
@@ -63,12 +68,14 @@
                 $imgContent = addslashes(file_get_contents($image)); 
             }
             else{
-                $err.="Sorry, only JPG, JPEG, PNG, & GIF files are allowed to upload.<br>";
+                $image_err.="Sorry, only JPG, JPEG, PNG, & GIF files are allowed to upload.<br>";
+                $err="Failed";
             }
         }
         else
         {
-            $err.="Please Select an Image<br>";
+            $image_err.="Please Select an Image<br>";
+            $err="Failed";
         }
         
         if($err=="<br>")
@@ -129,9 +136,8 @@
         elseif($err!="<br>")
         {
             echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
-            <strong>Failed to Add the Product</strong>";
-            echo $err;
-            echo "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+            <strong>Failed to Add the Product</strong>
+            <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
             <span aria-hidden='true'  >&times;</span>
             </button> 
             </div>";
@@ -156,6 +162,7 @@
                 <div class="form-group col-md-6">
                     <label for="cname">Crop name</label>
                     <input class="form-control" type="text" name="cname" id="cname" value="<?php if($success!=true)echo $productName;?>" placeholder="Enter cname">
+                    <span class='text-danger'><?php echo $cname_err; ?></span>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="type">Select catagory:</label>
@@ -170,20 +177,24 @@
                 <div class="form-group col-md-4">
                     <label for="price">Price</label>
                     <input class="form-control" type="number" name="price" id="price" value="<?php if($success!=true)echo $productPrice;?>" placeholder="Enter Price of 500 grams">
+                    <span class='text-danger'><?php echo $price_err; ?></span>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="croppic">Upload an Image</label>
                     <input class="form-control" type="file" name="croppic" id="croppic"></input>
+                    <span class='text-danger'><?php echo $image_err; ?></span>
                 </div>
                 <div class="form-group col-md-4"> 
                     <label for="qty">Enter Quantity(in 500 grams packets)</label>
                     <input class="form-control" type="number" name="qty" value="<?php if($success!=true)echo $productQty;?>" id="qty" placeholder="Enter Quantity(no of packets 500 grams)">
+                    <span class='text-danger'><?php echo $qty_err; ?></span>
                 </div>
             </div>
             <div class="form-row"> 
                 <div class="form-group col-md-10"> 
                     <label for="cinfo">Enter Information</label>
                     <textarea  name="cinfo" id="cinfo" rows="12"><?php if($success!=true)echo $productInfo;?></textarea>
+                    <span class='text-danger'><?php echo $cinfo_err; ?></span>
                 </div>
             </div>
             <div class="form-row"> 
