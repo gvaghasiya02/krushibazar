@@ -123,103 +123,101 @@ if($uproduct)
     <div class="container-expand my-0">
         <div class="row">
             <div class="col-md-2">
-                <div class="container-expand light shadow cont">
-                        <ul class="nav flex-column">
+                <div class="container light shadow cont">
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                             <?php
                             if($uproduct->num_rows==0)
                             {
-                                echo "<h4 class='text-center'>You haven't added any products</h4>";
+                                echo "<h4 class='text-center'>You haven't added any Pesticides</h4>";
                             }
                             else
                             { ?>
-                            <h4>&nbsp;&nbsp;Your Products</h4>
+                            <h4 class="text-center mt-4">Your Pesticides</h4>
                             <?php 
                                 $srno=1;
                                 foreach($products as $key=>$value)
                                 {?>
-                                        <form action="" method="post">
-                                        <li class="nav-item">                                               
-                                                    <input type="hidden" name="pid" value=<?php echo $value['pid']; ?>>
-                                                    <button type="submit" name="editProduct" class='btn col-md-12 text-left btn-light'>&nbsp;&nbsp;<?php echo $value['pname']; ?></button></th>
-                                            </li>
-                                        </form>
+                                    <a class="nav-link <?php if(isset($_POST['submit']) && $_POST['pid']==$value['pid']) echo 'active'; ?>" id="v-pills-<?php echo $value['pname']; ?>-tab" data-toggle="pill" href="#v-pills-<?php echo $value['pname']; ?>" role="tab" aria-controls="v-pills-<?php echo $value['pname']; ?>" aria-selected="true"><?php echo $value['pname']; ?></a>
                             <?php }
-                            } ?>
-                        </ul>
-                   
+                        } ?>
+                    </div>
                 </div>
             </div>
-            
-                <?php
-                    if(isset($_POST['editProduct']))
-                    { 
-                ?>
-                <div class="container shadow-sm col-md-7 h-100">
-                <br>
-                <h4>Edit Product</h4>
-                <form action="" method="post" enctype="multipart/form-data">
-                    <input type="hidden" name="pid" value=<?php echo $productDetail['pid']; ?>>
-                    <input type="hidden" name="oqty" value=<?php echo $productDetail['qty']; ?>>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="cname">Pesticide name</label>
-                            <input class="form-control" type="text" disabled value='<?php echo $productDetail['pname']; ?>' name="cname" id="cname" placeholder="Enter cname">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="cname">Category</label>
-                            <input class="form-control" type="text" disabled value='<?php echo $productDetail['category']; ?>' name="ccategory" id="cname" placeholder="Enter cname">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label for="price">Price(₹)</label>
-                            <input class="form-control" type="number" disabled value=<?php echo $productDetail['price'];?> name="price" id="price" placeholder="Enter Price of 500 grams">
-                        </div>
-                        <div class="form-group col-md-4"> 
-                            <label for="qty">Quantity Available</label>
-                            <input class="form-control" type="number" disabled value='<?php echo $productDetail['qty']; ?>' name="qty" id="qty" placeholder="Enter Quantity(no of packets 500 grams)">
-                        </div>
-                        <div class="form-group col-md-4"> 
-                            <label for="qty">New Quantity</label>
-                            <input class="form-control" type="number" name="addqty" id="qty" placeholder="Enter Quantity(no of packets 500 grams)">
-                        </div>
-                    </div>
-                    <div class="form-row"> 
-                        <div class="form-group col-md-12"> 
-                            <label for="cinfo">Enter Information</label>
-                            <textarea  name="cinfo" id="cinfo" rows="12"><?php echo $productDetail['pinfo']; ?></textarea>
-                        </div>
-                    </div>
-                    <div class="form-row"> 
-                        <div class="form-group col-md-3"> 
-                            <button type="submit" name="submit" class="btn btn-primary">Add Product</button>
-                        </div>
-                    </div>
-                </from>
-                <script>
-                    CKEDITOR.replace( 'cinfo' );
-                </script>
-            </div>
-            <div class="col-md-3">
-            <div class='card shadow-sm'>
-                <img class='card-img-top' src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($productDetail['image']); ?>" alt='Card image cap'>
-                <div class='card-body'>
-                    <h4 class='card-title text-center'><?php echo $productDetail['pname'];?></h4>                    
-                            <form action="" method="post">
-                                <input type="hidden" name="pid" value=<?php echo $productDetail['pid']; ?>>
-                            </form>
+            <div class="col-md-10">
+                <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade my-4 <?php if(!isset($_POST['submit'])) echo "active show"; ?>" id="v-pills" role="tabpanel" aria-labelledby="v-pills-1-tab">
+                    <h4 class="text-center">Please Select a Product to Edit</h4>
                 </div>
-            </div>        
-            <?php 
-                }
-                else
-                {?>
-                <div class='col-md-10 h-100'>
-                    <h1 align='center'>Select Product To update</h1>
-
-                    </div>
-               <?php }
-            ?>
+                    <?php
+                        if($uproduct->num_rows!=0)
+                        {
+                            foreach($products as $key=>$value)
+                            {?>
+                                <div class="tab-pane fade my-4 <?php if(isset($_POST['submit']) && $_POST['pid']==$value['pid']) echo 'active show'; ?>" id="v-pills-<?php echo $value['pname']; ?>" role="tabpanel" aria-labelledby="v-pills-<?php echo $value['pname']; ?>-tab">
+                                <div class="row">
+                                    <div class="container shadow-sm col-md-9 h-100">
+                                        <h4>Edit Product</h4>
+                                        <form action="" method="post" enctype="multipart/form-data">
+                                            <input type="hidden" name="pid" value=<?php echo $value['pid']; ?>>
+                                            <input type="hidden" name="oqty" value=<?php echo $value['qty']; ?>>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                    <label for="cname">Crop name</label>
+                                                    <input class="form-control" type="text" disabled value='<?php echo $value['pname']; ?>' name="cname" id="cname" placeholder="Enter cname">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="cname">Category</label>
+                                                    <input class="form-control" type="text" disabled value='<?php echo $value['category']; ?>' name="ccategory" id="cname" placeholder="Enter cname">
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-4">
+                                                    <label for="price">Price(₹)</label>
+                                                    <input class="form-control" type="number" disabled value=<?php echo $value['price']; ?> name="price" id="price" placeholder="Enter Price of 500 grams">
+                                                </div>
+                                                <div class="form-group col-md-4"> 
+                                                    <label for="qty">Quantity Available</label>
+                                                    <input class="form-control" type="number" disabled value='<?php echo $value['qty']; ?>' name="qty" id="qty" placeholder="Enter Quantity(no of packets 500 grams)">
+                                                </div>
+                                                <div class="form-group col-md-4"> 
+                                                    <label for="qty">New Quantity</label>
+                                                    <input class="form-control" type="number" name="addqty" id="qty" placeholder="Enter Quantity(no of packets 500 grams)">
+                                                </div>
+                                            </div>
+                                            <div class="form-row"> 
+                                                <div class="form-group col-md-12"> 
+                                                    <label for="cinfo">Enter Information</label>
+                                                    <textarea  name="cinfo" id="cinfo-<?php echo $value['pname']; ?>" rows="12"><?php echo $value['pinfo']; ?></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-row"> 
+                                                <div class="form-group col-md-3"> 
+                                                    <button type="submit" name="submit" class="btn btn-primary">Add Product</button>
+                                                </div>
+                                            </div>
+                                        </from>
+                                        <script>
+                                            CKEDITOR.replace( 'cinfo-<?php echo $value['pname']; ?>' );
+                                        </script>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class='card shadow-sm'>
+                                            <img class='card-img-top' src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($value['image']); ?>" alt='Card image cap'>
+                                            <div class='card-body'>
+                                                <h4 class='card-title text-center'><?php echo $value['pname'];?></h4>                    
+                                                <form action="" method="post">
+                                                    <input type="hidden" name="pid" value=<?php echo $value['pid']; ?>>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>  
+                                </div>
+                            </div>
+                            <?php }
+                        }
+                    ?>
+                </div>
+            </div>
         </div>
     </div>
 </body>
