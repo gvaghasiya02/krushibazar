@@ -1,6 +1,7 @@
 <?php
 $success=true;
 $err="<br>";
+$email="";
     session_start();
 
     if(isset($_SESSION['user']))
@@ -19,7 +20,7 @@ $err="<br>";
         if(empty(trim($_POST['email'])) || empty(trim($_POST['password'])))
         {
             $err.="Please enter Username and Password.<br>";
-            echo $err;
+            #echo $err;
         }
         else
         {
@@ -68,32 +69,37 @@ $err="<br>";
     <title>Registeradmin</title>
   </head>
   <body>
-  <?php 
-        if($err!="<br>")
-        {
-            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
-            <strong>Failed to Add the Product</strong>";
-            echo $err;
-            echo "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-            <span aria-hidden='true'  >&times;</span>
-            </button> 
-            </div>";
-        }
-    ?>
-    <div class="container mt-4">
+    <div class="container mt-4 col-md-8">
     <h1>Login</h1>
     <form action="" method="post">
         <div class="form-row">
-            <div class="form-group col-md-8">
-            <label for="username">Username</label>
-            <input type="email" class="form-control" name="email" id="email" placeholder="Enter Email">
+            <div class="form-group col-md-12">
+            <label for="username">Username</label><span class='text-danger'>*</span>
+            <input type="email" class="form-control" name="email" id="email" value="<?php echo $email;?>" placeholder="Enter Email">
             </div>
-            <div class="form-group col-md-8">
-            <label for="password">Password</label>
+            <div class="form-group col-md-12">
+            <label for="password">Password</label><span class='text-danger'>*</span>
             <input type="password" class="form-control" name="password" id="password" placeholder="Enter Password">
             </div>
+            <div class="form-group col-md-12">
+                <span class='text-danger'>* field are required</span>
+            </div>
+            <div class="form-group col-md-12">
+            <?php 
+                    if($err!="<br>")
+                    {
+                        echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+                        <strong>Failed to Add the Product</strong>";
+                        echo $err;
+                        echo "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                        <span aria-hidden='true'  >&times;</span>
+                        </button> 
+                        </div>";
+                    }
+                ?>
+            </div>
         </div>
-        <button type="submit" class="btn btn-primary col-md-1">Sign in</button>
+        <button type="submit" class="btn btn-primary col-md-2">Sign in</button>
     </form>
     </div>
     <!-- Optional JavaScript -->
