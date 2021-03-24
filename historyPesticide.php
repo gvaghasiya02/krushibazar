@@ -50,6 +50,14 @@
         </div>
     </nav>
     <div class="container mt-4">
+    <?php 
+        if($result->num_rows==0)
+        {?>
+        <h1 align="center">No History Available</h1>
+        <?php
+        }
+        else{
+    ?>
         <table class="table table-striped text-center">
             <thead class="thead-dark">
                         <tr>
@@ -84,6 +92,7 @@
                         </tr>
                         <?php } ?>
         </table>
+        <?php } ?>
     </div>
 </body>
 </html>
