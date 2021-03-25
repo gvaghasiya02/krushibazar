@@ -4642,6 +4642,237 @@ ul.contact-list li.tel a{
   background-repeat:no-repeat}
 .status-message{
   padding-top:30%}
+  .delivery-process-main-block {
+      padding: 50px 0 50px;
+    }
+
+    .section-two .section-sub-heading {
+      color: #739D52;
+      letter-spacing: 2px;
+      letter-spacing: 2.4px;
+    }
+
+    .section-sub-heading, .section-two .section-sub-heading, .ver-two-section-sub-heading {
+      font-family: 'Great Vibes',cursive;
+    }
+
+    .section-two {
+      padding-bottom: 60px;
+    }
+
+    .section-heading {
+      color: #000;
+      line-height: 1;
+      letter-spacing: 2.4px;
+      padding: 78px 0 20px;
+      text-transform: uppercase;
+      position: relative;
+      z-index: 2;
+    }
+
+    .section-two .section-heading {
+      position: relative;
+      padding-bottom: 22px;
+      color: #000;
+      line-height: 1;
+      letter-spacing: 2.4px;
+      text-transform: uppercase;
+    }
+
+    .section-sub-heading {
+      font-size: 24px;
+      letter-spacing: 2px;
+      letter-spacing: 2.4px;
+      color: #739D52;
+      z-index: 2;
+      position: relative;
+    }
+
+    .delivery-process-main-block .section-heading:after {
+      width: 100%;
+      background-image: url(../images/bg/delivery-heading-bg.png);
+      background-repeat: no-repeat;
+    }
+
+    .section-two .section-heading:after {
+      position: absolute;
+      z-index: -1;
+      top: 66%;
+      right: 0;
+      content: " ";
+    }
+
+    .section-heading:after, .section-two .section-heading:after {
+      background-image: url(../images/bg/section-heading-bg.png);
+      width: 425px;
+      height: 180px;
+      left: 0;
+      transform: translateY(-50%);
+      margin: 0 auto;
+    }
+
+    .section-heading:after {
+      position: absolute;
+      z-index: -1;
+      content: " ";
+      top: 61%;
+      right: 0;
+    }
+
+    .timeline-heading {
+      padding-bottom: 30px;
+      color: #6F6661;
+      font-weight: 500;
+      line-height: 1;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .timeline {
+      position: relative;
+      width: 660px;
+      margin: 0 auto 30px;
+      list-style-type: none;
+    }
+
+      .timeline, .timeline li {
+        padding: 50px 0;
+      }
+
+        .timeline:before {
+          position: absolute;
+          left: 50%;
+          top: 0;
+          content: ' ';
+          display: block;
+          width: 6px;
+          height: 100%;
+          margin-left: -3px;
+          background: #505050;
+          background: -moz-linear-gradient(top,rgba(80,80,80,0) 0,#505050 8%,#505050 92%,rgba(80,80,80,0) 100%);
+          background: -webkit-gradient(linear,left top,left bottom,color-stop(0,rgba(30,87,153,1)),color-stop(100%,rgba(125,185,232,1)));
+          background: -webkit-linear-gradient(top,rgba(80,80,80,0) 0,#505050 8%,#505050 92%,rgba(80,80,80,0) 100%);
+          background: -o-linear-gradient(top,rgba(80,80,80,0) 0,#505050 8%,#505050 92%,rgba(80,80,80,0) 100%);
+          background: -ms-linear-gradient(top,rgba(80,80,80,0) 0,#505050 8%,#505050 92%,rgba(80,80,80,0) 100%);
+          background: linear-gradient(to bottom,rgba(80,80,80,0) 0,#505050 8%,#505050 92%,rgba(80,80,80,0) 100%);
+          z-index: 5;
+        }
+
+        .timeline, .timeline li {
+          padding: 50px 0;
+        }
+
+    .direction-r {
+      float: right;
+    }
+
+    .direction-l, .direction-r {
+      width: 245px;
+      position: relative;
+    }
+
+    .step-wrapper {
+      position: relative;
+      padding: 10px;
+      /*border: 1px solid #ececec;*/
+      border-radius: 5px;
+      text-align: center;
+      box-shadow: 5px 5px 13px 0 rgba(0,0,0,.1);
+      transition:0.2s ease-in-out;
+    }
+
+    .step-wrapper:hover {
+      box-shadow: 5px 5px 25px 0 rgba(0,0,0,.15);
+    }
+
+    .step-heading {
+      position: relative;
+      margin-bottom: 26px;
+      color: #282828;
+      font-family: Poppins,sans-serif;
+      font-weight: 600;
+      line-height: 1.33;
+    }
+
+      .step-heading:after {
+        position: absolute;
+        right: 0;
+        bottom: -15px;
+        left: 0;
+        width: 30px;
+        height: 1px;
+        margin: 0 auto;
+        background-color: #6F6661;
+        content: " ";
+      }
+
+    .step-text {
+      font-weight: 500;
+      line-height: 1.33;
+    }
+
+    .step-text, .testimonials-dtl p {
+      font-size: 14px;
+      color:#505050;
+    }
+
+    .step-icon {
+      position: absolute;
+      z-index: 111;
+      top: -50%;
+      left: -55%;
+      text-align: center;
+    }
+
+      .step-icon img {
+        display: block;
+        margin: 0 auto;
+      }
+
+      .step-icon i {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        transform: translateY(-50%);
+        color: #FFF;
+        font-size: 30px;
+      }
+
+    .timeline li:after {
+      content: "";
+      display: block;
+      height: 0;
+      clear: both;
+      visibility: hidden;
+    }
+
+    .direction-l .step-icon {
+      left: 55%;
+      right: -115%;
+    }
+
+    .step-icon {
+      position: absolute;
+      z-index: 111;
+      top: -50%;
+      left: -55%;
+      text-align: center;
+    }
+
+    .new-h4 h4 {
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .about-ul-s li {
+      margin-bottom: 10px;
+      list-style: decimal;
+      margin-left: 30px;
+      color: #6F6661;
+    }
+
+
 </style>
 <body>
     <div class="container">
@@ -4659,14 +4890,16 @@ ul.contact-list li.tel a{
         </div>
     </nav>
     <div class="container">
+    <section id="about-us-page" class="about-us-page">
+    <div class="container">
       <!-- welcome block -->
 
       <!-- end welcome block -->
       <!-- fresh flavor block -->
       <div class="fresh-flavour-block welcome-main-block">
         <div class="row">
-          <div class="col-md-6">
-            <h1 class="fresh-flavour-title new-h4">ABOUT US</h1>
+          <div class="col-md-6 new-h4">
+            <h2 class="fresh-flavour-title new-h4">About us</h2>
             <p><em style="font-size: 15px;"><strong>Krushi India</strong></em> Corporation established in the year 2012. Let's have a great privilege to introduce our self as The Quality Manufacturer of Organic Manure.</p>
             <h4>“A New Idea for Successful farming”</h4>
             <h4>“Our aim is to increase the Fertility of Land and Agricultural Productivity”</h4>
@@ -4682,21 +4915,21 @@ ul.contact-list li.tel a{
             <div class="row">
               <div class="col-xs-6">
                 <div class="fresh-flavour-img fresh-flavour-img-one">
-                  <img src="./images/fresh-flavor-1.jpg" class="img-responsive" alt="fresh-flavor">
+                  <img src="images/fresh-flavor-1.jpg" class="img-responsive" alt="fresh-flavor">
                 </div>
                 <div class="fresh-flavour-img fresh-flavour-img-two">
-                  <img src="./images/fresh-flavor-2.jpg" class="img-responsive" alt="fresh-flavor">
+                  <img src="images/fresh-flavor-2.jpg" class="img-responsive" alt="fresh-flavor">
                 </div>
               </div>
               <div class="col-xs-6">
                 <div class="fresh-flavour-img">
-                  <img src="./images/fresh-flavor-3.jpg" class="img-responsive" alt="fresh-flavor">
+                  <img src="images/fresh-flavor-3.jpg" class="img-responsive" alt="fresh-flavor">
                 </div>
                 <div class="fresh-flavour-img">
-                  <img src="./images/fresh-flavor-4.jpg" class="img-responsive" alt="fresh-flavor">
+                  <img src="images/fresh-flavor-4.jpg" class="img-responsive" alt="fresh-flavor">
                 </div>
                 <div class="fresh-flavour-img">
-                  <img src="./images/fresh-flavor-5.jpg" class="img-responsive" alt="fresh-flavor">
+                  <img src="images/fresh-flavor-5.jpg" class="img-responsive" alt="fresh-flavor">
                 </div>
               </div>
             </div>
@@ -4716,8 +4949,14 @@ ul.contact-list li.tel a{
               <li>We shall do our best to provide products of consistent quality. We shall investigate and identify the root cause of any inconsistencies based on data, and make all required improvements in order to ensure consistent quality.</li>
             </ul>
           </div>
+
+
+
+
         </div>
       </div>
+    </div>
+  </section>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
