@@ -435,63 +435,46 @@ li.track-order a{
   .top-bar{
     padding-bottom:8px}
 }
+
 .nav-bar{
   position:relative;
   z-index:1111;
   box-shadow:0 6px 18px 0 rgba(0,0,0,.2)}
-.nav-leaf{
-  position:absolute;
-  z-index:1111;
-  top:-138px;
-  left:0}
-.nav-bar .logo{
-  /* margin-top:20px; */
-  /* margin-bottom:15px; */
-  margin-left:30px}
-.navigation{
-  padding-top:6px}
-.nav-block-right{
-  padding-top:37px}
-.nav-block-right li{
-  position:relative;
-  /* margin-right:15px */
-  }
-.nav-block-right li:last-child{
-  margin-right:0;
-  /* margin-left:15px */
+  .navbar .nav-item .tooltip{
+            position: absolute;
+            width: 100px;
+            bottom: 0px;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            animation:nav-leaf ease-out .8s !important
+        }
+        .navbar-collapse{
+            display: flex;
+        }
+
+        .nav-item{
+            flex:1;
+        }
+
+        .navbar .nav-item:hover .tooltip,
+        .navbar .nav-item.active .tooltip{
+            bottom: 60px;
+            opacity: 1;
+            pointer-events: auto;
+        }
+  @keyframes nav-leaf{
+  0%{
+    transform:translateY(40px) scale(0)}
+  65%{
+    transform:translateY(0) scale(1)}
+  70%,80%,90%{
+    transform:rotate(-6deg)}
+  75%,85%,95%{
+    transform:rotate(6deg)}
+  100%{
+    transform:rotate(0)}
 }
-.nav-block-right li:last-child:before{
-  position:absolute;
-  bottom:5px;
-  left:-16px;
-  width:2px;
-  height:14px;
-  content:" ";
-  background-color:#6F6661}
-.nav-block-right li a{
-  font-weight:500}
-.nav-block-right li span>i{
-  transform:translateY(-4px);
-  color:#6F6661;
-  font-size:6px}
-.nav-block-right i{
-  color:#739D52;
-  font-size:18px;
-  letter-spacing:2.4px}
-#cssmenu>ul>li.active>a:after,#cssmenu>ul>li:hover>a:after{
-  position:absolute;
-  z-index:-1;
-  background-image:url(../images/bg/menu-leaf.png);
-  top:10px;
-  right:0;
-  left:0;
-  width:43px;
-  height:25px;
-  margin:0 auto;
-  content:" ";
-  animation:nav-leaf ease-out .8s}
-#cssmenu ul ul li a,#cssmenu>ul>li>a{
-  color:#6F6661}
 .cart{
   position:relative}
 .cart-box{
@@ -4879,7 +4862,10 @@ ul.contact-list li.tel a{
     <img src="https://cdn.discordapp.com/attachments/809280919991091212/824313211875622963/1d4f1ba8-89b8-476e-9de4-e15e896c81c9.png" width="50" alt="">
         <div class="container-fluid">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active"><a class="nav-link" href="index.php">Home</a></li>
+                <li class="nav-item active"><a class="nav-link" href="index.php">Home</a>
+                <div class="tooltip"><img src="http://www.krushiindia.com/images/bg/menu-leaf.png" alt=""></div>
+                </li>
+                
             </ul>
             <ul class="nav navbar-nav">
                 <li><a href="login.php">Sign in/Sign Up</a></li>
