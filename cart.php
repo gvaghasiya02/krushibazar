@@ -10,33 +10,37 @@
     else header('location:login.php');
     require_once 'config.php';
     $userid=$user->userid; 
-    if(isset($_POST['increment']))
+    if(isset($_POST['increment']))#If user want to increment product in cart.
     {
-        $product_id=$_POST['pid'];
-        $quantity=(int)$_POST['qty']+1;
+        $product_id=$_POST['pid']; #retrieve Product ID
+        $quantity=(int)$_POST['qty']+1; #Increment Quantity
+        #Update quantity for the particular product
         $sql="UPDATE `cart` SET `qty` = $quantity WHERE `userid` = $userid and `productid`=$product_id";
         $increment=$conn->query($sql);
     }
-    if(isset($_POST['decrement']))
+    if(isset($_POST['decrement']))#If user want to decrement product in cart
     {
-        $product_id=$_POST['pid'];
-        $quantity=(int)$_POST['qty']-1;
+        $product_id=$_POST['pid'];#retrieve Product ID
+        $quantity=(int)$_POST['qty']-1;#Decrement Quantity
+        #Update quantity for the praricular product
         $sql="UPDATE `cart` SET `qty` = $quantity WHERE `userid` = $userid and `productid`=$product_id";
         $increment=$conn->query($sql);
     }
-    if(isset($_POST['removeFromCart']))
+    if(isset($_POST['removeFromCart']))#If user want to Remove the product from the cart
     {
-        $product_id=$_POST['pid'];
+        $product_id=$_POST['pid'];#retrieve Product ID
+        #Delete the product from the cart
         $sql="DELETE FROM `cart` WHERE `userid` = $userid and `productid`=$product_id";
         $remove=$conn->query($sql);
     }
-    if(isset($_POST['addToCart']))
+    if(isset($_POST['addToCart'])) #If user want to add the Saved for later product to the cart
     {
-        $product_id=$_POST['pid'];
-        $quantity=(int)$_POST['qty'];
+        $product_id=$_POST['pid'];#retrieve Product ID
+        $quantity=(int)$_POST['qty'];#Set the quantity to the available quantity
         $sql="UPDATE `cart` SET `qty` = $quantity WHERE `userid` = $userid and `productid`=$product_id";
         $increment=$conn->query($sql);
     }
+    #select all the product from the cart.
     $sql="SELECT `productid`,`qty` FROM `cart` WHERE `userid`='$userid'";
     $cartVal=$conn->query($sql);
     $cart=array();
@@ -115,6 +119,7 @@
                             $stmt->execute();
                             $result=$stmt->get_result();
                             $item=$result->fetch_array(MYSQLI_ASSOC);
+                            #If the selected quantity is less then the available quantity then move the item to saved for later
                             if($item['qty']<$value['qty'])
                             {
                                 $savedForLater++;
