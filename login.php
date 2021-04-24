@@ -1,7 +1,8 @@
 <?php
-    $success=true;
-    $err="<br>";
+    $success=true; #Boolean variable to check if error occured
+    $err="<br>"; # To store error
     session_start();
+    #If user details exist in SESSION the redirect to home page
     if(isset($_SESSION['user']))
     {
         header('location:home.php');
@@ -14,7 +15,7 @@
 
     if($_SERVER['REQUEST_METHOD']=="POST")
     {
-        //Check is username is empty
+        #Check is username and password is empty
         if(empty(trim($_POST['email'])) || empty(trim($_POST['password'])))
         {
             $err.="Please enter Username and Password.";
@@ -26,20 +27,25 @@
             $password=trim($_POST['password']);
         }
 
+        #If no error then proceed further.
         if($err=="<br>")
         {
+            #Retrive Details from database matching the entered Details
             $sql="SELECT id,email,password,firstname,lastname,address,state,city,phonenumber,gender,dob FROM user where email='$email'";
             $result=$conn->query($sql);
             if($result->num_rows==1)
             {
                 $row = $result->fetch_assoc();
-                //echo $row['password'];
+                #Check if password are equal.
                 if(password_verify($password,$row['password']))
                 {
                     require_once('./classes/user.php');
+                    #Create a New Object of User Class
                     $user=new User($row["id"],$row["email"],$row["firstname"],$row["lastname"],$row["address"],$row["state"],$row["city"],$row["phonenumber"],$row["gender"],$row["dob"],'user');
+                    #Store the user information in SESSION.
                     $_SESSION['user']=serialize($user);
                     $_SESSION['loggedin']='user';
+                    #Redirect to home page
                     header('location:home.php');
                 }
                 else{

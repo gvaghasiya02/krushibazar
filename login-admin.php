@@ -1,9 +1,10 @@
 <?php
-$success=true;
-$err="<br>";
-$email="";
+    $success=true; #Boolean variable to check if error occured
+    $err="<br>"; # To store error
+    $email="";
     session_start();
 
+    #If user details exist in SESSION the redirect to home page
     if(isset($_SESSION['user']))
     {
         header('location:home-admin.php');
@@ -16,7 +17,7 @@ $email="";
 
     if($_SERVER['REQUEST_METHOD']=="POST")
     {
-        //Check is username is empty
+        #Check is username and password is empty
         if(empty(trim($_POST['email'])) || empty(trim($_POST['password'])))
         {
             $err.="Please enter Username and Password.<br>";
@@ -27,21 +28,28 @@ $email="";
             $email=trim($_POST['email']);
             $password=trim($_POST['password']);
         }
+
+        #If no error then proceed further.
         if($err=="<br>")
         {
+            #Retrive Details from database matching the entered Details
             $sql="SELECT password FROM adminuser where email='$email'";
             $result=$conn->query($sql);
             if($result->num_rows==1)
             {
                 $row = $result->fetch_assoc();
+                #Check if password are equal.
                 if($password==$row['password'])
                 {
                     $sql="SELECT id,email,password,firstname,lastname,address,state,city,phonenumber,gender,dob FROM user where id=9";
                     $result=$conn->query($sql);
                     $row = $result->fetch_assoc();
                     require_once('./classes/user.php');
+                    #Create a New Object of User Class
                     $user=new User($row["id"],$email,$row["firstname"],$row["lastname"],$row["address"],$row["state"],$row["city"],$row["phonenumber"],$row["gender"],$row["dob"],'admin');
+                    #Store the user information in SESSION.
                     $_SESSION['user']=serialize($user);
+                    #Redirect to home page
                     header('location:home-admin.php');
                 }
                 else{
