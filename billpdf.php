@@ -9,11 +9,10 @@
     }
     else header('location:login.php');
     $data=$_SESSION['data'];
-    #$ss=$_SESSION['ss'];
     require_once '../vendor/autoload.php';
-    $mpdf=new \Mpdf\Mpdf();
-    $ss= file_get_contents('style.css'); // external css
+    $mpdf=new \Mpdf\Mpdf(); #Using MPDF library to create PDF
+    $ss= file_get_contents('style.css');
     $mpdf->WriteHTML($ss,1);
     $mpdf->WriteHTML($data,2);
-    $mpdf->Output('invoice.pdf','D');
+    $mpdf->Output('invoice.pdf','D');#Printing PDF
 ?>
