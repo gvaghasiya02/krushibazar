@@ -16,9 +16,10 @@
 
     require_once('./classes/product.php');
     require_once 'config.php';
-    if(isset($_POST['review']))
+    if(isset($_POST['review']))#If user wants to give Review
     {
-        $pid=$_POST['pid'];
+        $pid=$_POST['pid'];#Get the Product id
+        #See how many stars are selected
         if($_POST['star']=='0')
         {
             $err.="Please Select Stars";
@@ -26,16 +27,19 @@
         }
         else $star=$_POST['star'];
 
-        $comment=$_POST['comment'];
+        $comment=$_POST['comment'];#Retrive Comment Entered
 
+        #If there are no error
         if($err=="")
         {
+            #Check if User has already Given review to the prodcut
             $s="SELECT * FROM rating WHERE pid='$pid' and userid='$user->userid'";
             $reviewed=$conn->query($s);
             if($reviewed->num_rows!=0)
-            {
+            {#If user has alread given rating to the product then update the review.
                 $sql="UPDATE rating set star='$star',comment='$comment' WHERE pid='$pid' and userid='$user->userid'";
             }
+            #else insert new rating
             else $sql="INSERT INTO rating(pid,userid,star,comment) VALUES ('$pid','$user->userid','$star','$comment')";
             $insert=$conn->query($sql);
             if($insert)
@@ -58,6 +62,7 @@
             $comments=array();
             while($row=$review->fetch_assoc())
             {
+                #Count number of stars for each category ie no of 5star,4star etc.
                 if($row['star']==5)
                 {
                     $star5++;
@@ -78,8 +83,10 @@
                 {
                     $star1++;
                 }
+                #retrieve comment
                 array_push($comments,$row);
             }
+            #calculate Averge Rating
             $totalRating=$star5*5+$star4*4+$star3*3+$star2*2+$star1;
             $avgRating=$totalRating/$userCount;
         }
@@ -240,7 +247,7 @@
                     </div>
                 </div>
                 <?php }
-             ?>
+            ?>
         
             <div class="col-md-12">
             <h3>Rate the Product</h3>
