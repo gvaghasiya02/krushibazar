@@ -4815,8 +4815,6 @@ ul.contact-list li.tel a{
       margin-left: 30px;
       color: #6F6661;
     }
-
-
 </style>
 <body>
     <nav class="navbar py-3 navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -4835,10 +4833,6 @@ ul.contact-list li.tel a{
     <div class="container">
     <section id="about-us-page" class="about-us-page">
     <div class="container">
-      <!-- welcome block -->
-
-      <!-- end welcome block -->
-      <!-- fresh flavor block -->
       <div class="fresh-flavour-block welcome-main-block">
         <div class="row">
           <div class="col-md-6 new-h4">
@@ -4891,10 +4885,6 @@ ul.contact-list li.tel a{
               <li>We shall do our best to provide products of consistent quality. We shall investigate and identify the root cause of any inconsistencies based on data, and make all required improvements in order to ensure consistent quality.</li>
             </ul>
           </div>
-
-
-
-
         </div>
       </div>
     </div>
