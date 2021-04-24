@@ -13,24 +13,25 @@ $insertSuccess=false;
     require_once('./classes/product.php');
     require_once 'config.php';
     $userid=$user->userid; 
-    $tt="All";
+    $tt="All"; #Declaing default category as ALL;
     $sql="SELECT `pname`,`category`,`pinfo`,`price`,`image`,`userid`,`pid`,`qty` FROM product where userid!=$userid and qty!=0";
     if(isset($_POST["submit"]))
     {   
-        $tt=$_POST['type'];  
+        $tt=$_POST['type'];  #Taking category as the one selected by the user
         if($tt!="All")
-        {
+        {#If any other category is selected then retreving the product based on the selected category.
             $sql="SELECT `pname`,`category`,`pinfo`,`price`,`image`,`userid`,`pid`,`qty` FROM product where userid!=$userid and category='$tt' and qty!=0";
         }
     }
     $result=$conn->query($sql);
-    if(isset($_POST['addToCart']))
+    if(isset($_POST['addToCart']))#If user wants to add the product to the cart.
     {
-        $pid=$_POST['pid'];
+        $pid=$_POST['pid'];#get the product ID
+        #Add the product to the cart with quantity = 1
         $sql="INSERT INTO `cart`(`userid`,`productid`,`qty`) VALUES ('$userid','$pid','1')";
         $insertSuccess=$conn->query($sql);
-        //var_dump($insertSuccess);
     }
+    #Retrive all the product which are in cart for the current user.
     $sql="SELECT `productid` FROM `cart` WHERE `userid`='$userid'";
     $cartVal=$conn->query($sql);
     $cart=array();
@@ -139,10 +140,12 @@ $insertSuccess=false;
 
                                     <div class='col'>
                                     <?php
+                                        #If product is in cart the give option of going to the cart
                                         if(in_array($product->pid,$cart))
                                         {
                                             echo "<a href='cart.php' class='btn btn-success btn-block'>Go To Cart</a>";
                                         }
+                                        #else give option of add to cart.
                                         else
                                         {?>
                                         <form action="" method="post">
