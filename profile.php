@@ -1,8 +1,8 @@
 <?php
-    $success1=false;
+    $success1=false; #Boolean to check Successfull Updateion of Profile
     $err1="<br>";
-$success=false;
-$err="<br>";
+    $success=false;#Boolean to check Successfull Updateion of Password
+    $err="<br>";
     session_start();
     require_once('./classes/user.php');
     if(isset($_SESSION['user']))
@@ -15,37 +15,35 @@ $err="<br>";
 
     require_once 'config.php';
     $userid=$user->userid;
-    if(isset($_POST['editpass']))
+    if(isset($_POST['editpass']))#If request is for editing password
     {
-        if(empty(trim($_POST['password'])))
+        if(empty(trim($_POST['password'])))#If Password is Empty
         {
             $err.="Password cannot be empty<br>";
             $success=false;
         }
-        elseif(strlen(trim($_POST['password']))<5)
+        elseif(strlen(trim($_POST['password']))<5)#If lenght of password is less then 5
         {
             $err.="Password cannot be less than 5 characters<br>";
             $success=false;
         }
-        elseif(trim($_POST['password']) != trim($_POST['confirm_password']))
+        elseif(trim($_POST['password']) != trim($_POST['confirm_password']))#if password and confirm password do not match
         {
             $err.="Password should match<br>";
             $success=false;
         }
         else
         {
+            #If there is no Error then update the Password
             $password=password_hash(trim($_POST['password']),PASSWORD_DEFAULT);
             $sql="UPDATE `user` set `password`='$password' where id='$userid'";
             $result=$conn->query($sql);
-            #var_dump($result);
-            #echo $result;
             $success=true;
         }
-        #echo $err;
     }
-if(isset($_POST['editprofile']))
-{
-    if(empty(trim($_POST['firstname'])) || empty(trim($_POST['lastname'])) || empty(trim($_POST['dob'])) || empty(trim($_POST['address'])) || empty(trim($_POST['state'])) || empty(trim($_POST['city'])) || empty(trim($_POST['phonenumber'])) || empty($_POST['gender']))
+    if(isset($_POST['editprofile']))#If request is for Editing Profile
+    {
+        if(empty(trim($_POST['firstname'])) || empty(trim($_POST['lastname'])) || empty(trim($_POST['dob'])) || empty(trim($_POST['address'])) || empty(trim($_POST['state'])) || empty(trim($_POST['city'])) || empty(trim($_POST['phonenumber'])) || empty($_POST['gender']))
         {
             $err1.="Enter all details<br>";
             $success1=false;
@@ -62,6 +60,7 @@ if(isset($_POST['editprofile']))
         }
         else
         {
+            #Retrive all the entered fields
             $firstname=$_POST['firstname'];
             $lastname=$_POST['lastname'];
             $dob=$_POST['dob'];
@@ -70,6 +69,7 @@ if(isset($_POST['editprofile']))
             $city=$_POST['city'];
             $phonenumber=$_POST['phonenumber'];
             $gender=$_POST['gender'];
+            #Update the User
             $sql="UPDATE `user` set `firstname`='$firstname',`lastname`='$lastname',`address`='$address',`state`='$state',`city`='$city',`phonenumber`='$phonenumber',`gender`='$gender',`dob`='$dob' where id='$userid'";
             $result=$conn->query($sql);
 
@@ -79,18 +79,14 @@ if(isset($_POST['editprofile']))
             {
                 $row = $result->fetch_assoc();
                 require_once('./classes/user.php');
+                #Create new user classo object and Store in SESSION
                 $user=new User($row["id"],$row["email"],$row["firstname"],$row["lastname"],$row["address"],$row["state"],$row["city"],$row["phonenumber"],$row["gender"],$row["dob"],'user');
                 $_SESSION['user']=serialize($user);
                 $_SESSION['loggedin']='user';
-                header('location:profile.php');
-                
+                header('location:profile.php');   
             }
-            #echo $sql;
-            #var_dump($result);
-            #echo $result;
             $success1=true;
         }
-        #echo $err1;
     }
 
     $email=$user->email;
@@ -135,45 +131,43 @@ if(isset($_POST['editprofile']))
         </div>
     </nav>
     <?php 
-                            if($success)
-                            {?>
-                                <div class='alert alert-success alert-dismissible fade show' role='alert'>
-                                <strong>Success</strong> Your Password is changed.
-                                <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-                                    <span aria-hidden='true'>&times;</span>
-                                </button>
-                                </div>
-                            <?php
-                            }
-                            elseif($err!="<br>")
-                            {?>
-                                <div class='alert alert-danger alert-dismissible fade show' role='alert'>
-                                <strong>Failed </strong><?php echo $err; ?><button type="button" class='close' data-dismiss='alert' aria-label='Close'>
-                                <span aria-hidden='true'>&times</span>
-                                </button>  
-                                </div>
-                            <?php }
-                        ?>
-                        <?php 
-                            if($success1)
-                            {?>
-                                <div class='alert alert-success alert-dismissible fade show' role='alert'>
-                                <strong>Success</strong> Your Profile updated.
-                                <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-                                    <span aria-hidden='true'>&times;</span>
-                                </button>
-                                </div>
-                            <?php
-                            }
-                            elseif($err1!="<br>")
-                            {?>
-                                <div class='alert alert-danger alert-dismissible fade show' role='alert'>
-                                <strong>Failed </strong><?php echo $err1; ?><button type="button" class='close' data-dismiss='alert' aria-label='Close'>
-                                <span aria-hidden='true'>&times</span>
-                                </button>  
-                                </div>
-                            <?php }
-                        ?>
+        if($success)
+        {?>
+            <div class='alert alert-success alert-dismissible fade show' role='alert'>
+                <strong>Success</strong> Your Password is changed.
+                <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                    <span aria-hidden='true'>&times;</span>
+                </button>
+            </div>
+        <?php }
+        elseif($err!="<br>")
+        {?>
+            <div class='alert alert-danger alert-dismissible fade show' role='alert'>
+                <strong>Failed </strong><?php echo $err; ?>
+                <button type="button" class='close' data-dismiss='alert' aria-label='Close'>
+                    <span aria-hidden='true'>&times</span>
+                </button>  
+            </div>
+        <?php }
+        if($success1)
+        {?>
+            <div class='alert alert-success alert-dismissible fade show' role='alert'>
+                <strong>Success</strong> Your Profile updated.
+                <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                    <span aria-hidden='true'>&times;</span>
+                </button>
+            </div>
+        <?php }
+        elseif($err1!="<br>")
+        {?>
+            <div class='alert alert-danger alert-dismissible fade show' role='alert'>
+                <strong>Failed </strong><?php echo $err1; ?>
+                <button type="button" class='close' data-dismiss='alert' aria-label='Close'>
+                    <span aria-hidden='true'>&times</span>
+                </button>  
+            </div>
+        <?php }
+    ?>
     <div class="container my-5">
         <div class="main-body">
             <!-- /Breadcrumb -->
@@ -257,7 +251,6 @@ if(isset($_POST['editprofile']))
                         </div>
                         <hr>
                     </div>
-                    
                 </div>
                 <div class="container">
   <!-- Button trigger modal -->
