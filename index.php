@@ -4843,7 +4843,7 @@ ul.contact-list li.tel a{
         <div class="row">
           <div class="col-md-6 new-h4">
             <h2 class="fresh-flavour-title new-h4">About us</h2>
-            <p><em style="font-size: 15px;"><strong>Krushi India</strong></em> Corporation established in the year 2012. Let's have a great privilege to introduce our self as The Quality Manufacturer of Organic Manure.</p>
+            <p><em style="font-size: 15px;"><strong>Krushi Bazar</strong></em> Corporation established in the year 2012. Let's have a great privilege to introduce our self as The Quality Manufacturer of Organic Manure.</p>
             <h4>“A New Idea for Successful farming”</h4>
             <h4>“Our aim is to increase the Fertility of Land and Agricultural Productivity”</h4>
             <h4>“We Believe in Quality Product”</h4>
@@ -4880,11 +4880,10 @@ ul.contact-list li.tel a{
           <div class="col-md-12">
             <p>Because of its Quality Consistency and Cost-Effectiveness, 'CALSIPHOS' has received an awesome response from the world of Farming. And 'CALSIPHOS' is now the Quality Brand of Gujarat.</p>
             <p>Our team of workers is dexterous and dedicated towards the goal of the organization. We have administrators, Dealers, warehouse personnel, transportation personnel, quality controllers, packaging staff and sales executives. They are well versed with their individual work and committed to our customers for providing them with high quality product. We have a reliable vendor base and their track records are constantly checked by our professionals for delivering products in tune with the international standards and prevalent market trends.</p>
-            <p>Our mentor, Mr. Krupesh Patel, is the constant source of inspiration for the organization. His rich knowledge base has enabled us to achieve heights of success in a short period of time.</p>
-            <p>Krushi India Corporation has always believed that the people and the community within which it operates are the cornerstones for its success and as such is actively involved in Corporate Social Responsibility (CSR) activities aimed at social welfare.</p>
+            <p>Krushi Bazar Corporation has always believed that the people and the community within which it operates are the cornerstones for its success and as such is actively involved in Corporate Social Responsibility (CSR) activities aimed at social welfare.</p>
             <p>We are supplying our products to the Government of India.</p>
             <h2 class="fresh-flavour-title new-h4">Quality Policy</h2>
-            <p>At KRUSHI INDIA CORPORATION the management and the employees are committed to secure a long-term partnership with customers by providing world class Products and services that exceed expectations.</p>
+            <p>At KRUSHI BAZAR CORPORATION the management and the employees are committed to secure a long-term partnership with customers by providing world class Products and services that exceed expectations.</p>
             <ul class="about-ul-s">
               <li>We shall conduct quality-related activities in order to provide customers with the best possible products.</li>
               <li>We shall observe all relevant laws, regulations, and contracts, and make efforts to continuously improve quality. By ensuring the quality and safety of our products, we will meet our customers' requirements and increase customer satisfaction.</li>
