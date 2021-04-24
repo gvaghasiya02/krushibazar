@@ -436,45 +436,6 @@ li.track-order a{
     padding-bottom:8px}
 }
 
-.nav-bar{
-  position:relative;
-  z-index:1111;
-  box-shadow:0 6px 18px 0 rgba(0,0,0,.2)}
-  .navbar .nav-item .tooltip{
-            position: absolute;
-            width: 100px;
-            bottom: 0px;
-            z-index: 2000;
-            opacity: 0;
-            pointer-events: none;
-            animation:nav-leaf ease-out .8s !important
-        }
-        .navbar-collapse{
-            display: flex;
-        }
-
-        .nav-item{
-            flex:1;
-        }
-
-        .navbar .nav-item:hover .tooltip,
-        .navbar .nav-item.active .tooltip{
-            bottom: 60px;
-            opacity: 1;
-            pointer-events: auto;
-        }
-  @keyframes nav-leaf{
-  0%{
-    transform:translateY(40px) scale(0)}
-  65%{
-    transform:translateY(0) scale(1)}
-  70%,80%,90%{
-    transform:rotate(-6deg)}
-  75%,85%,95%{
-    transform:rotate(6deg)}
-  100%{
-    transform:rotate(0)}
-}
 .cart{
   position:relative}
 .cart-box{
@@ -4863,12 +4824,11 @@ ul.contact-list li.tel a{
         <div class="container-fluid">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active"><a class="nav-link" href="index.php">Home</a>
-                <div class="tooltip"><img src="http://www.krushiindia.com/images/bg/menu-leaf.png" alt=""></div>
-                </li>
+              </li>
                 
             </ul>
-            <ul class="nav navbar-nav">
-                <li><a href="login.php">Sign in/Sign Up</a></li>
+            <ul class="nav navbar-nav text-light">
+                <li><a href="login.php" style="color:white;">Sign in/Sign Up</a></li>
             </ul>
         </div>
     </nav>

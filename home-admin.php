@@ -25,9 +25,6 @@
     <title>Home</title>
 </head>
 <body>
-    <div class="container">
-        <h1 class="text-center">Welcome to Krushibazar</h1>
-    </div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
     <img src="https://cdn.discordapp.com/attachments/809280919991091212/824313211875622963/1d4f1ba8-89b8-476e-9de4-e15e896c81c9.png" width="50" alt="">
         <div class="container-fluid">
@@ -42,6 +39,9 @@
             </ul>
         </div>
     </nav> 
+    <div class="container">
+        <h1 class="text-center">Welcome to Krushibazar</h1>
+    </div>
     <div class="container">
         <h4>Users Registered : <?php echo $user_count?></h4>
         <p>Agriculture, with its allied sectors, is unquestionably the largest livelihood provider in India, more so in the vast rural areas. It also contributes a significant figure to the Gross Domestic Product (GDP). Sustainable agriculture, in terms of food security, rural employment, and environmentally sustainable technologies such as soil conservation, sustainable natural resource management and biodiversity protection, are essential for holistic rural development. Indian agriculture and allied activities have witnessed a green revolution, a white revolution, a yellow revolution and a blue revolution.

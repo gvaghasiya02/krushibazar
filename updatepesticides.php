@@ -89,7 +89,7 @@ if($uproduct)
         <div class="container-fluid">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item "><a class="nav-link" href="home-admin.php">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="salePesticide.php">Add Pesticides</a></li>
+                <li class="nav-item active"><a class="nav-link" href="salePesticide.php">Add Pesticides</a></li>
                 <li class="nav-item"><a class="nav-link" href="historyPesticide.php">Pesticides History</a></li>
                 <li class="nav-item"><a class="nav-link">logged in as:<?php echo $user->email;?></a></li>
             </ul>
