@@ -1,25 +1,28 @@
 <?php
     session_start();
-    require_once('./classes/user.php');
+    require_once('./classes/user.php'); #Require the User class
     if(isset($_SESSION['user']))
     {
         $user=unserialize($_SESSION['user']);
-        if($user->category!='user')
+        if($user->category!='user') #If current User is not of 'user' category then log out
             header('location:logout.php');
     }
-    else header('location:login.php');
+    else header('location:login.php'); #If user is not set then go the login page
     
     require_once 'config.php';
-    $oid=$_POST['orid'];
+    $oid=$_POST['orid']; #Get the Order ID
+    #Retrieve Address,city,state,date from the listorder table
     $sql="SELECT `daddress`,`dcity`,`dstate`,`odate` FROM `listorder` where `orderid`='$oid'";
     $result=$conn->query($sql);
     if($result->num_rows==1)
     {
         $delivery = $result->fetch_assoc();
     }
+    #Retrieve pid,qty from the orderdetail table
     $sql="SELECT `pid`,`qty` FROM `orderdetail` WHERE `orderid`='$oid'";
     $cartVal=$conn->query($sql);
     $cart=array();
+    #Create Cart
     if($cartVal)
     {
         while($row=$cartVal->fetch_assoc())
@@ -27,6 +30,7 @@
             array_push($cart,$row);
         }
     }
+    #PDF Content
         $ss="<head>
         <meta charset='UTF-8'>
         <meta http-equiv='X-UA-Compatible' content='IE=edge'>
@@ -80,14 +84,14 @@
 <img src="https://cdn.discordapp.com/attachments/809280919991091212/824313211875622963/1d4f1ba8-89b8-476e-9de4-e15e896c81c9.png" width="50" alt="">
         <div class="container-fluid">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item"><a class="nav-link" href="home.php">Home</a></li>
+                <li class="nav-item active"><a class="nav-link" href="home.php">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="sale.php">Selling Crops</a></li>
                 <li class="nav-item"><a class="nav-link" href="buying.php">Buying Products</a></li>
                 <li class="nav-item"><a class="nav-link" href="profile.php">logged in as:<?php echo $user->email;?></a></li>
             </ul>
             <ul class="nav navbar-nav">
             <li class="nav-item"><a  class="nav-link" href="cart.php">My Cart</a></li>
-            <li class="nav-item active"><a  class="nav-link" href="listorders.php">Your Orders</a></li>
+            <li class="nav-item"><a  class="nav-link" href="listorders.php">Your Orders</a></li>
                 <li class="nav-item"><a class="nav-link" href="logout.php">Logout</a></li>
             </ul>
         </div>
