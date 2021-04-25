@@ -1,16 +1,16 @@
 <?php
-$err1="<br>";
-$success=false;
-$err="<br>";
-session_start();
-require_once('./classes/user.php');
-    if(isset($_SESSION['user']))
-    {
-        $user=unserialize($_SESSION['user']);
-        if($user->category!='user')
-            header('location:logout.php');
-    }
-    else header('location:login.php');
+  $err1="<br>";
+  $success=false;
+  $err="<br>";
+  session_start();
+  require_once('./classes/user.php');
+  if(isset($_SESSION['user']))
+  {
+    $user=unserialize($_SESSION['user']);
+    if($user->category!='user')
+      header('location:logout.php');
+  }
+  else header('location:login.php');
 
   require_once 'config.php';
   $userid=$user->userid;
@@ -24,80 +24,81 @@ require_once('./classes/user.php');
   $gender=$user->gender;
   $dob=$user->dob;
 
-if(isset($_POST["submit"]))
-{
-  if(empty(trim($_POST['address']))|| empty(trim($_POST['city'])) || empty(trim($_POST['state'])))
+  #Address Info Validation
+  if(isset($_POST["submit"]))
   {
-    $err.="Enter details for address<br>";
-    $success=false;
-  }
-  elseif(empty(trim($_POST['cardname']))|| empty(trim($_POST['cardno'])) || empty(trim($_POST['date'])) || empty(trim($_POST['cvv'])) )
-  {
-    $err.="Enter all details<br>";
-    $success=false;
-  }
-  elseif(strlen((string)trim($_POST['cardno']))!=16)
-  {
-    $err.="Enter valid Card Number<br>";
-    $success=false;
-  }
-  elseif((strtotime($_POST['date']))<strtotime(date("F Y")))
-  {
-    #echo strtotime($_POST['date']);
-    $err.="vaild date";
-    $success=false;
-  }
-  else
-  {
-    $dadd=$_POST["address"];
-    $dcity=$_POST["city"];
-    $dstate=$_POST["state"];
-    $cardno=$_POST["cardno"];
-    #$date=date("Y-m-d H:i:s");
-    $sql="INSERT INTO `listorder` (`daddress`,`dcity`,`dstate`,`cardno`,`userid`,`odate`) VALUES ('$dadd','$dcity','$dstate','$cardno','$userid',CURRENT_TIMESTAMP)";
-    #echo $sql;
-    $insert = $conn->query($sql);
-    $oid = $conn->insert_id;
-    if($insert)
-    {    
-      $sql="SELECT `productid`,`qty` FROM `cart` WHERE `userid`='$userid'";
-      $cartVal=$conn->query($sql);
-      $cart=array();
-      if($cartVal)
-      {
-        while($row=$cartVal->fetch_assoc())
-        {
-          array_push($cart,$row);
-        }
-      }  
-      foreach($cart as $key=>$value)
-      {
-        $pid=$value['productid'];
-        $qty=$value['qty'];                          
-        $sql="INSERT INTO `orderdetail` (`pid`,`qty`,`orderid`) VALUES ('$pid','$qty','$oid')";
-        $insub = $conn->query($sql);
-        $sql="SELECT `qty` from `product` where `pid`='$pid'";
-        $select=$conn->query($sql);
-        $product=$select->fetch_assoc();
-        $pQty=$product['qty'];
-        $pQty-=$qty;
-        $sql="UPDATE `product` SET `qty`='$pQty' WHERE `pid`='$pid'";
-        $update=$conn->query($sql);
-      }
-      $dsql="DELETE FROM `cart` WHERE `userid`='$userid'";
-      $dcart=$conn->query($dsql);
-      $success=true;
-      #$_SESSION['oid']=$oid;
-      header("location:listorders.php");
+    if(empty(trim($_POST['address']))|| empty(trim($_POST['city'])) || empty(trim($_POST['state'])))
+    {
+      $err.="Enter details for address<br>";
+      $success=false;
+    }
+    elseif(empty(trim($_POST['cardname']))|| empty(trim($_POST['cardno'])) || empty(trim($_POST['date'])) || empty(trim($_POST['cvv'])) )
+    {
+      $err.="Enter all details<br>";
+      $success=false;
+    }
+    elseif(strlen((string)trim($_POST['cardno']))!=16)
+    {
+      $err.="Enter valid Card Number<br>";
+      $success=false;
+    }
+    elseif((strtotime($_POST['date']))<strtotime(date("F Y")))
+    {
+      $err.="vaild date";
+      $success=false;
     }
     else
     {
-      $success=false;
-      $err.="Failed to Upload the Details<br>";
+      $dadd=$_POST["address"];
+      $dcity=$_POST["city"];
+      $dstate=$_POST["state"];
+      $cardno=$_POST["cardno"];
+      #Add the info to listorder Table
+      $sql="INSERT INTO `listorder` (`daddress`,`dcity`,`dstate`,`cardno`,`userid`,`odate`) VALUES ('$dadd','$dcity','$dstate','$cardno','$userid',CURRENT_TIMESTAMP)";
+      $insert = $conn->query($sql);
+      $oid = $conn->insert_id; #Get the last added OrderID
+      if($insert)
+      {    
+        #Select the product in cart
+        $sql="SELECT `productid`,`qty` FROM `cart` WHERE `userid`='$userid'";
+        $cartVal=$conn->query($sql);
+        $cart=array();
+        if($cartVal)
+        {
+          while($row=$cartVal->fetch_assoc())
+          {
+            array_push($cart,$row);
+          }
+        }  
+        foreach($cart as $key=>$value)
+        {
+          $pid=$value['productid'];
+          $qty=$value['qty'];   
+          #Insert each product selected from cart to orderdetails table corresponding to the newly added orderID                        
+          $sql="INSERT INTO `orderdetail` (`pid`,`qty`,`orderid`) VALUES ('$pid','$qty','$oid')";
+          $insub = $conn->query($sql);
+          $sql="SELECT `qty` from `product` where `pid`='$pid'";
+          $select=$conn->query($sql);
+          $product=$select->fetch_assoc();
+          $pQty=$product['qty'];
+          $pQty-=$qty;
+          $sql="UPDATE `product` SET `qty`='$pQty' WHERE `pid`='$pid'";
+          $update=$conn->query($sql);
+        }
+        #Delete the Product from the cart
+        $dsql="DELETE FROM `cart` WHERE `userid`='$userid'";
+        $dcart=$conn->query($dsql);
+        $success=true;
+        header("location:listorders.php");
+      }
+      else
+      {
+        $success=false;
+        $err.="Failed to Upload the Details<br>";
+      }
+              
     }
-            
   }
-}
 $conn->close();
 ?>
 <!DOCTYPE html>
@@ -131,22 +132,22 @@ $conn->close();
     <?php 
     if($success)
     {
-        echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
-        <strong>Success</strong>Payment successfully done.<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-        <span aria-hidden='true'  >&times</span>
-        </button>  
-        </div>";
+      echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+      <strong>Success</strong>Payment successfully done.<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+      <span aria-hidden='true'  >&times</span>
+      </button>  
+      </div>";
     }
-        elseif($err!="<br>")
-        {
-            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
-            <strong>Failed to Process Your Payment</strong>";
-            echo $err;
-            echo "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-            <span aria-hidden='true'  >&times;</span>
-            </button> 
-            </div>";
-        }
+    elseif($err!="<br>")
+    {
+      echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+      <strong>Failed to Process Your Payment</strong>";
+      echo $err;
+      echo "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+      <span aria-hidden='true'  >&times;</span>
+      </button> 
+      </div>";
+    }
     ?>
 <form action="" method="post">
 <div class="container col-md-5 mt-10">
