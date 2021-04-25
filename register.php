@@ -6,7 +6,7 @@ $err=$email_err=$pass_err=$fname_err=$lname_err=$dob_err=$address_err=$state_err
 
     if($_SERVER['REQUEST_METHOD']=="POST")
     {
-        //Check is username is empty
+        //Check is Email is empty
         if(empty(trim($_POST['email'])))
         {
             $email_err.="Email cannot be empty";
@@ -14,10 +14,9 @@ $err=$email_err=$pass_err=$fname_err=$lname_err=$dob_err=$address_err=$state_err
         else
         {
             $input_user=trim($_POST['email']);
+            #Check if user with similar email already exists.
             $sql="SELECT id FROM user WHERE email='$input_user'";
-            //echo $sql;
             $result=$conn->query($sql);
-            //var_dump($result);
             if($result->num_rows>0)
             {
                 $email_err.="User with Same Email already taken";
@@ -144,6 +143,7 @@ $err=$email_err=$pass_err=$fname_err=$lname_err=$dob_err=$address_err=$state_err
         //if no error
         if(empty($err) && empty($email_err) && empty($pass_err) && empty($fname_err) && empty($lname_err) && empty($dob_err) && empty($address_err) && empty($city_err) && empty($pno_err) && empty($gender_err))
         {
+            #Add the New User and redirect to login page
             $sql="INSERT INTO user(email,password,firstname,lastname,dob,address,state,city,phonenumber,gender) VALUES ('$email','$password','$firstname','$lastname','$dob','$address','$state','$city','$phonenumber','$gender')";
             $stmt=$conn->query($sql);
             if($stmt){
