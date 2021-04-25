@@ -14,6 +14,7 @@ require_once 'config.php';
 $userid=$user->userid;
 if(isset($_POST['submit']))
 {
+    #Get the Details
     if(empty(trim($_POST['addqty'])) || trim($_POST['addqty'])<1)
     {
         $err.="Enter valid Quantity<br>";
@@ -24,16 +25,13 @@ if(isset($_POST['submit']))
         $err.="Enter valid information<br>";
         $success=false;
     }
+    #IF no error then update the details
     if($err=="<br>")
     {
-        #echo $_POST['oqty']." ".$_POST['addqty']." ".$_POST['cinfo']." ".$_POST['pid'];
         $newqty=$_POST['oqty']+$_POST['addqty'];
-        #echo $newqty;
         $cinfo=$_POST['cinfo'];
         $prid=$_POST['pid'];
-        #echo $prid;
         $sql="UPDATE `product` SET `qty`=$newqty,`pinfo`='$cinfo' WHERE `pid`=$prid";
-        #echo $sql;
         $result=$conn->query($sql);
         if($result)
             $success=true;

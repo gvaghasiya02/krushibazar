@@ -27,19 +27,18 @@ if(isset($_POST['submit']))
     }
     if($err=="<br>")
     {
-        #echo $_POST['oqty']." ".$_POST['addqty']." ".$_POST['cinfo']." ".$_POST['pid'];
+        #Update new quantity
         $newqty=$_POST['oqty']+$_POST['addqty'];
-        #echo $newqty;
         $cinfo=$_POST['cinfo'];
         $prid=$_POST['pid'];
-        #echo $prid;
+        #Update the product
         $sql="UPDATE `product` SET `qty`=$newqty,`pinfo`='$cinfo' WHERE `pid`=$prid";
-        #echo $sql;
         $result=$conn->query($sql);
         if($result)
             $success=true;
     }
 }
+#Get the products added by the current user.
 $sql="SELECT * FROM `product` WHERE `userid`='$userid'";
 $uproduct=$conn->query($sql);
 $products=array();
@@ -128,6 +127,7 @@ if($uproduct)
                         { ?>
                             <h4 class="text-center mt-4">Your Products</h4>
                             <?php 
+                                #Display products added by current user
                                 $srno=1;
                                 foreach($products as $key=>$value)
                                 {?>
