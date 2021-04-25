@@ -1,4 +1,5 @@
 <?php
+#creating invoice
     session_start();
     require_once('./classes/user.php'); #Require the User class
     if(isset($_SESSION['user']))
