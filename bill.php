@@ -80,8 +80,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-<img src="https://cdn.discordapp.com/attachments/809280919991091212/824313211875622963/1d4f1ba8-89b8-476e-9de4-e15e896c81c9.png" width="50" alt="">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <img src="https://cdn.discordapp.com/attachments/809280919991091212/824313211875622963/1d4f1ba8-89b8-476e-9de4-e15e896c81c9.png" width="50" alt="">
         <div class="container-fluid">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active"><a class="nav-link" href="home.php">Home</a></li>
@@ -90,106 +90,111 @@
                 <li class="nav-item"><a class="nav-link" href="profile.php">logged in as:<?php echo $user->email;?></a></li>
             </ul>
             <ul class="nav navbar-nav">
-            <li class="nav-item"><a  class="nav-link" href="cart.php">My Cart</a></li>
-            <li class="nav-item"><a  class="nav-link" href="listorders.php">Your Orders</a></li>
+                <li class="nav-item"><a  class="nav-link" href="cart.php">My Cart</a></li>
+                <li class="nav-item"><a  class="nav-link" href="listorders.php">Your Orders</a></li>
                 <li class="nav-item"><a class="nav-link" href="logout.php">Logout</a></li>
             </ul>
         </div>
     </nav>
     <div class="container mt-4 col-md-7">
     <table class="table" align=center>
-    <tr><th colspan=6 class="text-center"><h1>INVOICE</h1></th></tr>
         <tr>
-        <th colspan=3 class="text-left">Order ID: <?php echo $oid;?><br>TO: <?php echo $user->email;?><br>Delivery Address:<br><?php echo $delivery['daddress'];?><br><?php echo $delivery['dcity'].",".$delivery['dstate'];?></th>
-        <th colspan=3 rowspan=3 class="text-right" scope="col"><?php echo $delivery['odate'] ?></th>
+            <th colspan=6 class="text-center"><h1>INVOICE</h1></th>
         </tr>
-        </table>
+        <tr>
+            <th colspan=3 class="text-left">Order ID: <?php echo $oid;?><br>TO: <?php echo $user->email;?><br>Delivery Address:<br><?php echo $delivery['daddress'];?><br><?php echo $delivery['dcity'].",".$delivery['dstate'];?></th>
+            <th colspan=3 rowspan=3 class="text-right" scope="col"><?php echo $delivery['odate'] ?></th>
+        </tr>
+    </table>
     <table class="table  table-striped" cellpadding=5px align=center>
-                    <thead class="thead-dark">
-                        <tr>
-                            <th class="text-center" scope="col">Sr. No.</th>
-                            <th class="text-center" scope="col">Name</th>
-                            <th class="text-center" scope="col">Category</th>
-                            <th class="text-center" scope="col">Price</th>
-                            <th class="text-center" scope="col">Quantity</th>
-                            <th class="text-center" scope="col">Total</th>
-                            <th class="text-center" scope="col">Review</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <?php 
-                        $srno=1;
-                        $cart_total=0;
-                        $cart_qty=0;
-                        $sql="SELECT `pid`,`pname`,`category`,`price` FROM `product` WHERE `pid`=?";
-                        $stmt=$conn->prepare($sql);
-                        $stmt->bind_param('s',$param_pid);
-                        foreach($cart as $key=>$value)
-                        {
-                            $param_pid=$value['pid'];
-                            $stmt->execute();
-                            $result=$stmt->get_result();
-                            $item=$result->fetch_array(MYSQLI_ASSOC);
-                            $cart_total+=($item['price']*$value['qty']);
-                            $cart_qty+=$value['qty'];
-                            ?>
-                            <tr>
-                            <th class="text-center"><?php echo $srno ?></th>
-                            <?php $srno++?>
-                                <th class="text-center"><?php echo $item['pname']?></th>
-                                <th class="text-center"><?php echo $item['category']?></th>
-                                <th class="text-center"><?php echo $item['price']?></th>
-                                <th class="text-center"><?php echo $value['qty']?></th>                        
-                                <th class="text-center"><?php echo $item['price']*$value['qty']; ?></th>
-                                <th class="text-center">
-                                    <form action="productInfo.php" method="post">
-                                        <input type="hidden" name="pid" value=<?php echo $item['pid']; ?>>
-                                        <div class="form-row">
-                                            <div class="form-group d-flex justify-content-center col-md-12"> 
-                                                <button type="submit" name="productInfo" class="btn btn-primary">Give Review</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </th>
-                        </tr>
-                        <?php 
-                            $data.="<tr>
-                            <th class='text-center'>". $srno ."</th>
-                                <th class='text-center'>". $item['pname']."</th>
-                                <th class='text-center'>". $item['category']."</th>
-                                <th class='text-center'>". $item['price']."</th>
-                                <th class='text-center'>". $value['qty']."</th>                        
-                                <th class='text-center'>". $item['price']*$value['qty']."</th>
-                        </tr>";
-                        } ?>
-                        <tr>
-                            <th colspan=4></th>
-                            <th class="text-center">Total<br>Quantity: <?php echo $cart_qty; ?></th>
-                            <th class="text-center">Cart Total :<br><?php echo $cart_total; ?>₹</th>
-                            <th class="text-center"></th>
-                        </tr>
-                        </tbody>
-                </table>
-                <?php $data.="<tr>
-                            <th colspan=4></th>
-                            <th class='text-center'>Total<br>Quantity:".$cart_qty."</th>
-                            <th class='text-center'>Cart Total :<br>".$cart_total."</th>
-                                                    </tr>
-                        </tbody>
-                </table>";
-                $_SESSION['data']=$data;
-                $_SESSION['ss']=$ss;
+        <thead class="thead-dark">
+            <tr>
+                <th class="text-center" scope="col">Sr. No.</th>
+                <th class="text-center" scope="col">Name</th>
+                <th class="text-center" scope="col">Category</th>
+                <th class="text-center" scope="col">Price</th>
+                <th class="text-center" scope="col">Quantity</th>
+                <th class="text-center" scope="col">Total</th>
+                <th class="text-center" scope="col">Review</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php 
+                $srno=1;
+                $cart_total=0;
+                $cart_qty=0;
+                $sql="SELECT `pid`,`pname`,`category`,`price` FROM `product` WHERE `pid`=?";
+                $stmt=$conn->prepare($sql);
+                $stmt->bind_param('s',$param_pid);
+                foreach($cart as $key=>$value)
+                {
+                    $param_pid=$value['pid'];
+                    $stmt->execute();
+                    $result=$stmt->get_result();
+                    $item=$result->fetch_array(MYSQLI_ASSOC);
+                    $cart_total+=($item['price']*$value['qty']);
+                    $cart_qty+=$value['qty'];
                 ?>
-                <div class="d-flex flex-row-reverse bd-highlight my-4">
-                    <!-- Button trigger modal -->
-                    <a href="billpdf.php"><button type="submit" name="savepdf" class="btn btn-primary">
-                    Save
-                    </button></a>&nbsp;&nbsp;&nbsp;
-                    <a href="home.php"><button type="button" class="btn btn-primary" >
-                    Close
-                    </button>
-                    </a>
-                </div>
-                </div>
-                </body>
+            <tr>
+                <th class="text-center"><?php echo $srno ?></th>
+                <?php $srno++?>
+                <th class="text-center"><?php echo $item['pname']?></th>
+                <th class="text-center"><?php echo $item['category']?></th>
+                <th class="text-center"><?php echo $item['price']?></th>
+                <th class="text-center"><?php echo $value['qty']?></th>                        
+                <th class="text-center"><?php echo $item['price']*$value['qty']; ?></th>
+                <th class="text-center">
+                    <form action="productInfo.php" method="post">
+                        <input type="hidden" name="pid" value=<?php echo $item['pid']; ?>>
+                        <div class="form-row">
+                            <div class="form-group d-flex justify-content-center col-md-12"> 
+                                <button type="submit" name="productInfo" class="btn btn-primary">Give Review</button>
+                            </div>
+                        </div>
+                    </form>
+                </th>
+            </tr>
+            <?php 
+                $data.="<tr>
+                <th class='text-center'>". $srno ."</th>
+                <th class='text-center'>". $item['pname']."</th>
+                <th class='text-center'>". $item['category']."</th>
+                <th class='text-center'>". $item['price']."</th>
+                <th class='text-center'>". $value['qty']."</th>                        
+                <th class='text-center'>". $item['price']*$value['qty']."</th>
+                </tr>";
+            } ?>
+            <tr>
+                <th colspan=4></th>
+                <th class="text-center">Total<br>Quantity: <?php echo $cart_qty; ?></th>
+                <th class="text-center">Cart Total :<br><?php echo $cart_total; ?>₹</th>
+                <th class="text-center"></th>
+            </tr>
+        </tbody>
+    </table>
+    <?php $data.="<tr>
+        <th colspan=4></th>
+        <th class='text-center'>Total<br>Quantity:".$cart_qty."</th>
+        <th class='text-center'>Cart Total :<br>".$cart_total."</th>
+        </tr>
+    </tbody>
+    </table>";
+    $_SESSION['data']=$data;
+    $_SESSION['ss']=$ss;
+    ?>
+    <div class="d-flex flex-row-reverse bd-highlight my-4">
+        <!-- Button trigger modal -->
+        <a href="billpdf.php">
+            <button type="submit" name="savepdf" class="btn btn-primary">
+                Save
+            </button>
+        </a>&nbsp;&nbsp;&nbsp;
+        <a href="home.php">
+            <button type="button" class="btn btn-primary" >
+                Close
+            </button>
+        </a>
+    </div>
+</div>
+</body>
 </html>
