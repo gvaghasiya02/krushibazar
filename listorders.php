@@ -11,8 +11,10 @@
 
     require_once 'config.php';
     $userid=$user->userid; 
+    #Get the orders pertaining to the currect user
     $sql="SELECT `orderid`,`daddress`,`dcity`,`dstate`,`odate` FROM `listorder` WHERE `userid`='$userid' ORDER BY `odate` DESC";
     $lorders=$conn->query($sql);
+    #Store each order in the array
     $ords=array();
     if($lorders)
     {
@@ -37,7 +39,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-    <img src="https://cdn.discordapp.com/attachments/809280919991091212/824313211875622963/1d4f1ba8-89b8-476e-9de4-e15e896c81c9.png" width="50" alt="">
+        <img src="https://cdn.discordapp.com/attachments/809280919991091212/824313211875622963/1d4f1ba8-89b8-476e-9de4-e15e896c81c9.png" width="50" alt="">
         <div class="container-fluid">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item"><a class="nav-link" href="home.php">Home</a></li>
@@ -46,8 +48,8 @@
                 <li class="nav-item"><a class="nav-link" href="profile.php">logged in as:<?php echo $user->email;?></a></li>
             </ul>
             <ul class="nav navbar-nav">
-            <li class="nav-item"><a  class="nav-link" href="cart.php">My Cart</a></li>
-            <li class="nav-item  active"><a  class="nav-link" href="listorders.php">Your Orders</a></li>
+                <li class="nav-item"><a  class="nav-link" href="cart.php">My Cart</a></li>
+                <li class="nav-item  active"><a  class="nav-link" href="listorders.php">Your Orders</a></li>
                 <li class="nav-item"><a class="nav-link" href="logout.php">Logout</a></li>
             </ul>
         </div>
@@ -60,7 +62,7 @@
             }
             else
             { ?>
-            <h4>Your Orders</h4>
+                <h4>Your Orders</h4>
                 <table class="table  table-striped" cellpadding=5px align=center>
                     <thead class="thead-dark">
                         <tr>
@@ -74,28 +76,29 @@
                     <tbody>
                     <?php 
                         $srno=1;
+                        #For each order output a Row containing its details
                         foreach($ords as $key=>$value)
-                        {
-                            ?>
+                        {?>
                             <tr>
-                            <th class="text-center"><?php echo $srno ?></th>
-                            <?php $srno++;
-                            $_SESSION['oid']=$value['orderid'];
-                            ?>
+                                <th class="text-center"><?php echo $srno ?></th>
+                                <?php $srno++;
+                                    $_SESSION['oid']=$value['orderid'];
+                                ?>
                                 <th class="text-center"><?php echo $value['orderid']?></th>
                                 <th class="text-center"><?php echo $value['daddress'];?><br><?php echo $value['dcity'].",".$value['dstate'];?></th>
                                 <th class="text-center"><?php echo $value['odate'];?></th>
                                 <form action="bill.php" method="post">
                                     <th width=5 class="text-center">
-                                    <input type="hidden" name="orid" value=<?php echo $value['orderid'];?> >
+                                        <input type="hidden" name="orid" value=<?php echo $value['orderid'];?> >
                                         <button name="viewbill" type="submit" class="btn btn-success">View Order</button>
                                     </th>
                                 </form>
-                               
-                        </tr>
-                        <?php } } ?>
-                        </tbody>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
                 </table>
-                </div>
-                </body>
+            <?php } 
+        ?>
+    </div>
+</body>
 </html>
