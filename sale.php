@@ -17,7 +17,7 @@
     $userid=$user->userid;
     if(isset($_POST["submit"])){ 
         if(empty(trim($_POST['type']))){
-            #$err.="Please Select Product Type<br>";
+            $err.="Please Select Product Type<br>";
         }
         else{
             $productType = $_POST['type'];
@@ -80,7 +80,7 @@
         
         if($err=="<br>")
         {
-            // Insert image content into database 
+            // Insert Details of the Product into database 
             $sql="INSERT INTO `product` (`pname`, `category`, `pinfo`, `price`, `image`,`userid`,`qty`) VALUES ('$productName', '$productType', '$productInfo', '$productPrice','$imgContent','$userid','$productQty')";
             $insert = $conn->query($sql);
 

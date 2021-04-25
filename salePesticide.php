@@ -74,7 +74,7 @@
         if($err=="")
         {
             $category="Pesticide";
-            // Insert image content into database 
+            // Insert Pesticide Details into database 
             $sql="INSERT INTO `product` (`pname`, `pinfo`, `price`, `image`,`category`,`userid`,`qty`) VALUES ('$productName', '$productInfo', '$productPrice','$imgContent','$category','$userid','$productQty')";
             $insert = $conn->query($sql);
 
