@@ -10,10 +10,9 @@
     else header('location:login-admin.php');
 
     require_once 'config.php';
-    $user_count=0;
+    # Retrive Pesticides and there pertaining details
     $sql="select * from product inner join orderdetail where product.pid=orderdetail.pid and category='Pesticide'";
     $result=$conn->query($sql);
-    #var_dump($result);
     $listpest=array();
     if($result)
     {
@@ -48,16 +47,15 @@
         </div>
     </nav>
     <div class="container mt-4">
-    <?php 
-        if($result->num_rows==0)
-        {?>
-        <h1 align="center">No History Available</h1>
-        <?php
-        }
-        else{
-    ?>
-        <table class="table table-striped text-center">
-            <thead class="thead-dark">
+        <?php 
+            if($result->num_rows==0)
+            {?>
+            <h1 align="center">No History Available</h1>
+            <?php
+            }
+            else{?>
+                <table class="table table-striped text-center">
+                    <thead class="thead-dark">
                         <tr>
                             <th class="text-center" scope="col">Sr. No.</th>
                             <th class="text-center" scope="col">Image</th>
@@ -71,26 +69,26 @@
                     <?php 
                         $srno=1;
                         foreach($listpest as $key=>$value)
-                        {  $oid=$value['orderid'];
+                        {  
+                            $oid=$value['orderid'];
                             $sqlu="SELECT * FROM listorder natural join user where listorder.orderid=$oid and listorder.userid=user.id";
                             $res=$conn->query($sqlu);
-                            $ord=$res->fetch_assoc();
-                            
-                            ?>
-                            
+                            $ord=$res->fetch_assoc();                            
+                        ?>            
                             <tr>
-                            <th class="text-center"><?php echo $srno ?></th>
-                            <?php $srno++?>
-                                <th class="text-center"><img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($value['image']);?>" height=150 /></th>
-                                <th class="text-center"><?php echo $value['pname']?></th>
-                                <th class="text-center"><?php echo $value['qty']?></th>
-                                <th class="text-center"><?php echo $oid ?></th>
-                                <th class="text-center"><?php echo $ord['odate'] ?></th>
-                                <th class="text-center"><?php echo $ord['email']?><input type="hidden" name="pid" value=<?php echo $value['pid']; ?>></th>
-                        </tr>
+                                <th class="text-center"><?php echo $srno ?></th>
+                                <?php $srno++?>
+                                    <th class="text-center"><img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($value['image']);?>" height=150 /></th>
+                                    <th class="text-center"><?php echo $value['pname']?></th>
+                                    <th class="text-center"><?php echo $value['qty']?></th>
+                                    <th class="text-center"><?php echo $oid ?></th>
+                                    <th class="text-center"><?php echo $ord['odate'] ?></th>
+                                    <th class="text-center"><?php echo $ord['email']?><input type="hidden" name="pid" value=<?php echo $value['pid']; ?>></th>
+                            </tr>
                         <?php } ?>
-        </table>
-        <?php } ?>
+                </table>
+            <?php } 
+        ?>
     </div>
 </body>
 </html>
